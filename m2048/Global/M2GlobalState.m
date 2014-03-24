@@ -1,0 +1,230 @@
+//
+//  M2GlobalState.m
+//  m2048
+//
+//  Created by Danqing on 3/16/14.
+//  Copyright (c) 2014 Danqing. All rights reserved.
+//
+
+#import "M2GlobalState.h"
+#import "M2Theme.h"
+
+@interface M2GlobalState ()
+
+@property (nonatomic, readwrite) NSInteger dimension;
+@property (nonatomic, readwrite) NSInteger winningLevel;
+@property (nonatomic, readwrite) NSInteger tileSize;
+@property (nonatomic, readwrite) NSInteger borderWidth;
+@property (nonatomic, readwrite) NSInteger cornerRadius;
+@property (nonatomic, readwrite) NSInteger horizontalOffset;
+@property (nonatomic, readwrite) NSInteger verticalOffset;
+@property (nonatomic, readwrite) NSTimeInterval animationDuration;
+@property (nonatomic, readwrite) M2GameType gameType;
+
+@end
+
+
+@implementation M2GlobalState
+
++ (M2GlobalState *)state
+{
+  static M2GlobalState *state = nil;
+  
+  static dispatch_once_t once;
+  dispatch_once(&once, ^{
+    state = [[M2GlobalState alloc] init];
+  });
+  
+  return state;
+}
+
+
+- (instancetype)init
+{
+  if (self = [super init]) {
+    [self loadGlobalState];
+  }
+  return self;
+}
+
+
+- (void)loadGlobalState
+{
+  self.dimension = 5;
+  self.borderWidth = 5;
+  self.cornerRadius = 4;
+  self.animationDuration = 0.1;
+  self.gameType = M2GameTypeFibonacci;
+  self.horizontalOffset = [self horizontalOffset];
+  self.verticalOffset = [self verticalOffset];
+}
+
+
+- (NSInteger)tileSize
+{
+  if (self.dimension <= 4) {
+    return 66;
+  }
+  return 56;
+}
+
+
+- (NSInteger)horizontalOffset
+{
+  CGFloat width = self.dimension * (self.tileSize + self.borderWidth) + self.borderWidth;
+  return ([[UIScreen mainScreen] bounds].size.width - width) / 2;
+}
+
+
+- (NSInteger)verticalOffset
+{
+  CGFloat height = self.dimension * (self.tileSize + self.borderWidth) + self.borderWidth + 90;
+  return ([[UIScreen mainScreen] bounds].size.height - height) / 2;
+}
+
+
+- (NSInteger)winningLevel
+{
+  NSInteger level = 11;
+  if (self.dimension == 3) return level - 2;
+  if (self.dimension == 5) return level + 1;
+  return level;
+}
+
+
+- (BOOL)isLevel:(NSInteger)level1 mergeableWithLevel:(NSInteger)level2
+{
+  if (self.gameType == M2GameTypeFibonacci) {
+    return abs((int)level1 - (int)level2) == 1;
+  }
+  return level1 == level2;
+}
+
+
+- (NSInteger)mergeLevel:(NSInteger)level1 withLevel:(NSInteger)level2
+{
+  if (![self isLevel:level1 mergeableWithLevel:level2]) return 0;
+  
+  if (self.gameType == M2GameTypeFibonacci) {
+    return (level1 + 1 == level2) ? level2 + 1 : level1 + 1;
+  }
+  return level1 + 1;
+}
+
+
+- (NSInteger)valueForLevel:(NSInteger)level
+{
+  if (self.gameType == M2GameTypeFibonacci) {
+    NSInteger a = 1;
+    NSInteger b = 1;
+    for (NSInteger i = 0; i < level; i++) {
+      NSInteger c = a + b;
+      a = b;
+      b = c;
+    }
+    return b;
+  } else {
+    NSInteger value = 1;
+    NSInteger base = self.gameType == M2GameTypePowerOf2 ? 2 : 3;
+    for (NSInteger i = 0; i < level; i++) {
+      value *= base;
+    }
+    return value;
+  }
+}
+
+
+# pragma mark - Appearance
+
+- (UIColor *)colorForLevel:(NSInteger)level
+{
+  return [[M2Theme themeClassForType:0] colorForLevel:level];
+}
+
+
+- (UIColor *)textColorForLevel:(NSInteger)level
+{
+  return [[M2Theme themeClassForType:0] textColorForLevel:level];
+}
+
+
+- (CGFloat)textSizeForValue:(NSInteger)value
+{
+  NSInteger offset = self.dimension == 5 ? 2 : 0;
+  if (value < 100) {
+    return 32 - offset;
+  } else if (value < 1000) {
+    return 28 - offset;
+  } else if (value < 10000) {
+    return 25 - offset;
+  } else if (value < 100000) {
+    return 21 - offset;
+  } else {
+    return 17 - offset;
+  }
+}
+
+- (UIColor *)backgroundColor
+{
+  return [[M2Theme themeClassForType:0] backgroundColor];
+}
+
+
+- (UIColor *)scoreBoardColor
+{
+  return [[M2Theme themeClassForType:0] scoreBoardColor];
+}
+
+
+- (UIColor *)boardColor
+{
+  return [[M2Theme themeClassForType:0] boardColor];
+}
+
+
+- (UIColor *)buttonColor
+{
+  return [[M2Theme themeClassForType:0] buttonColor];
+}
+
+
+- (NSString *)boldFontName
+{
+  return [[M2Theme themeClassForType:0] boldFontName];
+}
+
+
+- (NSString *)regularFontName
+{
+  return [[M2Theme themeClassForType:0] regularFontName];
+}
+
+# pragma mark - Position to point conversion
+
+- (CGPoint)locationOfPosition:(M2Position)position
+{
+  return CGPointMake([self xLocationOfPosition:position] + self.horizontalOffset,
+                     [self yLocationOfPosition:position] + self.verticalOffset);
+}
+
+
+- (CGFloat)xLocationOfPosition:(M2Position)position
+{
+  return position.y * (GSTATE.tileSize + GSTATE.borderWidth) + GSTATE.borderWidth;
+}
+
+
+- (CGFloat)yLocationOfPosition:(M2Position)position
+{
+  return position.x * (GSTATE.tileSize + GSTATE.borderWidth) + GSTATE.borderWidth;
+}
+
+
+- (CGVector)distanceFromPosition:(M2Position)oldPosition toPosition:(M2Position)newPosition
+{
+  CGFloat unitDistance = GSTATE.tileSize + GSTATE.borderWidth;
+  return CGVectorMake((newPosition.y - oldPosition.y) * unitDistance,
+                      (newPosition.x - oldPosition.x) * unitDistance);
+}
+
+@end
