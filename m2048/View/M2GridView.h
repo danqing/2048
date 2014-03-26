@@ -14,4 +14,6 @@
 
 + (UIImage *)gridImageWithGrid:(M2Grid *)grid;
 
++ (UIImage *)gridImageWithOverlay;
+
 @end

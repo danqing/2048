@@ -9,8 +9,11 @@
 #import <SpriteKit/SpriteKit.h>
 
 @class M2Grid;
+@class M2ViewController;
 
 @interface M2Scene : SKScene
+
+@property (nonatomic, weak) M2ViewController *delegate;
 
 - (void)startNewGame;
 

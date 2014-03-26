@@ -53,17 +53,36 @@
     [backgroundView.layer addSublayer:layer];
   } reverseOrder:NO];
   
+  return [M2GridView snapshotWithView:backgroundView];
+}
+
+
++ (UIImage *)gridImageWithOverlay
+{
+  UIView *backgroundView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  backgroundView.backgroundColor = [UIColor clearColor];
+  backgroundView.opaque = NO;
+  
+  M2GridView *view = [[M2GridView alloc] init];
+  view.backgroundColor = [[GSTATE backgroundColor] colorWithAlphaComponent:0.8];
+  [backgroundView addSubview:view];
+  
+  return [M2GridView snapshotWithView:backgroundView];
+}
+
+
++ (UIImage *)snapshotWithView:(UIView *)view
+{
   // This is a little hacky, but is probably the best generic way to do this.
   // [UIColor colorWithPatternImage] doesn't really work with SpriteKit, and we need
   // to take a retina-quality screenshot. But then in SpriteKit we need to shrink the
   // corresponding node back to scale 1.0 in order for it to display properly.
-  UIGraphicsBeginImageContextWithOptions(backgroundView.frame.size, YES, 0.0);
-  [[backgroundView layer] renderInContext:UIGraphicsGetCurrentContext()];
+  UIGraphicsBeginImageContextWithOptions(view.frame.size, view.opaque, 0.0);
+  [[view layer] renderInContext:UIGraphicsGetCurrentContext()];
   UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
   
   return image;
 }
-
 
 @end

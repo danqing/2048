@@ -10,6 +10,7 @@
 #import "M2Grid.h"
 #import "M2Tile.h"
 #import "M2Scene.h"
+#import "M2ViewController.h"
 
 /**
  * Helper function that checks the termination condition of either counting up or down.
@@ -146,7 +147,10 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
   // Commit tile movements.
   [_grid forEach:^(M2Position position) {
     M2Tile *tile = [_grid tileAtPosition:position];
-    if (tile) [tile commitPendingActions];
+    if (tile) {
+      [tile commitPendingActions];
+      if (tile.level >= GSTATE.winningLevel) _won = YES;
+    }
   } reverseOrder:reverse];
   
   // Increment score.
@@ -154,9 +158,10 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
   
   // Check post-move status.
   if (!_keepPlaying && _won) {
-    // If `keepPlaying` is NO (it can only be YES if the user has won and chosen to keep
-    // playing) and the user has won, it must be the first time the user reaches the target.
-    
+    // We set `keepPlaying` to YES. If the user decides not to keep playing,
+    // we will be starting a new game, so the current state is no longer relevant.
+    _keepPlaying = YES;
+    [_grid.scene.delegate endGame:YES];
   }
     
   // Add one more tile to the grid.
@@ -165,7 +170,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
     [_grid insertTileAtRandomAvailablePositionWithDelay:YES];
     
   if (![self movesAvailable]) {
-    // Oops.. no moves available. Game oveeeer.
+    [_grid.scene.delegate endGame:NO];
   }
 }
 
@@ -176,6 +181,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
 {
   _score += _pendingScore;
   _pendingScore = 0;
+  [_grid.scene.delegate updateScore:_score];
 }
 
 

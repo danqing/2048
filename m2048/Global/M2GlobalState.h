@@ -10,11 +10,13 @@
 #import "M2Position.h"
 
 #define GSTATE [M2GlobalState state]
+#define Settings [NSUserDefaults standardUserDefaults]
+#define NotifCtr [NSNotificationCenter defaultCenter]
 
 typedef NS_ENUM(NSInteger, M2GameType) {
-  M2GameTypeFibonacci = 0,
-  M2GameTypePowerOf2 = 2,
-  M2GameTypePowerOf3 = 3
+  M2GameTypeFibonacci = 2,
+  M2GameTypePowerOf2 = 0,
+  M2GameTypePowerOf3 = 1
 };
 
 @interface M2GlobalState : NSObject
@@ -28,6 +30,8 @@ typedef NS_ENUM(NSInteger, M2GameType) {
 @property (nonatomic, readonly) NSInteger verticalOffset;
 @property (nonatomic, readonly) NSTimeInterval animationDuration;
 @property (nonatomic, readonly) M2GameType gameType;
+
+@property (nonatomic) BOOL needRefresh;
 
 /** The singleton instance of state. */
 + (M2GlobalState *)state;

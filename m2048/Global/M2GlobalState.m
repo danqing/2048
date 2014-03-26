@@ -20,6 +20,7 @@
 @property (nonatomic, readwrite) NSInteger verticalOffset;
 @property (nonatomic, readwrite) NSTimeInterval animationDuration;
 @property (nonatomic, readwrite) M2GameType gameType;
+@property (nonatomic) NSInteger theme;
 
 @end
 
@@ -50,13 +51,15 @@
 
 - (void)loadGlobalState
 {
-  self.dimension = 5;
+  self.dimension = [Settings integerForKey:@"Board Size"] + 3;
   self.borderWidth = 5;
   self.cornerRadius = 4;
   self.animationDuration = 0.1;
-  self.gameType = M2GameTypeFibonacci;
+  self.gameType = [Settings integerForKey:@"Game Type"];
   self.horizontalOffset = [self horizontalOffset];
   self.verticalOffset = [self verticalOffset];
+  self.theme = [Settings integerForKey:@"Theme"];
+  self.needRefresh = NO;
 }
 
 
@@ -86,8 +89,8 @@
 - (NSInteger)winningLevel
 {
   NSInteger level = 11;
-  if (self.dimension == 3) return level - 2;
-  if (self.dimension == 5) return level + 1;
+  if (self.dimension == 3) return level - 1;
+  if (self.dimension == 5) return level + 2;
   return level;
 }
 
@@ -125,7 +128,7 @@
     return b;
   } else {
     NSInteger value = 1;
-    NSInteger base = self.gameType == M2GameTypePowerOf2 ? 2 : 3;
+    NSInteger base = self.gameType == M2GameTypePowerOf2 ? 2 : 9;
     for (NSInteger i = 0; i < level; i++) {
       value *= base;
     }
@@ -138,13 +141,13 @@
 
 - (UIColor *)colorForLevel:(NSInteger)level
 {
-  return [[M2Theme themeClassForType:0] colorForLevel:level];
+  return [[M2Theme themeClassForType:self.theme] colorForLevel:level];
 }
 
 
 - (UIColor *)textColorForLevel:(NSInteger)level
 {
-  return [[M2Theme themeClassForType:0] textColorForLevel:level];
+  return [[M2Theme themeClassForType:self.theme] textColorForLevel:level];
 }
 
 
@@ -156,47 +159,49 @@
   } else if (value < 1000) {
     return 28 - offset;
   } else if (value < 10000) {
-    return 25 - offset;
+    return 24 - offset;
   } else if (value < 100000) {
-    return 21 - offset;
+    return 20 - offset;
+  } else if (value < 1000000) {
+    return 16 - offset;
   } else {
-    return 17 - offset;
+    return 13 - offset;
   }
 }
 
 - (UIColor *)backgroundColor
 {
-  return [[M2Theme themeClassForType:0] backgroundColor];
+  return [[M2Theme themeClassForType:self.theme] backgroundColor];
 }
 
 
 - (UIColor *)scoreBoardColor
 {
-  return [[M2Theme themeClassForType:0] scoreBoardColor];
+  return [[M2Theme themeClassForType:self.theme] scoreBoardColor];
 }
 
 
 - (UIColor *)boardColor
 {
-  return [[M2Theme themeClassForType:0] boardColor];
+  return [[M2Theme themeClassForType:self.theme] boardColor];
 }
 
 
 - (UIColor *)buttonColor
 {
-  return [[M2Theme themeClassForType:0] buttonColor];
+  return [[M2Theme themeClassForType:self.theme] buttonColor];
 }
 
 
 - (NSString *)boldFontName
 {
-  return [[M2Theme themeClassForType:0] boldFontName];
+  return [[M2Theme themeClassForType:self.theme] boldFontName];
 }
 
 
 - (NSString *)regularFontName
 {
-  return [[M2Theme themeClassForType:0] regularFontName];
+  return [[M2Theme themeClassForType:self.theme] regularFontName];
 }
 
 # pragma mark - Position to point conversion
