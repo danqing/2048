@@ -51,7 +51,7 @@
                         @[@"Default", @"Cool", @"Yale Blue"]];
   
   _optionsNotes = @[@"For Fibonacci games, a tile can be joined with a tile that is one level above or below it, but not to one equal to it.",
-                    @"The smaller the board is, the harder! For 5 x 5 board, two tiles will be added every round.",
+                    @"The smaller the board is, the harder! For 5 x 5 board, two tiles will be added every round if you are not playing Fibonacci numbers.",
                     @"Choose your favorite appearance and get your own feeling of 2048!"];
 }
 

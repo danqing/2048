@@ -229,6 +229,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
       }
     }
   }
+  
   // Nothing is found.
   return NO;
 }
