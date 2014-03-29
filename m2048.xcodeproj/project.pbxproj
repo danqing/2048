@@ -314,6 +314,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Danqing;
 				TargetAttributes = {
+					2443DC5118D662CA00C920C1 = {
+						DevelopmentTeam = EWJAR4GTP4;
+					};
 					2443DC7918D662CA00C920C1 = {
 						TestTargetID = 2443DC5118D662CA00C920C1;
 					};
@@ -503,6 +506,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "m2048/m2048-Prefix.pch";
 				INFOPLIST_FILE = "m2048/m2048-Info.plist";
@@ -517,6 +521,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "m2048/m2048-Prefix.pch";
 				INFOPLIST_FILE = "m2048/m2048-Info.plist";

@@ -124,6 +124,29 @@
 }
 
 
+- (NSInteger)merge3ToTile:(M2Tile *)tile andTile:(M2Tile *)furtherTile
+{
+  if (!tile || [tile hasPendingMerge] || [furtherTile hasPendingMerge]) return 0;
+  
+  NSUInteger newLevel = MIN([GSTATE mergeLevel:self.level withLevel:tile.level],
+                            [GSTATE mergeLevel:tile.level withLevel:furtherTile.level]);
+  if (newLevel > 0) {
+    // 1. Move self to the destination cell AND move the intermediate tile to there too.
+    [tile moveToCell:furtherTile.cell];
+    [self moveToCell:furtherTile.cell];
+    
+    // 2. Remove the tile in the destination cell.
+    [tile removeWithDelay];
+    [furtherTile removeWithDelay];
+    
+    // 3. Update value and pop.
+    [self updateLevelTo:newLevel];
+    [_pendingActions addObject:[self pop]];
+  }
+  return newLevel;
+}
+
+
 - (void)updateLevelTo:(NSInteger)level
 {
   self.level = level;

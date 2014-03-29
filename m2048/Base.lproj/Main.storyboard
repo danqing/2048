@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7bR-CK-ht0">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7bR-CK-ht0">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -77,13 +77,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Join the numbers to get 2048!" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="125" translatesAutoresizingMaskIntoConstraints="NO" id="r98-Zq-3Of">
-                                <rect key="frame" x="16" y="103" width="125" height="43"/>
+                                <rect key="frame" x="16" y="100" width="125" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WSt-5b-bvD">
-                                <rect key="frame" x="230" y="110" width="74" height="30"/>
+                                <rect key="frame" x="230" y="107" width="74" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Restart">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -94,7 +94,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8r1-lH-tEE">
-                                <rect key="frame" x="149" y="110" width="74" height="30"/>
+                                <rect key="frame" x="149" y="107" width="74" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Settings">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -147,6 +147,12 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="7bR-CK-ht0" secondAttribute="trailing" id="XQK-Ao-Gw7"/>
+                            <constraint firstItem="7bR-CK-ht0" firstAttribute="top" secondItem="bdc-N1-crn" secondAttribute="top" id="Yjw-hH-Qj2"/>
+                            <constraint firstAttribute="bottom" secondItem="7bR-CK-ht0" secondAttribute="bottom" id="Ysg-Ye-xrC"/>
+                            <constraint firstItem="7bR-CK-ht0" firstAttribute="leading" secondItem="bdc-N1-crn" secondAttribute="leading" id="dkE-7i-2C5"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="_bestView" destination="OSi-g6-ogB" id="Y4U-P0-y17"/>

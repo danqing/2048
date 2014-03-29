@@ -95,11 +95,23 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
           
           // Try to merge to the tile in the cell.
           else {
-            NSInteger level = [tile mergeToTile:t];
+            NSInteger level = 0;
+            
+            if (GSTATE.gameType == M2GameTypePowerOf3) {
+              M2Position further = M2PositionMake(i + unit, position.y);
+              M2Tile *ft = [_grid tileAtPosition:further];
+              if (ft) {
+                level = [tile merge3ToTile:t andTile:ft];
+              }
+            } else {
+              level = [tile mergeToTile:t];
+            }
+            
             if (level) {
               target = position.x;
               _pendingScore = [GSTATE valueForLevel:level];
             }
+
             break;
           }
         }
@@ -123,11 +135,23 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
           if (!t) target = i;
 
           else {
-            NSInteger level = [tile mergeToTile:t];
+            NSInteger level = 0;
+            
+            if (GSTATE.gameType == M2GameTypePowerOf3) {
+              M2Position further = M2PositionMake(position.x, i + unit);
+              M2Tile *ft = [_grid tileAtPosition:further];
+              if (ft) {
+                level = [tile merge3ToTile:t andTile:ft];
+              }
+            } else {
+              level = [tile mergeToTile:t];
+            }
+            
             if (level) {
               target = position.y;
               _pendingScore = [GSTATE valueForLevel:level];
             }
+            
             break;
           }
         }
@@ -166,7 +190,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
     
   // Add one more tile to the grid.
   [_grid insertTileAtRandomAvailablePositionWithDelay:YES];
-  if (GSTATE.dimension == 5 && GSTATE.gameType != M2GameTypeFibonacci)
+  if (GSTATE.dimension == 5 && GSTATE.gameType == M2GameTypePowerOf2)
     [_grid insertTileAtRandomAvailablePositionWithDelay:YES];
     
   if (![self movesAvailable]) {
@@ -223,9 +247,18 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
       // in case we want to use this function by itself.
       if (!tile) continue;
       
-      if ([tile canMergeWithTile:[_grid tileAtPosition:M2PositionMake(i + 1, j)]] ||
-          [tile canMergeWithTile:[_grid tileAtPosition:M2PositionMake(i, j + 1)]]) {
-        return YES;
+      if (GSTATE.gameType == M2GameTypePowerOf3) {
+        if (([tile canMergeWithTile:[_grid tileAtPosition:M2PositionMake(i + 1, j)]] &&
+             [tile canMergeWithTile:[_grid tileAtPosition:M2PositionMake(i + 2, j)]]) ||
+            ([tile canMergeWithTile:[_grid tileAtPosition:M2PositionMake(i, j + 1)]] &&
+             [tile canMergeWithTile:[_grid tileAtPosition:M2PositionMake(i, j + 2)]])) {
+          return YES;
+        }
+      } else {
+        if ([tile canMergeWithTile:[_grid tileAtPosition:M2PositionMake(i + 1, j)]] ||
+            [tile canMergeWithTile:[_grid tileAtPosition:M2PositionMake(i, j + 1)]]) {
+          return YES;
+        }
       }
     }
   }

@@ -46,6 +46,7 @@
  */
 - (NSInteger)mergeToTile:(M2Tile *)tile;
 
+- (NSInteger)merge3ToTile:(M2Tile *)tile andTile:(M2Tile *)furtherTile;
 
 /**
  * Moves the tile to the specified cell. If the tile is not already in the grid, 

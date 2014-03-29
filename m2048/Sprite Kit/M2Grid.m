@@ -71,7 +71,8 @@
 
 - (M2Cell *)cellAtPosition:(M2Position)position
 {
-  if (position.x >= self.dimension || position.y >= self.dimension) return nil;
+  if (position.x >= self.dimension || position.y >= self.dimension ||
+      position.x < 0 || position.y < 0) return nil;
   return [[_grid objectAtIndex:position.x] objectAtIndex:position.y];
 }
 

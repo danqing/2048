@@ -81,13 +81,22 @@
 
 - (NSInteger)verticalOffset
 {
-  CGFloat height = self.dimension * (self.tileSize + self.borderWidth) + self.borderWidth + 90;
+  CGFloat height = self.dimension * (self.tileSize + self.borderWidth) + self.borderWidth + 120;
   return ([[UIScreen mainScreen] bounds].size.height - height) / 2;
 }
 
 
 - (NSInteger)winningLevel
 {
+  if (GSTATE.gameType == M2GameTypePowerOf3) {
+    switch (self.dimension) {
+      case 3: return 4;
+      case 4: return 5;
+      case 5: return 6;
+      default: return 5;
+    }
+  }
+  
   NSInteger level = 11;
   if (self.dimension == 3) return level - 1;
   if (self.dimension == 5) return level + 2;
@@ -128,7 +137,7 @@
     return b;
   } else {
     NSInteger value = 1;
-    NSInteger base = self.gameType == M2GameTypePowerOf2 ? 2 : 9;
+    NSInteger base = self.gameType == M2GameTypePowerOf2 ? 2 : 3;
     for (NSInteger i = 0; i < level; i++) {
       value *= base;
     }
