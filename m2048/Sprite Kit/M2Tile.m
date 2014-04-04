@@ -43,7 +43,9 @@
   if (self = [super init]) {
     // Layout of the tile.
     CGRect rect = CGRectMake(0, 0, GSTATE.tileSize, GSTATE.tileSize);
-    self.path = CGPathCreateWithRoundedRect(rect, GSTATE.cornerRadius, GSTATE.cornerRadius, NULL);
+    CGPathRef rectPath = CGPathCreateWithRoundedRect(rect, GSTATE.cornerRadius, GSTATE.cornerRadius, NULL);
+    self.path = rectPath;
+    CFRelease(rectPath);
     self.lineWidth = 0;
     
     // Initiate pending actions queue.
