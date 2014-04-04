@@ -8,11 +8,11 @@
 
 #import "M2Theme.h"
 
-#define RGB(r, g, b)     [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
-#define HEX(c)           [UIColor colorWithRed:((c>>16)&0xFF)/255.0 green:((c>>8)&0xFF)/255.0 blue:(c&0xFF)/255.0 alpha:1.0]
+#define RGB(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
+#define HEX(c)       [UIColor colorWithRed:((c>>16)&0xFF)/255.0 green:((c>>8)&0xFF)/255.0 blue:(c&0xFF)/255.0 alpha:1.0]
 
 
-@interface M2DefaultTheme : M2Theme
+@interface M2DefaultTheme : NSObject <M2Theme>
 @end
 
 @implementation M2DefaultTheme
@@ -49,7 +49,6 @@
     case 14:
       return RGB(164, 183, 79);
     case 15:
-      return RGB(161, 183, 63);
     default:
       return RGB(161, 183, 63);
   }
@@ -106,7 +105,7 @@
 @end
 
 
-@interface M2VibrantTheme : M2Theme
+@interface M2VibrantTheme : NSObject <M2Theme>
 @end
 
 @implementation M2VibrantTheme
@@ -143,7 +142,6 @@
     case 14:
       return RGB(247, 167, 56);
     case 15:
-      return RGB(244, 138, 48);
     default:
       return RGB(244, 138, 48);
   }
@@ -165,7 +163,6 @@
     case 9:
     case 10:
     case 11:
-      return [UIColor whiteColor];
     default:
       return [UIColor whiteColor];
   }
@@ -211,14 +208,46 @@
 
 
 
-@interface M2MinimalismTheme : M2Theme
+@interface M2JoyfulTheme : NSObject <M2Theme>
 @end
 
-@implementation M2MinimalismTheme
+@implementation M2JoyfulTheme
 
 + (UIColor *)colorForLevel:(NSInteger)level
 {
-  return RGB(245, 245, 245);
+  switch (level) {
+    case 1:
+      return RGB(236, 243, 251);
+    case 2:
+      return RGB(230, 245, 252);
+    case 3:
+      return RGB(95, 131, 157);
+    case 4:
+      return RGB(164, 232, 254);
+    case 5:
+      return RGB(226, 246, 209);
+    case 6:
+      return RGB(237, 228, 253);
+    case 7:
+      return RGB(254, 224, 235);
+    case 8:
+      return RGB(254, 235, 115);
+    case 9:
+      return RGB(255, 249, 136);
+    case 10:
+      return RGB(208, 246, 247);
+    case 11:
+      return RGB(251, 244, 236);
+    case 12:
+      return RGB(254, 237, 229);
+    case 13:
+      return RGB(205, 247, 235);
+    case 14:
+      return RGB(57, 120, 104);
+    case 15:
+    default:
+      return RGB(93, 125, 62);
+  }
 }
 
 
@@ -226,62 +255,60 @@
 {
   switch (level) {
     case 1:
-      return RGB(223, 34, 1);
+      return RGB(104, 119, 131);
     case 2:
-      return RGB(231, 68, 0);
+      return RGB(70, 128, 161);
     case 3:
-      return RGB(242, 177, 121);
+      return [UIColor whiteColor];
     case 4:
-      return RGB(245, 149, 99);
+      return RGB(64, 173, 246);
     case 5:
-      return RGB(246, 124, 95);
+      return RGB(97, 159, 42);
     case 6:
-      return RGB(246, 94, 59);
+      return RGB(124, 85, 201);
     case 7:
-      return RGB(237, 207, 114);
+      return RGB(223, 73, 115);
     case 8:
-      return RGB(237, 204, 97);
+      return RGB(244, 111, 41);
     case 9:
-      return RGB(131, 178, 7);
+      return RGB(253, 160, 46);
     case 10:
-      return RGB(124, 175, 2);
+      return RGB(30, 160, 158);
     case 11:
-      return RGB(116, 171, 0);
+      return RGB(147, 129, 115);
     case 12:
-      return RGB(107, 168, 0);
+      return RGB(162, 93, 60);
     case 13:
-      return RGB(99, 164, 0);
+      return RGB(68, 227, 184);
     case 14:
-      return RGB(90, 160, 0);
     case 15:
-      return RGB(82, 157, 0);
     default:
-      return RGB(30, 30, 30);
+      return [UIColor whiteColor];
   }
 }
 
 
 + (UIColor *)backgroundColor
 {
-  return RGB(240, 240, 240);
+  return RGB(255, 254, 237);
 }
 
 
 + (UIColor *)boardColor
 {
-  return RGB(240, 240, 240);
+  return RGB(255, 254, 237);
 }
 
 
 + (UIColor *)scoreBoardColor
 {
-  return RGB(58, 171, 115);
+  return RGB(243, 168, 40);
 }
 
 
 + (UIColor *)buttonColor
 {
-  return RGB(31, 177, 252);
+  return RGB(242, 79, 46);
 }
 
 
@@ -306,22 +333,11 @@
   switch (type) {
     case 1:
       return [M2VibrantTheme class];
+    case 2:
+      return [M2JoyfulTheme class];
     default:
       return [M2DefaultTheme class];
   }
 }
-
-/* None of these should be called. */
-// @TODO Change M2Theme into a protocol.
-
-+ (UIColor *)colorForLevel:(NSInteger)level {return [UIColor whiteColor]; }
-+ (UIColor *)textColorForLevel:(NSInteger)level {return [UIColor whiteColor]; }
-+ (UIColor *)backgroundColor {return [UIColor whiteColor]; }
-+ (UIColor *)boardColor {return [UIColor whiteColor]; }
-+ (UIColor *)borderColor {return [UIColor whiteColor]; }
-+ (UIColor *)scoreBoardColor {return [UIColor whiteColor]; }
-+ (UIColor *)buttonColor {return [UIColor whiteColor]; }
-+ (NSString *)boldFontName {return @""; }
-+ (NSString *)regularFontName {return @""; }
 
 @end

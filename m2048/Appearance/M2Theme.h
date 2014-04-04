@@ -8,13 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface M2Theme : NSObject
+@protocol M2Theme <NSObject>
 
 /** The background color of the board base. */
 + (UIColor *)boardColor;
-
-/** The border color of the board base. */
-+ (UIColor *)borderColor;
 
 /** The background color of the entire scene. */
 + (UIColor *)backgroundColor;
@@ -45,6 +42,11 @@
  * @param level The level of the tile.
  */
 + (UIColor *)textColorForLevel:(NSInteger)level;
+
+@end
+
+
+@interface M2Theme : NSObject
 
 /**
  * The theme we are using.
