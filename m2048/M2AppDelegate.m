@@ -12,12 +12,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  NSDictionary *defaultValues = @{@"Game Type": @0,
-                                  @"Theme": @0,
-                                  @"Board Size": @1,
-                                  @"Best Score": @0,
-                                  };
-  [Settings registerDefaults:defaultValues];
   return YES;
 }
 
