@@ -9,6 +9,11 @@
 #import "M2GlobalState.h"
 #import "M2Theme.h"
 
+#define kGameType  @"Game Type"
+#define kTheme     @"Theme"
+#define kBoardSize @"Board Size"
+#define kBestScore @"Best Score"
+
 @interface M2GlobalState ()
 
 @property (nonatomic, readwrite) NSInteger dimension;
@@ -43,22 +48,32 @@
 - (instancetype)init
 {
   if (self = [super init]) {
+    [self setupDefaultState];
     [self loadGlobalState];
   }
   return self;
 }
 
+- (void)setupDefaultState
+{
+  NSDictionary *defaultValues = @{kGameType: @0,
+                                  kTheme: @0,
+                                  kBoardSize: @1,
+                                  kBestScore: @0,
+                                  };
+  [Settings registerDefaults:defaultValues];
+}
 
 - (void)loadGlobalState
 {
-  self.dimension = [Settings integerForKey:@"Board Size"] + 3;
+  self.dimension = [Settings integerForKey:kBoardSize] + 3;
   self.borderWidth = 5;
   self.cornerRadius = 4;
   self.animationDuration = 0.1;
-  self.gameType = [Settings integerForKey:@"Game Type"];
+  self.gameType = [Settings integerForKey:kGameType];
   self.horizontalOffset = [self horizontalOffset];
   self.verticalOffset = [self verticalOffset];
-  self.theme = [Settings integerForKey:@"Theme"];
+  self.theme = [Settings integerForKey:kTheme];
   self.needRefresh = NO;
 }
 

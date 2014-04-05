@@ -12,13 +12,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  if (![Settings boolForKey:@"Initialized"]) {
-    [Settings setInteger:0 forKey:@"Game Type"];
-    [Settings setInteger:0 forKey:@"Theme"];
-    [Settings setInteger:1 forKey:@"Board Size"];
-    [Settings setInteger:0 forKey:@"Best Score"];
-    [Settings setBool:YES forKey:@"Initialized"];
-  }
   return YES;
 }
 
