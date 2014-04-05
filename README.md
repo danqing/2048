@@ -45,6 +45,10 @@ If you'd like to contribute, great! That's more than welcome. If you do make imp
 
 If you'd like to fork and make your own version, that's also great! Feel free to tinker with it however you'd like. It may not be a terribly good idea to change the font, add some ads, and submit to Apple, though.
 
+#### Contributors
+
+* Danqing Liu (me)
+* [Scott Matthewman](https://github.com/scottmatthewman)
 
 
 ## Licence and Other
