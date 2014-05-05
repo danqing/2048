@@ -94,7 +94,7 @@
   
   // Swipe too short. Don't do anything.
   if (MAX(absX, absY) < EFFECTIVE_SWIPE_DISTANCE_THRESHOLD) return;
-  
+    
   // We only accept horizontal or vertical swipes, but not diagonal ones.
   if (absX > absY * VALID_SWIPE_DIRECTION_THRESHOLD) {
     translation.x < 0 ? [_manager moveToDirection:M2DirectionLeft] :

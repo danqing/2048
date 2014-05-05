@@ -13,6 +13,6 @@
 
 - (void)updateScore:(NSInteger)score;
 
-- (void)endGame:(BOOL)won;
+- (void)endGameWinning:(BOOL)won;
 
 @end

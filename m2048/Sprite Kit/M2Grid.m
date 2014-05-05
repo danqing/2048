@@ -40,10 +40,23 @@
     // Record the dimension of the grid.
     self.dimension = dimension;
     
-    // Draw the board.
+    // Draw the board.å
   }
   
   return self;
+}
+
+- (instancetype)initWithRawGrid:(NSArray *)grid {
+    if (self = [self initWithDimension:grid.count]) {
+        for (int row = 0; row < grid.count; row++) {
+            for (int column = 0; column < [grid[row] count]; column++) {
+                NSUInteger level = [grid[row][column] unsignedIntegerValue];
+                if (level <= 0) continue;
+                [self insertTileAtPosition:M2PositionMake(row, column) withLevel:level];
+            }
+        }
+    }
+    return self;
 }
 
 
@@ -107,11 +120,6 @@
 }
 
 
-/**
- * Returns all available cells in an array.
- *
- * @return The array of all available cells. If no cell is available, returns empty array.
- */
 - (NSArray *)availableCells
 {
   NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:self.dimension * self.dimension];
@@ -141,6 +149,23 @@
   }
 }
 
+- (void)insertTileAtPosition:(M2Position)position withLevel:(NSUInteger)level {
+    M2Cell *cell = [self cellAtPosition:position];
+    if (cell && cell.tile && [[self.scene children] indexOfObject:cell.tile] != NSNotFound) {
+        [NSException raise:@"Error replacing existing cell on board." format:@"Existing cell at position (%ld, %ld) cannot be replaced. Please do not use this method in regular logic.", (long)position.x, (long)position.y];
+    }
+    [M2Tile insertNewTileToCell:cell];
+    cell.tile.level = level;
+}
+
+- (void)removeTileAtPosition:(M2Position)position {
+    M2Cell *cell = [self cellAtPosition:position];
+    if (cell && cell.tile) {
+        cell.tile = nil;
+    } else {
+        [NSException raise:@"Cannot remove tile." format:@"Cannot remove tile at position (%ld, %ld). Position not valid or tile not exist.", position.x, position.y];
+    }
+}
 
 - (void)removeAllTilesAnimated:(BOOL)animated
 {
@@ -148,6 +173,50 @@
     M2Tile *tile = [self tileAtPosition:position];
     if (tile) [tile removeAnimated:animated];
   } reverseOrder:NO];
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+    M2Grid *newGrid = [[M2Grid alloc] initWithDimension:self.dimension];
+    [self forEach:^(M2Position position) {
+        M2Tile *tile = [self tileAtPosition:position];
+        if (tile) {
+            [newGrid insertTileAtPosition:position withLevel:tile.level];
+        }
+    } reverseOrder:NO];
+    return newGrid;
+}
+
+#pragma mark - Comparison
+- (BOOL)isEqual:(id)object {
+    if (object == self) return YES;
+    if (!object || ![object isKindOfClass:[self class]]) return NO;
+    return [self isEqualToGrid:object];
+}
+
+- (BOOL)isEqualToGrid:(M2Grid *)grid {
+    if (grid == self) return YES;
+    if (!grid) return NO;
+    __block BOOL allTilesEqual = YES;
+    [self forEach:^(M2Position position) {
+        M2Tile *tile = [self tileAtPosition:position];
+        M2Tile *otherTile = [grid tileAtPosition:position];
+        if (tile && (!otherTile || tile.level != otherTile.level)) {
+            allTilesEqual = NO;
+        }
+    } reverseOrder:NO];
+    return allTilesEqual;
+}
+
+- (NSUInteger)hash {
+    __block NSUInteger prime = 31, prime2 = 17, prime3 = 13, prime4 = 7;
+    __block NSUInteger result = 1;
+    [self forEach:^(M2Position position) {
+        M2Tile *tile = [self tileAtPosition:position];
+        result = prime * result + prime2 * position.x + prime3 * position.y + prime4 * tile.level;
+    } reverseOrder:NO];
+    return result;
 }
 
 @end

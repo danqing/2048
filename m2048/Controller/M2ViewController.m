@@ -145,7 +145,7 @@
 }
 
 
-- (void)endGame:(BOOL)won
+- (void)endGameWinning:(BOOL)won
 {
   _overlay.hidden = NO;
   _overlay.alpha = 0;

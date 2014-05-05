@@ -185,7 +185,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
     // We set `keepPlaying` to YES. If the user decides not to keep playing,
     // we will be starting a new game, so the current state is no longer relevant.
     _keepPlaying = YES;
-    [_grid.scene.delegate endGame:YES];
+    [_grid.scene.delegate endGameWinning:YES];
   }
     
   // Add one more tile to the grid.
@@ -194,7 +194,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
     [_grid insertTileAtRandomAvailablePositionWithDelay:YES];
     
   if (![self movesAvailable]) {
-    [_grid.scene.delegate endGame:NO];
+    [_grid.scene.delegate endGameWinning:NO];
   }
 }
 

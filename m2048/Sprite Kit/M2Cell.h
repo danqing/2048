@@ -10,7 +10,7 @@
 
 @class M2Tile;
 
-@interface M2Cell : NSObject
+@interface M2Cell : NSObject <NSCopying>
 
 /** The position of the cell. */
 @property (nonatomic) M2Position position;

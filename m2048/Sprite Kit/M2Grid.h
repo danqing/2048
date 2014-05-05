@@ -14,7 +14,7 @@
 typedef void (^IteratorBlock)(M2Position);
 
 
-@interface M2Grid : NSObject
+@interface M2Grid : NSObject <NSCopying>
 
 /** The dimension of the grid. */
 @property (nonatomic, readonly) NSInteger dimension;
@@ -30,6 +30,14 @@ typedef void (^IteratorBlock)(M2Position);
  */
 - (instancetype)initWithDimension:(NSInteger)dimension;
 
+/**
+ *  Initialize a new grid with given raw grid described with a two-dimensional array.
+ *
+ *  @param grid The raw grid.
+ *  @return A new instance of `M2Grid` object.
+ *  @note The elements in grid must be the levels, instead of real values.
+ */
+- (instancetype)initWithRawGrid:(NSArray *)grid;
 
 /**
  * Iterates over the grid and calls the block, which takes in the M2Position
@@ -66,6 +74,11 @@ typedef void (^IteratorBlock)(M2Position);
  */
 - (BOOL)hasAvailableCells;
 
+/**
+ * Returns all available cells in an array.
+ * @return The array of all available cells. If no cell is available, returns empty array.
+ */
+- (NSArray *)availableCells;
 
 /**
  * Inserts a new tile at a randomly chosen position that's available.
@@ -74,6 +87,20 @@ typedef void (^IteratorBlock)(M2Position);
  */
 - (void)insertTileAtRandomAvailablePositionWithDelay:(BOOL)delay;
 
+/**
+ *  Insert a tile at a given position.
+ *  @param position A given position.
+ *  @param level The level of this tile.
+ *  @note This method is for grid copying and debugging only. Do not use in the regular logic.
+ */
+- (void)insertTileAtPosition:(M2Position)position withLevel:(NSUInteger)level;
+
+/**
+ *  Remove the tile at given position.
+ *  @param position A given position.
+ *  @note This method is for AI only. Do not use in the regular logic.
+ */
+- (void)removeTileAtPosition:(M2Position)position;
 
 /**
  * Removes all tiles in the grid from the scene.
