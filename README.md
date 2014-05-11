@@ -10,6 +10,8 @@ An AI is added! Tap "Hint" to show hint (e.g. Move left/right/up/down); tap "Aut
 
 Thanks to [ov3y](https://github.com/ov3y/2048-AI)'s Javascript version that gave me inspiration.
 
+<iframe width="420" height="315" src="//www.youtube.com/embed/GF0ANNPpF8E" frameborder="0" allowfullscreen></iframe>
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/DJBen/2048/master/iOS%20Simulator%20Screen%20shot%20May%2011,%202014,%205.06.45%20AM.png" alt="Screenshot"/>
 </p>
