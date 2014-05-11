@@ -12,10 +12,6 @@ Thanks to [ov3y](https://github.com/ov3y/2048-AI)'s Javascript version that gave
 
 [![2048 AI](http://img.youtube.com/vi/GF0ANNPpF8E/hqdefault.jpg)](http://www.youtube.com/watch?v=GF0ANNPpF8E)
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/DJBen/2048/master/iOS%20Simulator%20Screen%20shot%20May%2011,%202014,%205.06.45%20AM.png" alt="Screenshot"/>
-</p>
-
 ### Issues and pending improvements
 
 Currently the searching depth is 2 and it fails sometimes. You can increase the number to 3 or more by changing the return value of `- (NSInteger)maximumSearchingDepth` in `M2GlobalState+AI.h`.
