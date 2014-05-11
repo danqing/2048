@@ -8,9 +8,11 @@ Made just for fun! You can find it on the [App Store](https://itunes.apple.com/u
 
 An AI is added! Tap "Hint" to show hint (e.g. Move left/right/up/down); tap "Auto Run" to run AI automatically.
 
-![AI Screenshot](https://raw.githubusercontent.com/DJBen/2048/master/iOS%20Simulator%20Screen%20shot%20May%2011,%202014,%205.06.45%20AM.png)
-
 Thanks to [ov3y](https://github.com/ov3y/2048-AI)'s Javascript version that gave me inspiration.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/DJBen/2048/master/iOS%20Simulator%20Screen%20shot%20May%2011,%202014,%205.06.45%20AM.png" alt="Screenshot"/>
+</p>
 
 ### Issues and pending improvements
 
