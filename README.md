@@ -1,8 +1,22 @@
-# 2048
+# 2048 (with AI!)
 
 This is a derivative and the iOS version of the game 2048. In the very unlikely case that you don't know what it is, you can check it out [here](https://github.com/gabrielecirulli/2048).
 
 Made just for fun! You can find it on the [App Store](https://itunes.apple.com/us/app/2048-and-more!/id848859070?ls=1&mt=8).
+
+## AI
+
+An AI is added! Tap "Hint" to show hint (e.g. Move left/right/up/down); tap "Auto Run" to run AI automatically.
+
+![https://raw.githubusercontent.com/DJBen/2048/master/iOS%20Simulator%20Screen%20shot%20May%2011,%202014,%205.06.45%20AM.png](AI!)
+
+Thanks to [ov3y](https://github.com/ov3y/2048-AI)'s Javascript version that gave me inspiration.
+
+### Issues and pending improvements
+
+Currently the searching depth is 2 and it fails sometimes. You can increase the number to 3 or more by changing the return value of `- (NSInteger)maximumSearchingDepth` in `M2GlobalState+AI.h`.
+
+Ideally, the AI should search from 0 depth to infinity and have a time out, it records the current best move when finish searching the current depth and stops immediately when timed out and return the best move so far. However, I have a little bit of trouble when dealing with `NSOperationQueue` so I didn't do it this way. Now the AI only searches at the specified `-maximumSearchingDepth`.
 
 <p align="center">
   <img src="http://a4.mzstatic.com/us/r30/Purple4/v4/a4/f8/af/a4f8af1d-3878-0817-859d-de76bae169c7/screen568x568.jpeg" alt="Screenshot"/>
