@@ -21,4 +21,6 @@
 
 - (instancetype)initWithX:(NSInteger)x y:(NSInteger)y;
 
+- (NSString *)vectorString;
+
 @end

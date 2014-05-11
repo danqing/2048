@@ -7,14 +7,16 @@
 //
 
 #import <Kiwi.h>
-#import "M2Tile.h"
+#import "M2DisplayTile.h"
 #import "M2Grid.h"
 #import "M2Grid+AI.h"
 #import "M2Vector.h"
 
 SPEC_BEGIN(AI_SPEC)
 
-__block M2Grid *grid, *grid2, *grid3, *grid4, *grid42, *grid5, *grid6, *grid6MergeLeft, *grid7, *complexGrid, *complexGrid2, *complexGridMergedDown, *complexGridMergedRight;
+__block M2Grid *grid, *grid2, *grid3, *grid4, *grid42, *grid5, *grid6, *grid6MergeLeft, *grid7, *complexGrid, *complexGrid2, *complexGridMergedDown, *complexGridMergedRight, *winning, *gameover, *gameover2, *downProblem;
+
+__block NSArray *notWinning, *gameNotOver;
 
 beforeAll(^{
     NSArray *rawGrid = @[@[@0, @1, @1, @2],
@@ -84,6 +86,33 @@ beforeAll(^{
                 @[@1, @3, @4, @1],
                 @[@1, @2, @4, @2]];
     complexGridMergedRight = [[M2Grid alloc] initWithRawGrid:rawGrid];
+    
+    rawGrid = @[@[@1, @4, @7, @5],
+                @[@4, @3, @5, @2],
+                @[@1, @3, @11, @1],
+                @[@1, @2, @4, @2]];
+    winning = [[M2Grid alloc] initWithRawGrid:rawGrid];
+    
+    rawGrid = @[@[@1, @4, @7, @5],
+                @[@4, @2, @5, @2],
+                @[@1, @3, @4, @1],
+                @[@2, @1, @3, @2]];
+    gameover = [[M2Grid alloc] initWithRawGrid:rawGrid];
+    
+    rawGrid = @[@[@1, @2, @1, @2],
+                @[@2, @1, @2, @1],
+                @[@1, @2, @1, @2],
+                @[@2, @1, @2, @1]];
+    gameover2 = [[M2Grid alloc] initWithRawGrid:rawGrid];
+    
+    rawGrid = @[@[@1, @2, @1, @2],
+                @[@2, @1, @2, @1],
+                @[@1, @2, @1, @2],
+                @[@2, @1, @2, @1]];
+    downProblem = [[M2Grid alloc] initWithRawGrid:rawGrid];
+    
+    notWinning = @[grid, grid2, grid3, grid4, grid5, grid6, grid7, complexGrid, gameover, gameover2];
+    gameNotOver = @[grid, grid2, grid3, grid4, grid5, grid6, grid7, complexGrid, winning];
 });
 
 describe(@"Debugging methods in grid", ^{
@@ -94,9 +123,9 @@ describe(@"Debugging methods in grid", ^{
     
     it(@"should build an array exactly as the original one", ^{
         M2Grid *gridX = [[M2Grid alloc] initWithDimension:4];
-        [gridX insertTileAtPosition:M2PositionMake(0, 0) withLevel:2];
-        [gridX insertTileAtPosition:M2PositionMake(0, 1) withLevel:1];
-        [gridX insertTileAtPosition:M2PositionMake(1, 0) withLevel:3];
+        [gridX insertDummyTileAtPosition:M2PositionMake(0, 0) withLevel:2];
+        [gridX insertDummyTileAtPosition:M2PositionMake(0, 1) withLevel:1];
+        [gridX insertDummyTileAtPosition:M2PositionMake(1, 0) withLevel:3];
         [[theValue(gridX.smoothness) should] equal:theValue(-2)];
         [[theValue(gridX.monotonicity) should] equal:theValue(-1)];
         [[gridX should] equal:grid4];
@@ -119,25 +148,31 @@ describe(@"Grid copying", ^{
     it(@"should work", ^{
         M2Grid *newGird = [complexGrid copy];
         [complexGrid forEach:^(M2Position position) {
-            M2Tile *tile = [complexGrid tileAtPosition:position];
+            id <M2Tile> tile = [complexGrid tileAtPosition:position];
             [[theValue(tile.level) should] equal:theValue([[newGird tileAtPosition:position] level])];
         } reverseOrder:NO];
     });
 });
 
 describe(@"Grid comparison", ^{
-   it(@"should work", ^{
-       [[[complexGrid copy] should] equal:complexGrid];
-       [[[complexGrid copy] should] equal:complexGrid2];
-       [[[grid4 copy] shouldNot] equal:grid3];
-       [[[grid4 copy] should] equal:grid42];
-       [[[grid5 copy] should] equal:grid5];
-       
-       NSLog(@"%lu %lu", (unsigned long)complexGrid.hash, (unsigned long)complexGrid2.hash);
-       [complexGrid2 dumpGrid];
-       [complexGrid dumpGrid];
-       [[[grid3 copy] should] equal:grid3];
-   });
+    it(@"should work", ^{
+        [[[complexGrid copy] should] equal:complexGrid];
+        [[[complexGrid copy] should] equal:complexGrid2];
+        [[[grid4 copy] shouldNot] equal:grid3];
+        [[[grid4 copy] should] equal:grid42];
+        [[[grid5 copy] should] equal:grid5];
+        
+        NSLog(@"%lu %lu", (unsigned long)complexGrid.hash, (unsigned long)complexGrid2.hash);
+        [[[grid3 copy] should] equal:grid3];
+    });
+    
+    describe(@"cell comparison", ^{
+        it(@"should work", ^{
+            [[[grid6 cellAtPosition:M2PositionMake(1, 2)] should] equal:[grid7 cellAtPosition:M2PositionMake(1, 2)]];
+            [[[grid6 cellAtPosition:M2PositionMake(3, 3)] should] equal:[grid7 cellAtPosition:M2PositionMake(3, 3)]];
+            [[[grid6 cellAtPosition:M2PositionMake(3, 0)] shouldNot] equal:[grid7 cellAtPosition:M2PositionMake(3, 3)]];
+        });
+    });
 });
 
 describe(@"In grid extension", ^{
@@ -184,6 +219,67 @@ describe(@"In grid extension", ^{
             [[g6Merged should] equal:grid6MergeLeft];
             M2Grid *complexMergedRight = [complexGrid gridAfterMoveWithDirection:M2VectorRight];
             [[complexMergedRight should] equal:complexGridMergedRight];
+            [[complexGridMergedDown shouldNot] equal:complexGrid];
+            [[[complexGrid gridAfterMoveWithDirection:M2VectorUp] shouldNot] equal:complexGrid];
+            [[[complexGrid gridAfterMoveWithDirection:M2VectorLeft] should] equal:complexGrid];
+            
+            M2Grid *xgrid = [[M2Grid alloc] initWithRawGrid:@[@[@1, @1, @0, @0],
+                                                             @[@0, @0, @3, @0],
+                                                             @[@0, @0, @0, @2],
+                                                             @[@2, @0, @0, @0]]];
+            M2Grid *xgridLeft = [[M2Grid alloc] initWithRawGrid:@[@[@2, @0, @0, @0],
+                                                                  @[@3, @0, @0, @0],
+                                                                  @[@2, @0, @0, @0],
+                                                                  @[@2, @0, @0, @0]]];
+            M2Grid *xgridDown = [[M2Grid alloc] initWithRawGrid:@[@[@0, @0, @0, @0],
+                                                                  @[@0, @0, @0, @0],
+                                                                  @[@1, @0, @0, @0],
+                                                                  @[@2, @1, @3, @2]]];
+            M2Grid *xgridUp = [[M2Grid alloc] initWithRawGrid:@[@[@1, @1, @3, @2],
+                                                                @[@2, @0, @0, @0],
+                                                                @[@0, @0, @0, @0],
+                                                                @[@0, @0, @0, @0]]];
+            M2Grid *xgridRight = [[M2Grid alloc] initWithRawGrid:@[@[@0, @0, @0, @2],
+                                                                   @[@0, @0, @0, @3],
+                                                                   @[@0, @0, @0, @2],
+                                                                   @[@0, @0, @0, @2]]];
+            [[[xgrid gridAfterMoveWithDirection:M2VectorLeft] should] equal:xgridLeft];
+            [[[xgrid gridAfterMoveWithDirection:M2VectorDown] should] equal:xgridDown];
+            [[[xgrid gridAfterMoveWithDirection:M2VectorUp] should] equal:xgridUp];
+            [[[xgrid gridAfterMoveWithDirection:M2VectorRight] should] equal:xgridRight];
+            
+            M2Grid *cannotMoveDown = [[M2Grid alloc] initWithRawGrid:@[@[@0, @0, @5, @2],
+                                                                       @[@0, @3, @2, @3],
+                                                                       @[@0, @8, @6, @2],
+                                                                       @[@1, @2, @1, @3]]];
+            
+            M2Grid *cannotMoveDownMoveLeft = [[M2Grid alloc] initWithRawGrid:@[@[@5, @2, @0, @0],
+                                                                               @[@3, @2, @3, @0],
+                                                                               @[@8, @6, @2, @0],
+                                                                               @[@1, @2, @1, @3]]];
+            [[[cannotMoveDown gridAfterMoveWithDirection:M2VectorLeft] should] equal:cannotMoveDownMoveLeft];
+            [[[cannotMoveDown gridAfterMoveWithDirection:M2VectorDown] should] equal:cannotMoveDown];
+
+            [[[downProblem gridAfterMoveWithDirection:M2VectorDown] should] equal:downProblem];
+            
+        });
+    });
+    describe(@"winning board check", ^{
+       it(@"should be correct", ^{
+           for (M2Grid *theGrid in notWinning) {
+               [[theValue([theGrid isWinningBoard]) should] beNo];
+           }
+           [[theValue([winning isWinningBoard]) should] beYes];
+       });
+    });
+    
+    describe(@"game over check", ^{
+        it(@"should be correct", ^{
+            for (M2Grid *theGrid in gameNotOver) {
+                [[theValue([theGrid isGameOver]) should] beNo];
+            }
+            [[theValue([gameover isGameOver]) should] beYes];
+            [[theValue([gameover2 isGameOver]) should] beYes];
         });
     });
 });

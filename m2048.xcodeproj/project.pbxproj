@@ -21,7 +21,7 @@
 		2443DCA018D6647000C920C1 /* M2SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443DC9F18D6647000C920C1 /* M2SettingsViewController.m */; };
 		2443DCA318D6649500C920C1 /* M2Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443DCA218D6649500C920C1 /* M2Theme.m */; };
 		2443DCA618D66CCC00C920C1 /* M2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443DCA518D66CCC00C920C1 /* M2ViewController.m */; };
-		2443DCAF18D6C18400C920C1 /* M2Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443DCAE18D6C18400C920C1 /* M2Tile.m */; };
+		2443DCAF18D6C18400C920C1 /* M2DisplayTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443DCAE18D6C18400C920C1 /* M2DisplayTile.m */; };
 		24C4515B18D6DC4A0001FCFD /* M2Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4515A18D6DC4A0001FCFD /* M2Cell.m */; };
 		24C4515E18D6DC740001FCFD /* M2Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4515D18D6DC740001FCFD /* M2Grid.m */; };
 		24C4516418DABABE0001FCFD /* M2GlobalState.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4516218DABABE0001FCFD /* M2GlobalState.m */; };
@@ -30,6 +30,7 @@
 		24C4517318E140AE0001FCFD /* M2SettingsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4517218E140AE0001FCFD /* M2SettingsDetailViewController.m */; };
 		24C4518118E265390001FCFD /* M2Overlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4518018E265390001FCFD /* M2Overlay.m */; };
 		D6B59EF37AF44577930FFC77 /* libPods-m2048Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D21F00392BA44528B608E73 /* libPods-m2048Tests.a */; };
+		F4112AA819176C49005ABE4D /* M2GlobalState+AI.m in Sources */ = {isa = PBXBuildFile; fileRef = F4112AA719176C49005ABE4D /* M2GlobalState+AI.m */; };
 		F4232F00190760EB005DA131 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2443DC7B18D662CA00C920C1 /* XCTest.framework */; };
 		F4232F01190760EB005DA131 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2443DC5518D662CA00C920C1 /* Foundation.framework */; };
 		F4232F02190760EB005DA131 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2443DC5918D662CA00C920C1 /* UIKit.framework */; };
@@ -37,8 +38,9 @@
 		F4232F121907612D005DA131 /* M2AITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F4232F111907612D005DA131 /* M2AITests.m */; };
 		F4232F1319076183005DA131 /* M2Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4515A18D6DC4A0001FCFD /* M2Cell.m */; };
 		F4232F1419076185005DA131 /* M2Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4515D18D6DC740001FCFD /* M2Grid.m */; };
-		F4232F1519076189005DA131 /* M2Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443DCAE18D6C18400C920C1 /* M2Tile.m */; };
+		F4232F1519076189005DA131 /* M2DisplayTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443DCAE18D6C18400C920C1 /* M2DisplayTile.m */; };
 		F4232F161907619C005DA131 /* M2Grid+AI.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A20F0519030C690044F9B7 /* M2Grid+AI.m */; };
+		F43A7A50191F52BD00FFE8D8 /* M2DummyTile.m in Sources */ = {isa = PBXBuildFile; fileRef = F43A7A4F191F52BD00FFE8D8 /* M2DummyTile.m */; };
 		F466E2191910C95F0066BCA4 /* M2Vector.m in Sources */ = {isa = PBXBuildFile; fileRef = F466E2181910C95F0066BCA4 /* M2Vector.m */; };
 		F466E21A1910CB0F0066BCA4 /* M2Vector.m in Sources */ = {isa = PBXBuildFile; fileRef = F466E2181910C95F0066BCA4 /* M2Vector.m */; };
 		F4A20F031903084D0044F9B7 /* M2AI.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A20F021903084D0044F9B7 /* M2AI.m */; };
@@ -80,8 +82,8 @@
 		2443DCA218D6649500C920C1 /* M2Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M2Theme.m; sourceTree = "<group>"; };
 		2443DCA418D66CCC00C920C1 /* M2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M2ViewController.h; sourceTree = "<group>"; };
 		2443DCA518D66CCC00C920C1 /* M2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M2ViewController.m; sourceTree = "<group>"; };
-		2443DCAD18D6C18400C920C1 /* M2Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M2Tile.h; sourceTree = "<group>"; };
-		2443DCAE18D6C18400C920C1 /* M2Tile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M2Tile.m; sourceTree = "<group>"; };
+		2443DCAD18D6C18400C920C1 /* M2DisplayTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M2DisplayTile.h; sourceTree = "<group>"; };
+		2443DCAE18D6C18400C920C1 /* M2DisplayTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M2DisplayTile.m; sourceTree = "<group>"; };
 		24C4515918D6DC4A0001FCFD /* M2Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M2Cell.h; sourceTree = "<group>"; };
 		24C4515A18D6DC4A0001FCFD /* M2Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M2Cell.m; sourceTree = "<group>"; };
 		24C4515C18D6DC740001FCFD /* M2Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M2Grid.h; sourceTree = "<group>"; };
@@ -99,11 +101,16 @@
 		24C4518018E265390001FCFD /* M2Overlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M2Overlay.m; sourceTree = "<group>"; };
 		7FBE37E2B8D648218ADFA8B2 /* Pods-m2048Tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-m2048Tests.xcconfig"; path = "Pods/Pods-m2048Tests.xcconfig"; sourceTree = "<group>"; };
 		9D21F00392BA44528B608E73 /* libPods-m2048Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-m2048Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4112AA619176C49005ABE4D /* M2GlobalState+AI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "M2GlobalState+AI.h"; path = "m2048/State/M2GlobalState+AI.h"; sourceTree = SOURCE_ROOT; };
+		F4112AA719176C49005ABE4D /* M2GlobalState+AI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "M2GlobalState+AI.m"; path = "m2048/State/M2GlobalState+AI.m"; sourceTree = SOURCE_ROOT; };
 		F4232EFF190760EB005DA131 /* m2048Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = m2048Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4232F05190760EB005DA131 /* m2048Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "m2048Tests-Info.plist"; sourceTree = "<group>"; };
 		F4232F07190760EB005DA131 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F4232F0B190760EB005DA131 /* m2048Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "m2048Tests-Prefix.pch"; sourceTree = "<group>"; };
 		F4232F111907612D005DA131 /* M2AITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M2AITests.m; sourceTree = "<group>"; };
+		F43A7A4D191F4E5C00FFE8D8 /* M2Tile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = M2Tile.h; sourceTree = "<group>"; };
+		F43A7A4E191F52BD00FFE8D8 /* M2DummyTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M2DummyTile.h; sourceTree = "<group>"; };
+		F43A7A4F191F52BD00FFE8D8 /* M2DummyTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M2DummyTile.m; sourceTree = "<group>"; };
 		F466E2171910C95F0066BCA4 /* M2Vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M2Vector.h; path = m2048/AI/M2Vector.h; sourceTree = SOURCE_ROOT; };
 		F466E2181910C95F0066BCA4 /* M2Vector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = M2Vector.m; path = m2048/AI/M2Vector.m; sourceTree = SOURCE_ROOT; };
 		F4A20F011903084D0044F9B7 /* M2AI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M2AI.h; path = m2048/AI/M2AI.h; sourceTree = SOURCE_ROOT; };
@@ -210,8 +217,11 @@
 				24C4515D18D6DC740001FCFD /* M2Grid.m */,
 				2443DC9518D663FC00C920C1 /* M2Scene.h */,
 				2443DC9618D663FC00C920C1 /* M2Scene.m */,
-				2443DCAD18D6C18400C920C1 /* M2Tile.h */,
-				2443DCAE18D6C18400C920C1 /* M2Tile.m */,
+				2443DCAD18D6C18400C920C1 /* M2DisplayTile.h */,
+				2443DCAE18D6C18400C920C1 /* M2DisplayTile.m */,
+				F43A7A4E191F52BD00FFE8D8 /* M2DummyTile.h */,
+				F43A7A4F191F52BD00FFE8D8 /* M2DummyTile.m */,
+				F43A7A4D191F4E5C00FFE8D8 /* M2Tile.h */,
 			);
 			path = "Sprite Kit";
 			sourceTree = "<group>";
@@ -298,6 +308,8 @@
 				F4A20F021903084D0044F9B7 /* M2AI.m */,
 				F4A20F0419030C690044F9B7 /* M2Grid+AI.h */,
 				F4A20F0519030C690044F9B7 /* M2Grid+AI.m */,
+				F4112AA619176C49005ABE4D /* M2GlobalState+AI.h */,
+				F4112AA719176C49005ABE4D /* M2GlobalState+AI.m */,
 			);
 			name = AI;
 			path = View;
@@ -442,16 +454,18 @@
 				2443DCA618D66CCC00C920C1 /* M2ViewController.m in Sources */,
 				2443DC6418D662CA00C920C1 /* main.m in Sources */,
 				24C4515B18D6DC4A0001FCFD /* M2Cell.m in Sources */,
+				F43A7A50191F52BD00FFE8D8 /* M2DummyTile.m in Sources */,
 				24C4516818DD64A90001FCFD /* M2GridView.m in Sources */,
 				2443DC9A18D663FC00C920C1 /* M2Scene.m in Sources */,
 				24C4515E18D6DC740001FCFD /* M2Grid.m in Sources */,
 				24C4518118E265390001FCFD /* M2Overlay.m in Sources */,
 				F4A20F0619030C690044F9B7 /* M2Grid+AI.m in Sources */,
-				2443DCAF18D6C18400C920C1 /* M2Tile.m in Sources */,
+				2443DCAF18D6C18400C920C1 /* M2DisplayTile.m in Sources */,
 				2443DCA018D6647000C920C1 /* M2SettingsViewController.m in Sources */,
 				24C4517018DFF10B0001FCFD /* M2ScoreView.m in Sources */,
 				F4A20F031903084D0044F9B7 /* M2AI.m in Sources */,
 				2443DCA318D6649500C920C1 /* M2Theme.m in Sources */,
+				F4112AA819176C49005ABE4D /* M2GlobalState+AI.m in Sources */,
 				24C4517318E140AE0001FCFD /* M2SettingsDetailViewController.m in Sources */,
 				24C4516418DABABE0001FCFD /* M2GlobalState.m in Sources */,
 				F466E2191910C95F0066BCA4 /* M2Vector.m in Sources */,
@@ -465,7 +479,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4232F161907619C005DA131 /* M2Grid+AI.m in Sources */,
-				F4232F1519076189005DA131 /* M2Tile.m in Sources */,
+				F4232F1519076189005DA131 /* M2DisplayTile.m in Sources */,
 				F4232F1319076183005DA131 /* M2Cell.m in Sources */,
 				F466E21A1910CB0F0066BCA4 /* M2Vector.m in Sources */,
 				F4232F1419076185005DA131 /* M2Grid.m in Sources */,

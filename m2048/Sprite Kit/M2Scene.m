@@ -28,6 +28,8 @@
    * moves by the same swipe.
    */
   BOOL _hasPendingSwipe;
+    
+    BOOL _autoRunning;
 }
 
 - (id)initWithSize:(CGSize)size
@@ -54,6 +56,24 @@
   [_manager startNewSessionWithScene:self];
 }
 
+- (void)showHint {
+    [_manager showHint];
+}
+
+- (void)toggleAutoRun {
+    if (_autoRunning) {
+        [_manager setAutoRunning:NO];
+        _autoRunning = NO;
+    } else {
+        [_manager setAutoRunning:YES];
+        [_manager autoRun];
+        _autoRunning = YES;
+    }
+}
+
+- (BOOL)isAutoRunning {
+    return _autoRunning;
+}
 
 # pragma mark - Swipe handling
 

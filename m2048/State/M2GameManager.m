@@ -8,9 +8,11 @@
 
 #import "M2GameManager.h"
 #import "M2Grid.h"
-#import "M2Tile.h"
+#import "M2DisplayTile.h"
 #import "M2Scene.h"
 #import "M2ViewController.h"
+
+#import "M2AI.h"
 
 /**
  * Helper function that checks the termination condition of either counting up or down.
@@ -44,6 +46,8 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
   
   /* The grid on which everything happens. */
   M2Grid *_grid;
+    
+    NSOperationQueue *_queue;
 }
 
 
@@ -76,7 +80,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
 
 - (void)moveToDirection:(M2Direction)direction
 {
-  __block M2Tile *tile = nil;
+  __block id <M2Tile> tile = nil;
   
   // Remember that the coordinate system of SpriteKit is the reverse of that of UIKit.
   BOOL reverse = direction == M2DirectionUp || direction == M2DirectionRight;
@@ -88,7 +92,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
         // Find farthest position to move to.
         NSInteger target = position.x;
         for (NSInteger i = position.x + unit; iterate(i, reverse, _grid.dimension, -1); i += unit) {
-          M2Tile *t = [_grid tileAtPosition:M2PositionMake(i, position.y)];
+          id <M2Tile> t = [_grid tileAtPosition:M2PositionMake(i, position.y)];
           
           // Empty cell; we can move at least to here.
           if (!t) target = i;
@@ -99,7 +103,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
             
             if (GSTATE.gameType == M2GameTypePowerOf3) {
               M2Position further = M2PositionMake(i + unit, position.y);
-              M2Tile *ft = [_grid tileAtPosition:further];
+              id <M2Tile> ft = [_grid tileAtPosition:further];
               if (ft) {
                 level = [tile merge3ToTile:t andTile:ft];
               }
@@ -130,7 +134,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
       if ((tile = [_grid tileAtPosition:position])) {
         NSInteger target = position.y;
         for (NSInteger i = position.y + unit; iterate(i, reverse, _grid.dimension, -1); i += unit) {
-          M2Tile *t = [_grid tileAtPosition:M2PositionMake(position.x, i)];
+          id <M2Tile> t = [_grid tileAtPosition:M2PositionMake(position.x, i)];
           
           if (!t) target = i;
 
@@ -139,7 +143,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
             
             if (GSTATE.gameType == M2GameTypePowerOf3) {
               M2Position further = M2PositionMake(position.x, i + unit);
-              M2Tile *ft = [_grid tileAtPosition:further];
+              id <M2Tile> ft = [_grid tileAtPosition:further];
               if (ft) {
                 level = [tile merge3ToTile:t andTile:ft];
               }
@@ -170,9 +174,9 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
   
   // Commit tile movements.
   [_grid forEach:^(M2Position position) {
-    M2Tile *tile = [_grid tileAtPosition:position];
-    if (tile) {
-      [tile commitPendingActions];
+    id <M2Tile> tile = [_grid tileAtPosition:position];
+    if (tile && [tile isKindOfClass:[M2DisplayTile class]]) {
+      [(M2DisplayTile *)tile commitPendingActions];
       if (tile.level >= GSTATE.winningLevel) _won = YES;
     }
   } reverseOrder:reverse];
@@ -240,7 +244,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
   for (NSInteger i = 0; i < _grid.dimension; i++) {
     for (NSInteger j = 0; j < _grid.dimension; j++) {
       // Due to symmetry, we only need to check for tiles to the right and down.
-      M2Tile *tile = [_grid tileAtPosition:M2PositionMake(i, j)];
+      id <M2Tile> tile = [_grid tileAtPosition:M2PositionMake(i, j)];
       
       // Continue with next iteration if the tile does not exist. Note that this means that
       // the cell is empty. For our current usage, it will never happen. It is only in place
@@ -265,6 +269,48 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
   
   // Nothing is found.
   return NO;
+}
+
+#pragma mark - AI
+- (void)showHint {
+    M2AI *AI = [[M2AI alloc] initWithGrid:_grid];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        M2Vector *bestMove = AI.bestMove;
+        if (!bestMove) NSLog(@"No best move!");
+        NSLog(@"Best move: %ld %ld", bestMove.x, bestMove.y);
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:GSTATE.AIHintNotificationName object:self userInfo:@{@"bestMove": bestMove ? bestMove : [NSNull null]}];
+        });
+    });
+}
+
+- (void)autoRun {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            do {
+                if (_autoRunning) {
+                    [_grid dumpGrid];
+                    M2AI *AI = [[M2AI alloc] initWithGrid:_grid];
+                    M2Vector *bestMove = AI.bestMove;
+                    if (!bestMove) {
+                        dispatch_sync(dispatch_get_main_queue(), ^{
+                            NSDictionary *info = @{@"won": @([_grid isWinningBoard])};
+                            [[NSNotificationCenter defaultCenter] postNotificationName:GSTATE.AIAutoRunningCompleteNotificationName object:self userInfo:info];
+                            NSLog(@"You %@", [_grid isWinningBoard] ? @"win": @"lose");
+                        });
+                        break;
+                    }
+                    NSLog(@"Best move: %ld %ld", bestMove.x, bestMove.y);
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        M2Direction direction = 0;
+                        if (bestMove.x == -1 && bestMove.y == 0) direction = M2DirectionDown;
+                        if (bestMove.x == 1 && bestMove.y == 0) direction = M2DirectionUp;
+                        if (bestMove.x == 0 && bestMove.y == -1) direction = M2DirectionLeft;
+                        if (bestMove.x == 0 && bestMove.y == 1) direction = M2DirectionRight;
+                        [self moveToDirection:direction];
+                    });
+                }
+            } while (_autoRunning);
+        });
 }
 
 @end

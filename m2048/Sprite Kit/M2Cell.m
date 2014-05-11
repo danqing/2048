@@ -7,7 +7,7 @@
 //
 
 #import "M2Cell.h"
-#import "M2Tile.h"
+#import "M2DisplayTile.h"
 
 @implementation M2Cell
 
@@ -21,7 +21,7 @@
 }
 
 
-- (void)setTile:(M2Tile *)tile
+- (void)setTile:(M2DisplayTile *)tile
 {
   _tile = tile;
   if (tile) tile.cell = self;

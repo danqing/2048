@@ -8,11 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "M2Grid+AI.h"
+#import "M2Vector.h"
 
 @class M2Grid;
 @interface M2AI : NSObject
 
 - (instancetype)initWithGrid:(M2Grid *)grid;
+
+- (M2Vector *)bestMove;
 
 @end
 

@@ -7,10 +7,24 @@
 //
 
 #import "M2Grid+AI.h"
-#import "M2Tile.h"
 #import "M2Vector.h"
+#import "M2Tile.h"
+#import "M2DummyTile.h"
 
 @implementation M2Grid (AI)
+
+- (instancetype)initWithRawGrid:(NSArray *)grid {
+    if (self = [self initWithDimension:grid.count]) {
+        for (int row = 0; row < grid.count; row++) {
+            for (int column = 0; column < [grid[row] count]; column++) {
+                NSUInteger level = [grid[row][column] unsignedIntegerValue];
+                if (level <= 0) continue;
+                [self insertDummyTileAtPosition:M2PositionMake(row, column) withLevel:level];
+            }
+        }
+    }
+    return self;
+}
 
 - (double)heuristicValue {
     NSInteger emptyCellCount = self.availableCells.count;
@@ -25,7 +39,7 @@
 - (NSInteger)maxLevel {
     __block NSInteger maxValue = 2;
     [self forEach:^(M2Position position) {
-        M2Tile *tile = [self tileAtPosition:position];
+        id <M2Tile> tile = [self tileAtPosition:position];
         if (tile.level > maxValue) maxValue = tile.level;
     } reverseOrder:NO];
     return maxValue;
@@ -35,8 +49,8 @@
     __block NSInteger smoothness = 0;
     [self forEach:^(M2Position position) {
         M2Cell *cell = [self cellAtPosition:position];
-        M2Tile *rightTile = [[self nextCellFromCell:cell inDirection:M2VectorRight] tile];
-        M2Tile *downTile = [[self nextCellFromCell:cell inDirection:M2VectorDown] tile];
+        id <M2Tile> rightTile = [[self nextCellFromCell:cell inDirection:M2VectorRight] tile];
+        id <M2Tile> downTile = [[self nextCellFromCell:cell inDirection:M2VectorDown] tile];
         if (cell.tile && rightTile) smoothness -= ABS(cell.tile.level - rightTile.level);
         if (cell.tile && downTile) smoothness -= ABS(cell.tile.level - downTile.level);
     } reverseOrder:NO];
@@ -51,32 +65,28 @@
 
         M2Cell *rightCell = [self nextCellFromCell:cell inDirection:M2VectorRight];
         if (rightCell) {
-            M2Tile *rightTile = [rightCell tile];
-            if (!rightTile) difference = cell.tile.level;
+            id <M2Tile> rightTile = [rightCell tile];
             difference = cell.tile.level - rightTile.level;
             if (difference > 0) right -= difference;
         }
 
         M2Cell *leftCell = [self nextCellFromCell:cell inDirection:M2VectorLeft];
         if (leftCell) {
-            M2Tile *leftTile = leftCell.tile;
-            if (!leftTile) difference = cell.tile.level;
+            id <M2Tile> leftTile = leftCell.tile;
             difference = cell.tile.level - leftTile.level;
             if (difference > 0) left -= difference;
         }
         
         M2Cell *downCell = [self nextCellFromCell:cell inDirection:M2VectorDown];
         if (downCell) {
-            M2Tile *downTile = [downCell tile];
-            if (!downTile) difference = cell.tile.level;
+            id <M2Tile> downTile = [downCell tile];
             difference = cell.tile.level - downTile.level;
             if (difference > 0) down -= difference;
         }
         
         M2Cell *upCell = [self nextCellFromCell:cell inDirection:M2VectorUp];
         if (upCell) {
-            M2Tile *upTile = [upCell tile];
-            if (!upTile) difference = cell.tile.level;
+            id <M2Tile> upTile = [upCell tile];
             difference = cell.tile.level - upTile.level;
             if (difference > 0) up -= difference;
         }
@@ -88,7 +98,7 @@
 - (M2Grid *)gridAfterMoveWithDirection:(M2Vector *)direction {
     M2Grid *grid = [self copy];
     
-    __block NSMutableArray *merged = [NSMutableArray arrayWithArray:@[@NO, @NO, @NO, @NO]];
+    __block NSMutableArray *merged = [NSMutableArray arrayWithArray:@[@NO, @NO, @NO, @NO, @NO]];
     [self forEach:^(M2Position position) {
         M2Cell *cell = [grid cellAtPosition:position];
         if (cell.tile) {
@@ -98,7 +108,7 @@
                 if (nextCell.tile.level != cell.tile.level || (nextCell.tile.level == cell.tile.level && [merged[mergedIndex] boolValue])) {
                     // If unable to merge, move only
                     M2Cell *targetCell = [grid farthestEmptyCellFromCell:cell inDirection:direction];
-                    if (targetCell.position.x != cell.position.x || targetCell.position.y != targetCell.position.y) {
+                    if (![targetCell isEqual:cell]) {
                         targetCell.tile = cell.tile;
                         cell.tile = nil;
                     }
@@ -107,6 +117,12 @@
                     nextCell.tile.level++;
                     cell.tile = nil;
                     merged[mergedIndex] = @YES;
+                }
+            } else {
+                M2Cell *targetCell = [grid farthestEmptyCellFromCell:cell inDirection:direction];
+                if (![targetCell isEqual:cell]) {
+                    targetCell.tile = cell.tile;
+                    cell.tile = nil;
                 }
             }
         }
@@ -133,8 +149,8 @@
     [self forEach:^(M2Position position) {
         M2Cell *cell = [self cellAtPosition:position];
         if (cell.tile) {
-            M2Tile *rightTile = [[self nextCellFromCell:cell inDirection:M2VectorRight] tile];
-            M2Tile *downTile = [[self nextCellFromCell:cell inDirection:M2VectorDown] tile];
+            id <M2Tile> rightTile = [[self nextCellFromCell:cell inDirection:M2VectorRight] tile];
+            id <M2Tile> downTile = [[self nextCellFromCell:cell inDirection:M2VectorDown] tile];
             if (cell.tile.level == rightTile.level || cell.tile.level == downTile.level) {
                 cannotMerge = NO;
                 return;
@@ -180,7 +196,7 @@
     NSMutableString *result = [[NSMutableString alloc] initWithString:@"Grid:\n"];
     for (NSInteger i = 0; i < self.dimension; i++) {
         for (NSInteger j = 0; j < self.dimension; j++) {
-            M2Tile *tile = [self tileAtPosition:M2PositionMake(i, j)];
+            id <M2Tile> tile = [self tileAtPosition:M2PositionMake(i, j)];
             [result appendFormat:@"%ld ", (long)(tile ? tile.level : 0)];
         }
         [result appendFormat:@"\n"];

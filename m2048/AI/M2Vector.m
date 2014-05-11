@@ -19,4 +19,23 @@
     return self;
 }
 
+- (NSString *)vectorString {
+    if ([self isEqual:M2VectorUp]) return @"Up";
+    if ([self isEqual:M2VectorDown]) return @"Down";
+    if ([self isEqual:M2VectorLeft]) return @"Left";
+    if ([self isEqual:M2VectorRight]) return @"Right";
+    return @"(I don't know)";
+}
+
+#pragma mark - Equality
+- (BOOL)isEqual:(id)object {
+    if (self == object) return YES;
+    if (!object || ![object isKindOfClass:[M2Vector class]]) return NO;
+    M2Vector *vector = object;
+    return self.x == vector.x && self.y == vector.y;
+}
+
+- (NSUInteger)hash {
+    return 37 * _x + _y;
+}
 @end

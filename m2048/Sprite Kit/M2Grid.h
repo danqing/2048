@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "M2Cell.h"
+#import "M2Tile.h"
 
 @class M2Scene;
 
@@ -29,15 +30,6 @@ typedef void (^IteratorBlock)(M2Position);
  * @param dimension The desired dimension, i.e. # cells in a row or column.
  */
 - (instancetype)initWithDimension:(NSInteger)dimension;
-
-/**
- *  Initialize a new grid with given raw grid described with a two-dimensional array.
- *
- *  @param grid The raw grid.
- *  @return A new instance of `M2Grid` object.
- *  @note The elements in grid must be the levels, instead of real values.
- */
-- (instancetype)initWithRawGrid:(NSArray *)grid;
 
 /**
  * Iterates over the grid and calls the block, which takes in the M2Position
@@ -64,7 +56,7 @@ typedef void (^IteratorBlock)(M2Position);
  * @param position The position we are interested in.
  * @return The tile at the position. If position out of bound or cell empty, returns nil.
  */
-- (M2Tile *)tileAtPosition:(M2Position)position;
+- (id <M2Tile>)tileAtPosition:(M2Position)position;
 
 
 /**
@@ -93,7 +85,7 @@ typedef void (^IteratorBlock)(M2Position);
  *  @param level The level of this tile.
  *  @note This method is for grid copying and debugging only. Do not use in the regular logic.
  */
-- (void)insertTileAtPosition:(M2Position)position withLevel:(NSUInteger)level;
+- (void)insertDummyTileAtPosition:(M2Position)position withLevel:(NSUInteger)level;
 
 /**
  *  Remove the tile at given position.

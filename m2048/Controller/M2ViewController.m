@@ -14,10 +14,14 @@
 #import "M2ScoreView.h"
 #import "M2Overlay.h"
 #import "M2GridView.h"
+#import "M2Vector.h"
 
 @implementation M2ViewController {
   IBOutlet UIButton *_restartButton;
   IBOutlet UIButton *_settingsButton;
+    IBOutlet UIButton *_showHintButton;
+    IBOutlet UIButton *_autoRunButton;
+    IBOutlet UIProgressView *_AIProcessView;
   IBOutlet UILabel *_targetScore;
   IBOutlet UILabel *_subtitle;
   IBOutlet M2ScoreView *_scoreView;
@@ -37,11 +41,14 @@
   
   _bestView.score.text = [NSString stringWithFormat:@"%ld", (long)[Settings integerForKey:@"Best Score"]];
   
-  _restartButton.layer.cornerRadius = [GSTATE cornerRadius];
-  _restartButton.layer.masksToBounds = YES;
-  
-  _settingsButton.layer.cornerRadius = [GSTATE cornerRadius];
-  _settingsButton.layer.masksToBounds = YES;
+    NSArray *buttons = @[_restartButton, _settingsButton, _showHintButton, _autoRunButton];
+    
+    for (UIButton *button in buttons) {
+        button.layer.cornerRadius = [GSTATE cornerRadius];
+        button.layer.masksToBounds = YES;
+    }
+    
+    _AIProcessView.hidden = YES;
   
   _overlay.hidden = YES;
   _overlayBackground.hidden = YES;
@@ -60,6 +67,16 @@
   
   _scene = scene;
   _scene.delegate = self;
+    
+    // Add observers for AI
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hintResultAvailable:) name:GSTATE.AIHintNotificationName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(autoRunComplete:) name:GSTATE.AIAutoRunningCompleteNotificationName object:nil];
+    
+    NSLog(@"\nDJ.Ben presents");
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -67,13 +84,14 @@
 {
   [_scoreView updateAppearance];
   [_bestView updateAppearance];
-  
-  _restartButton.backgroundColor = [GSTATE buttonColor];
-  _restartButton.titleLabel.font = [UIFont fontWithName:[GSTATE boldFontName] size:14];
-  
-  _settingsButton.backgroundColor = [GSTATE buttonColor];
-  _settingsButton.titleLabel.font = [UIFont fontWithName:[GSTATE boldFontName] size:14];
-  
+    
+    NSArray *buttons = @[_restartButton, _settingsButton, _showHintButton, _autoRunButton];
+    
+    for (UIButton *button in buttons) {
+        button.backgroundColor = [GSTATE buttonColor];
+        button.titleLabel.font = [UIFont fontWithName:[GSTATE boldFontName] size:14];
+    }
+    
   _targetScore.textColor = [GSTATE buttonColor];
   
   long target = [GSTATE valueForLevel:GSTATE.winningLevel];
@@ -124,14 +142,17 @@
   [self hideOverlay];
   [self updateScore:0];
   [_scene startNewGame];
+    if ([_scene isAutoRunning])[_scene toggleAutoRun];
+    [_autoRunButton setTitle:@"Auto Run" forState:UIControlStateNormal];
 }
 
 
 - (IBAction)keepPlaying:(id)sender
 {
   [self hideOverlay];
+    if ([_scene isAutoRunning])[_scene toggleAutoRun];
+    [_autoRunButton setTitle:@"Auto Run" forState:UIControlStateNormal];
 }
-
 
 - (IBAction)done:(UIStoryboardSegue *)segue
 {
@@ -141,9 +162,53 @@
     [self updateState];
     [self updateScore:0];
     [_scene startNewGame];
+      if ([_scene isAutoRunning])[_scene toggleAutoRun];
+      [_autoRunButton setTitle:@"Auto Run" forState:UIControlStateNormal];
   }
 }
 
+- (void)enableControls:(BOOL)enableControls {
+    _scene.userInteractionEnabled = enableControls;
+    _restartButton.enabled = enableControls;
+    _settingsButton.enabled = enableControls;
+}
+
+- (IBAction)showHint:(id)sender {
+    [_scene showHint];
+    [self enableControls:NO];
+    _autoRunButton.enabled = NO;
+    NSLog(@"Disable");
+}
+
+- (void)hintResultAvailable:(NSNotification *)notification {
+    [self enableControls:YES];
+    _autoRunButton.enabled = YES;
+    NSLog(@"Notification received");
+    if ([[notification userInfo][@"bestMove"] isEqual:[NSNull null]]) {
+        NSLog(@"No best move found.");
+        return;
+    }
+    M2Vector *move = [notification userInfo][@"bestMove"];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hint" message:[NSString stringWithFormat:@"You should move %@.", move.vectorString] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    
+}
+
+- (IBAction)autoRun:(id)sender {
+    [_scene toggleAutoRun];
+    [self enableControls:![_scene isAutoRunning]];
+    _showHintButton.enabled = ![_scene isAutoRunning];
+    if ([_scene isAutoRunning]) {
+        [_autoRunButton setTitle:@"Stop" forState:UIControlStateNormal];
+    } else {
+        [_autoRunButton setTitle:@"Auto Run" forState:UIControlStateNormal];
+    }
+}
+
+- (void)autoRunComplete:(NSNotification *)notification {
+    [self enableControls:YES];
+    _showHintButton.enabled = YES;
+}
 
 - (void)endGameWinning:(BOOL)won
 {
@@ -152,6 +217,9 @@
   _overlayBackground.hidden = NO;
   _overlayBackground.alpha = 0;
   
+    // Stop AI
+    if ([_scene isAutoRunning])[_scene toggleAutoRun];
+    
   if (!won) {
     _overlay.keepPlaying.hidden = YES;
     _overlay.message.text = @"Game Over";

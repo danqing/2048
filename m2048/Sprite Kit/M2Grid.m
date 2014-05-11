@@ -8,7 +8,8 @@
 #include "stdlib.h"
 
 #import "M2Grid.h"
-#import "M2Tile.h"
+#import "M2DisplayTile.h"
+#import "M2DummyTile.h"
 #import "M2Scene.h"
 
 @interface M2Grid ()
@@ -46,20 +47,6 @@
   return self;
 }
 
-- (instancetype)initWithRawGrid:(NSArray *)grid {
-    if (self = [self initWithDimension:grid.count]) {
-        for (int row = 0; row < grid.count; row++) {
-            for (int column = 0; column < [grid[row] count]; column++) {
-                NSUInteger level = [grid[row][column] unsignedIntegerValue];
-                if (level <= 0) continue;
-                [self insertTileAtPosition:M2PositionMake(row, column) withLevel:level];
-            }
-        }
-    }
-    return self;
-}
-
-
 # pragma mark - Iterator
 
 - (void)forEach:(IteratorBlock)block reverseOrder:(BOOL)reverse
@@ -90,7 +77,7 @@
 }
 
 
-- (M2Tile *)tileAtPosition:(M2Position)position
+- (id <M2Tile>)tileAtPosition:(M2Position)position
 {
   M2Cell *cell = [self cellAtPosition:position];
   return cell ? cell.tile : nil;
@@ -137,7 +124,7 @@
 {
   M2Cell *cell = [self randomAvailableCell];
   if (cell) {
-    M2Tile *tile = [M2Tile insertNewTileToCell:cell];
+    M2DisplayTile *tile = [M2DisplayTile insertNewTileToCell:cell];
     [self.scene addChild:tile];
     
     SKAction *delayAction = delay ? [SKAction waitForDuration:GSTATE.animationDuration * 3] :
@@ -149,12 +136,12 @@
   }
 }
 
-- (void)insertTileAtPosition:(M2Position)position withLevel:(NSUInteger)level {
+- (void)insertDummyTileAtPosition:(M2Position)position withLevel:(NSUInteger)level {
     M2Cell *cell = [self cellAtPosition:position];
     if (cell && cell.tile && [[self.scene children] indexOfObject:cell.tile] != NSNotFound) {
         [NSException raise:@"Error replacing existing cell on board." format:@"Existing cell at position (%ld, %ld) cannot be replaced. Please do not use this method in regular logic.", (long)position.x, (long)position.y];
     }
-    [M2Tile insertNewTileToCell:cell];
+    [M2DummyTile insertNewTileToCell:cell];
     cell.tile.level = level;
 }
 
@@ -170,19 +157,20 @@
 - (void)removeAllTilesAnimated:(BOOL)animated
 {
   [self forEach:^(M2Position position) {
-    M2Tile *tile = [self tileAtPosition:position];
-    if (tile) [tile removeAnimated:animated];
+    id <M2Tile> tile = [self tileAtPosition:position];
+    if (tile && [tile isKindOfClass:[M2DisplayTile class]]) [(M2DisplayTile *)tile removeAnimated:animated];
   } reverseOrder:NO];
 }
 
 #pragma mark - NSCopying
 
+// The -copy method will make dummy cells
 - (id)copyWithZone:(NSZone *)zone {
     M2Grid *newGrid = [[M2Grid alloc] initWithDimension:self.dimension];
     [self forEach:^(M2Position position) {
-        M2Tile *tile = [self tileAtPosition:position];
+        id <M2Tile> tile = [self tileAtPosition:position];
         if (tile) {
-            [newGrid insertTileAtPosition:position withLevel:tile.level];
+            [newGrid insertDummyTileAtPosition:position withLevel:tile.level];
         }
     } reverseOrder:NO];
     return newGrid;
@@ -200,8 +188,8 @@
     if (!grid) return NO;
     __block BOOL allTilesEqual = YES;
     [self forEach:^(M2Position position) {
-        M2Tile *tile = [self tileAtPosition:position];
-        M2Tile *otherTile = [grid tileAtPosition:position];
+        id <M2Tile> tile = [self tileAtPosition:position];
+        id <M2Tile> otherTile = [grid tileAtPosition:position];
         if (tile && (!otherTile || tile.level != otherTile.level)) {
             allTilesEqual = NO;
         }
@@ -213,7 +201,7 @@
     __block NSUInteger prime = 31, prime2 = 17, prime3 = 13, prime4 = 7;
     __block NSUInteger result = 1;
     [self forEach:^(M2Position position) {
-        M2Tile *tile = [self tileAtPosition:position];
+        id <M2Tile> tile = [self tileAtPosition:position];
         result = prime * result + prime2 * position.x + prime3 * position.y + prime4 * tile.level;
     } reverseOrder:NO];
     return result;
