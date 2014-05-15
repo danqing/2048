@@ -4,20 +4,6 @@ This is a derivative and the iOS version of the game 2048. In the very unlikely 
 
 Made just for fun! You can find it on the [App Store](https://itunes.apple.com/us/app/2048-and-more!/id848859070?ls=1&mt=8).
 
-## AI
-
-An AI is added! Tap "Hint" to show hint (e.g. Move left/right/up/down); tap "Auto Run" to run AI automatically.
-
-Thanks to [ov3y](https://github.com/ov3y/2048-AI)'s Javascript version that gave me inspiration.
-
-[![2048 AI](http://img.youtube.com/vi/GF0ANNPpF8E/hqdefault.jpg)](http://www.youtube.com/watch?v=GF0ANNPpF8E)
-
-### Issues and pending improvements
-
-Currently the searching depth is 2 and it fails sometimes. You can increase the number to 3 or more by changing the return value of `- (NSInteger)maximumSearchingDepth` in `M2GlobalState+AI.h`.
-
-Ideally, the AI should search from 0 depth to infinity and have a time out, it records the current best move when finish searching the current depth and stops immediately when timed out and return the best move so far. However, I have a little bit of trouble when dealing with `NSOperationQueue` so I didn't do it this way. Now the AI only searches at the specified `-maximumSearchingDepth`.
-
 <p align="center">
   <img src="http://a4.mzstatic.com/us/r30/Purple4/v4/a4/f8/af/a4f8af1d-3878-0817-859d-de76bae169c7/screen568x568.jpeg" alt="Screenshot"/>
 </p>
@@ -29,6 +15,26 @@ Since it is a *derivative* of the original 2048, it is not the *same*. More expl
 * **Three board sizes**: 3x3, 4x4 and 5x5. The smaller the board is, the fewer cells you have, and the harder the game is.* 
 * **Three game modes**: The original Power of 2, i.e. combining two tiles of the same value to produce their sum. The Power of 3, i.e. combining *three* consecutive tiles of the same value to produce their sum. Not surprisingly, this is pretty hard with the 3x3 board, although I found it pretty easy to get 81. 243 is a different story... And the Fibonacci sequence, i.e. combining two adjacent numbers in the sequence 2, 3, 5, 8, 13... (I omitted the two 1's in the beginning) to produce the one next to the larger value. This is pretty tricky. Try it out and you will know what I mean.
 * **Three themes**: I made a bright theme and a 'joyful' theme in addition to the original one. In case you wonder how to do themes in iOS. (There may be a better way, but themes are verbose in nature, because you *have to* specify all the colors, fonts, etc.)
+
+## AI
+
+Here comes the **AI**!!! 
+
+* Tap "Hint" to show hint (e.g. Move left/right/up/down)
+* Tap "Auto Run" to run AI automatically. 
+* You can change _maximum searching depth_, _searching time out_ and choice of _caching results_ in "Settings > AI".
+
+I also used dynamic programming to make AI cache the results of previous depth (you can turn it on/off in AI Settings). However, it only improves performance when the searching depth is above 3 but decreases performance when the depth is 1 or 2. I am a noob programmer and it's my first time trying to implement dynamic programming. I appreciate any help and suggestions about this.
+
+Thanks to [ov3y](https://github.com/ov3y/2048-AI)'s Javascript version that gave me inspiration.
+
+[![2048 AI](http://img.youtube.com/vi/GF0ANNPpF8E/hqdefault.jpg)](http://www.youtube.com/watch?v=GF0ANNPpF8E)
+
+### Issues and pending improvements
+
+When the stop button is pressed, the UI seems to have stopped the AI, but the AI is still running in background and will make its last move when complete.
+
+This can be solved by disabling the controls before AI completes or finding a way to immediately stop AI's recursion.
 
 ## The Technology
 
