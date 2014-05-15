@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-#define M2VectorDown [[M2Vector alloc] initWithX:1 y:0]
-#define M2VectorUp [[M2Vector alloc] initWithX:-1 y:0]
-#define M2VectorLeft [[M2Vector alloc] initWithX:0 y:-1]
-#define M2VectorRight [[M2Vector alloc] initWithX:0 y:1]
+#define M2VectorDown [M2Vector downVector]
+#define M2VectorUp [M2Vector upVector]
+#define M2VectorLeft [M2Vector leftVector]
+#define M2VectorRight [M2Vector rightVector]
 
 #define M2Vectors @[M2VectorDown, M2VectorUp, M2VectorLeft, M2VectorRight]
 
@@ -19,8 +19,14 @@
 
 @property (nonatomic) NSInteger x, y;
 
-- (instancetype)initWithX:(NSInteger)x y:(NSInteger)y;
-
 - (NSString *)vectorString;
+
++ (M2Vector *)downVector;
+
++ (M2Vector *)upVector;
+
++ (M2Vector *)leftVector;
+
++ (M2Vector *)rightVector;
 
 @end

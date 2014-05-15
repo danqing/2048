@@ -11,11 +11,11 @@
 @implementation M2GlobalState (AI)
 
 - (NSInteger)maximumSearchingDepth {
-    return 2;
+    return 3;
 }
 
 - (NSTimeInterval)searchingTimeOut {
-    return 3;
+    return 5;
 }
 
 - (NSString *)AIAutoRunningCompleteNotificationName {
@@ -24,6 +24,10 @@
 
 - (NSString *)AIHintNotificationName {
     return @"M2AIHintNotification";
+}
+
+- (NSString *)AIAutoRunningStepNotificationName {
+    return @"M2AIAutoRunningStepNotification";
 }
 
 @end

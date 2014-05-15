@@ -18,4 +18,6 @@
 
 - (NSString *)AIHintNotificationName;
 
+- (NSString *)AIAutoRunningStepNotificationName;
+
 @end

@@ -27,13 +27,16 @@
 }
 
 - (double)heuristicValue {
-    NSInteger emptyCellCount = self.availableCells.count;
-    double smoothWeight = 0.1, monoWeight = 1.0, emptyWeight = 2.7, maxWeight = 1.0;
-    
-    return self.smoothness * smoothWeight
-    + self.monotonicity * monoWeight
-    + log(emptyCellCount) * emptyWeight
-    + self.maxLevel * maxWeight;
+    double score;
+    @autoreleasepool {
+        NSInteger emptyCellCount = self.availableCells.count;
+        double smoothWeight = 0.1, monoWeight = 1.0, emptyWeight = 2.7, maxWeight = 1.0;
+        score = self.smoothness * smoothWeight
+        + self.monotonicity * monoWeight
+        + log(emptyCellCount) * emptyWeight
+        + self.maxLevel * maxWeight;
+    }
+    return score;
 }
 
 - (NSInteger)maxLevel {
@@ -95,7 +98,22 @@
     return MAX(up, down) + MAX(left, right);
 }
 
-- (M2Grid *)gridAfterMoveWithDirection:(M2Vector *)direction {
+- (BOOL)isMovableInDirection:(M2Vector *)direction {
+    __block BOOL canMerge = NO;
+    [self forEach:^(M2Position position) {
+        M2Cell *cell = [self cellAtPosition:position];
+        if (cell.tile) {
+            M2Position next = M2PositionMake(position.x + direction.x, position.y + direction.y);
+            M2Cell *nextCell;
+            if ((nextCell = [self cellAtPosition:next])) {
+                if (!nextCell.tile || nextCell.tile.level == cell.tile.level) canMerge = YES;
+            }
+        }
+    } reverseOrder:NO];
+    return canMerge;
+}
+
+- (M2Grid *)gridAfterMoveInDirection:(M2Vector *)direction {
     M2Grid *grid = [self copy];
     
     __block NSMutableArray *merged = [NSMutableArray arrayWithArray:@[@NO, @NO, @NO, @NO, @NO]];

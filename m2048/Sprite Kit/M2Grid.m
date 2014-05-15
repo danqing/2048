@@ -150,7 +150,7 @@
     if (cell && cell.tile) {
         cell.tile = nil;
     } else {
-        [NSException raise:@"Cannot remove tile." format:@"Cannot remove tile at position (%ld, %ld). Position not valid or tile not exist.", position.x, position.y];
+        [NSException raise:@"Cannot remove tile." format:@"Cannot remove tile at position (%ld, %ld). Position not valid or tile not exist.", (long)position.x, (long)position.y];
     }
 }
 

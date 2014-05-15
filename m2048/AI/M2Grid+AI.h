@@ -41,7 +41,9 @@
 
 - (double)heuristicValue;
 
-- (M2Grid *)gridAfterMoveWithDirection:(M2Vector *)direction;
+- (M2Grid *)gridAfterMoveInDirection:(M2Vector *)direction;
+
+- (BOOL)isMovableInDirection:(M2Vector *)direction;
 
 - (BOOL)isWinningBoard;
 

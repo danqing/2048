@@ -8,7 +8,16 @@
 
 #import "M2Vector.h"
 
+M2Vector *up, *down, *left, *right;
+
 @implementation M2Vector
+
++ (void)load {
+    down = [[M2Vector alloc] initWithX:1 y:0];
+    up = [[M2Vector alloc] initWithX:-1 y:0];
+    left = [[M2Vector alloc] initWithX:0 y:-1];
+    right = [[M2Vector alloc] initWithX:0 y:1];
+}
 
 - (instancetype)initWithX:(NSInteger)x y:(NSInteger)y {
     self = [super init];
@@ -19,9 +28,25 @@
     return self;
 }
 
++ (M2Vector *)downVector {
+    return down;
+}
+
++ (M2Vector *)upVector {
+    return up;
+}
+
++ (M2Vector *)leftVector {
+    return left;
+}
+
++ (M2Vector *)rightVector {
+    return right;
+}
+
 - (NSString *)vectorString {
-    if ([self isEqual:M2VectorUp]) return @"Up";
-    if ([self isEqual:M2VectorDown]) return @"Down";
+    if ([self isEqual:M2VectorUp]) return @"Down";
+    if ([self isEqual:M2VectorDown]) return @"Up";
     if ([self isEqual:M2VectorLeft]) return @"Left";
     if ([self isEqual:M2VectorRight]) return @"Right";
     return @"(I don't know)";
@@ -38,4 +63,5 @@
 - (NSUInteger)hash {
     return 37 * _x + _y;
 }
+
 @end

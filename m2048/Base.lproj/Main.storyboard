@@ -115,6 +115,17 @@
                                     <action selector="showHint:" destination="LVB-YS-i5n" eventType="touchUpInside" id="A7G-o3-E5A"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2u-Sb-f3R">
+                                <rect key="frame" x="230" y="145" width="74" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Auto Run">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="autoRun:" destination="LVB-YS-i5n" eventType="touchUpInside" id="vUr-BL-5US"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4yN-A6-bWQ" customClass="M2Overlay">
                                 <rect key="frame" x="60" y="237" width="200" height="174"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -156,21 +167,17 @@
                                     <outlet property="restartGame" destination="qXD-8y-R8y" id="K7b-ex-bao"/>
                                 </connections>
                             </view>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="gS6-oz-878">
-                                <rect key="frame" x="85" y="546" width="150" height="2"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j82-O8-20i" customClass="M13ProgressViewBar">
+                                <rect key="frame" x="85" y="522" width="150" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </progressView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2u-Sb-f3R">
-                                <rect key="frame" x="230" y="145" width="74" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Auto Run">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="autoRun:" destination="LVB-YS-i5n" eventType="touchUpInside" id="vUr-BL-5US"/>
-                                </connections>
-                            </button>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="progressBarThickness">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showPercentage" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -181,7 +188,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="_AIProcessView" destination="gS6-oz-878" id="Qbm-zC-A3P"/>
+                        <outlet property="_AIProgressView" destination="j82-O8-20i" id="b4G-gE-UvR"/>
                         <outlet property="_autoRunButton" destination="d2u-Sb-f3R" id="Juc-Iv-zIf"/>
                         <outlet property="_bestView" destination="OSi-g6-ogB" id="Y4U-P0-y17"/>
                         <outlet property="_overlay" destination="4yN-A6-bWQ" id="nWX-bx-L22"/>

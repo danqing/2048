@@ -213,15 +213,15 @@ describe(@"In grid extension", ^{
     });
     describe(@"merge", ^{
         it(@"shoule be correct stepwisely", ^{
-            M2Grid *merged = [complexGrid gridAfterMoveWithDirection:M2VectorDown];
+            M2Grid *merged = [complexGrid gridAfterMoveInDirection:M2VectorDown];
             [[merged should] equal:complexGridMergedDown];
-            M2Grid *g6Merged = [grid6 gridAfterMoveWithDirection:M2VectorLeft];
+            M2Grid *g6Merged = [grid6 gridAfterMoveInDirection:M2VectorLeft];
             [[g6Merged should] equal:grid6MergeLeft];
-            M2Grid *complexMergedRight = [complexGrid gridAfterMoveWithDirection:M2VectorRight];
+            M2Grid *complexMergedRight = [complexGrid gridAfterMoveInDirection:M2VectorRight];
             [[complexMergedRight should] equal:complexGridMergedRight];
             [[complexGridMergedDown shouldNot] equal:complexGrid];
-            [[[complexGrid gridAfterMoveWithDirection:M2VectorUp] shouldNot] equal:complexGrid];
-            [[[complexGrid gridAfterMoveWithDirection:M2VectorLeft] should] equal:complexGrid];
+            [[[complexGrid gridAfterMoveInDirection:M2VectorUp] shouldNot] equal:complexGrid];
+            [[[complexGrid gridAfterMoveInDirection:M2VectorLeft] should] equal:complexGrid];
             
             M2Grid *xgrid = [[M2Grid alloc] initWithRawGrid:@[@[@1, @1, @0, @0],
                                                              @[@0, @0, @3, @0],
@@ -243,10 +243,10 @@ describe(@"In grid extension", ^{
                                                                    @[@0, @0, @0, @3],
                                                                    @[@0, @0, @0, @2],
                                                                    @[@0, @0, @0, @2]]];
-            [[[xgrid gridAfterMoveWithDirection:M2VectorLeft] should] equal:xgridLeft];
-            [[[xgrid gridAfterMoveWithDirection:M2VectorDown] should] equal:xgridDown];
-            [[[xgrid gridAfterMoveWithDirection:M2VectorUp] should] equal:xgridUp];
-            [[[xgrid gridAfterMoveWithDirection:M2VectorRight] should] equal:xgridRight];
+            [[[xgrid gridAfterMoveInDirection:M2VectorLeft] should] equal:xgridLeft];
+            [[[xgrid gridAfterMoveInDirection:M2VectorDown] should] equal:xgridDown];
+            [[[xgrid gridAfterMoveInDirection:M2VectorUp] should] equal:xgridUp];
+            [[[xgrid gridAfterMoveInDirection:M2VectorRight] should] equal:xgridRight];
             
             M2Grid *cannotMoveDown = [[M2Grid alloc] initWithRawGrid:@[@[@0, @0, @5, @2],
                                                                        @[@0, @3, @2, @3],
@@ -257,13 +257,32 @@ describe(@"In grid extension", ^{
                                                                                @[@3, @2, @3, @0],
                                                                                @[@8, @6, @2, @0],
                                                                                @[@1, @2, @1, @3]]];
-            [[[cannotMoveDown gridAfterMoveWithDirection:M2VectorLeft] should] equal:cannotMoveDownMoveLeft];
-            [[[cannotMoveDown gridAfterMoveWithDirection:M2VectorDown] should] equal:cannotMoveDown];
+            [[[cannotMoveDown gridAfterMoveInDirection:M2VectorLeft] should] equal:cannotMoveDownMoveLeft];
+            [[[cannotMoveDown gridAfterMoveInDirection:M2VectorDown] should] equal:cannotMoveDown];
 
-            [[[downProblem gridAfterMoveWithDirection:M2VectorDown] should] equal:downProblem];
+            [[[downProblem gridAfterMoveInDirection:M2VectorDown] should] equal:downProblem];
             
         });
     });
+    
+    describe(@"check if merge-able", ^{
+       it(@"should be correct", ^{
+           for (M2Vector *vector in M2Vectors) {
+               [[theValue([gameover isMovableInDirection:vector]) should] beNo];
+               [[theValue([gameover2 isMovableInDirection:vector]) should] beNo];
+               [[theValue([grid2 isMovableInDirection:vector]) should] beYes];
+               [[theValue([grid5 isMovableInDirection:vector]) should] beYes];
+           }
+           [[theValue([grid isMovableInDirection:M2VectorUp]) should] beNo];
+           [[theValue([grid isMovableInDirection:M2VectorRight]) should] beYes];
+           [[theValue([grid isMovableInDirection:M2VectorDown]) should] beYes];
+
+           [[theValue([complexGrid isMovableInDirection:M2VectorLeft]) should] beNo];
+           [[theValue([complexGrid isMovableInDirection:M2VectorDown]) should] beYes];
+
+       });
+    });
+    
     describe(@"winning board check", ^{
        it(@"should be correct", ^{
            for (M2Grid *theGrid in notWinning) {

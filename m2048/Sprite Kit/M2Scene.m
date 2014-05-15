@@ -75,6 +75,7 @@
     return _autoRunning;
 }
 
+
 # pragma mark - Swipe handling
 
 // @TODO: It makes more sense to move these logic stuff to the view controller.
@@ -127,6 +128,12 @@
   _hasPendingSwipe = NO;
 }
 
+- (void)setUserInteractionEnabled:(BOOL)userInteractionEnabled {
+    [super setUserInteractionEnabled:userInteractionEnabled];
+    for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
+        [recognizer setEnabled:userInteractionEnabled];
+    }
+}
 
 # pragma mark - Scene update
 
