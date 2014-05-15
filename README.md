@@ -18,7 +18,11 @@ Since it is a *derivative* of the original 2048, it is not the *same*. More expl
 
 ## AI
 
-Here comes the **AI**!!! Tap "Hint" to show hint (e.g. Move left/right/up/down); tap "Auto Run" to run AI automatically. You can open "Settings > AI" and set maximum searching depth and searching time out.
+Here comes the **AI**!!! 
+
+* Tap "Hint" to show hint (e.g. Move left/right/up/down)
+* Tap "Auto Run" to run AI automatically. 
+* You can change _maximum searching depth_, _searching time out_ and choice of _caching results_ in "Settings > AI".
 
 I also used dynamic programming to make AI cache the results of previous depth (you can turn it on/off in AI Settings). However, it only improves performance when the searching depth is above 3 but decreases performance when the depth is 1 or 2. I am a noob programmer and it's my first time trying to implement dynamic programming. I appreciate any help and suggestions about this.
 
@@ -30,7 +34,7 @@ Thanks to [ov3y](https://github.com/ov3y/2048-AI)'s Javascript version that gave
 
 When the stop button is pressed, the UI seems to have stopped the AI, but the AI is still running in background and will make its last move when complete.
 
-This can be solved by disabling the controls before AI completes or finding a way to immediately stop AI's recursion (it's pretty tricky here).
+This can be solved by disabling the controls before AI completes or finding a way to immediately stop AI's recursion.
 
 ## The Technology
 
