@@ -249,7 +249,7 @@
 }
 
 - (void)updateProgressBar:(NSTimer *)sender {
-    [_AIProgressView setProgress:MIN(1, ABS([_startTime timeIntervalSinceNow]) / GSTATE.searchingTimeOut) animated:YES];
+    [_AIProgressView setProgress:MIN(1, ABS([_startTime timeIntervalSinceNow]) / GSTATE.searchTimeOut) animated:YES];
 }
 
 - (void)enableControls:(BOOL)enableControls {

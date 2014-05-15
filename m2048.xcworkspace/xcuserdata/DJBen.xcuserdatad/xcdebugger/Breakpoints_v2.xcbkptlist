@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "m2048/AI/M2AI.m"
-            timestampString = "421758176.956238"
+            timestampString = "421838260.243068"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "-bestMove"
             landmarkType = "5">
          </BreakpointContent>

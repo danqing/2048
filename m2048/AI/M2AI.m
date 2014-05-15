@@ -34,12 +34,7 @@
 }
 
 - (M2AIResult *)searchWithPlayerTurn:(BOOL)playerTurn depth:(NSInteger)depth alpha:(double)alpha beta:(double)beta positions:(NSInteger)positions cutoffs:(NSInteger)cutoffs {
-//    NSAssert(_startTime, nil);
-//    NSLog(@"%d %d %f %f %d %d, %g", playerTurn, depth, alpha, beta, positions, cutoffs, ABS([_startTime timeIntervalSinceNow]));
-    if (ABS([_startTime timeIntervalSinceNow]) > GSTATE.searchingTimeOut) {
-//        NSLog(@"Search timed out: %g", ABS([_startTime timeIntervalSinceNow]));
-        return nil;
-    }
+    if (ABS([_startTime timeIntervalSinceNow]) > GSTATE.searchTimeOut) return nil;
     double bestScore;
     M2Vector *bestMove;
     M2AIResult *result;
@@ -57,19 +52,25 @@
                 } else {
                     M2AI *newAI = [[M2AI alloc] initWithGrid:movedGrid];
                     newAI.startTime = _startTime;
-                    newAI.memoizedResults = _memoizedResults;
-                    newAI.actions = [_actions stringByAppendingFormat:@" %@", direction.vectorString];
-                    NSString *signature = [NSString stringWithFormat:@"%@ %d %d %g %g", newAI.actions, NO, depth - 1, bestScore, beta];
-                    if (_memoizedResults[signature]) {
-                        result = _memoizedResults[signature];
-//                        NSLog(@"Read memoized: %@", signature);
+                    
+                    if (GSTATE.cacheResults) {
+                        newAI.memoizedResults = _memoizedResults;
+                        newAI.actions = [_actions stringByAppendingFormat:@" %@", direction.vectorString];
+//                        NSString *signature = [NSString stringWithFormat:@"%@ %d %d %g %g", newAI.actions, NO, depth - 1, bestScore, beta];
+//                        if (_memoizedResults[signature]) {
+//                            result = _memoizedResults[signature];
+//                            NSLog(@"Read memoized: %@", signature);
+//                        } else {
+                            result = [newAI searchWithPlayerTurn:NO depth:depth - 1 alpha:bestScore beta:beta positions:positions cutoffs:cutoffs];
+//                            if (result) {
+//                                _memoizedResults[signature] = result;
+//                                NSLog(@"Memoized: %@", signature);
+//                            }
+//                        }
                     } else {
                         result = [newAI searchWithPlayerTurn:NO depth:depth - 1 alpha:bestScore beta:beta positions:positions cutoffs:cutoffs];
-                        if (result) {
-                            _memoizedResults[signature] = result;
-//                            NSLog(@"Memoized: %@", signature);
-                        }
                     }
+
                     if (result.score >= 9900) result.score--;
                     positions = result.positions;
                     cutoffs = result.cutoffs;
@@ -124,16 +125,22 @@
             positions++;
             M2AI *newAI = [[M2AI alloc] initWithGrid:newGrid];
             newAI.startTime = _startTime;
-            newAI.memoizedResults = _memoizedResults;
-            newAI.actions = [_actions stringByAppendingFormat:@" (%d, %d)", candidatePosition.x, candidatePosition.y];
-            NSString *signature = [NSString stringWithFormat:@"%@ %d %d %g %g", newAI.actions, YES, depth, alpha, bestScore];
-            if (_memoizedResults[signature]) {
-                result = _memoizedResults[signature];
-//                NSLog(@"Read memoized: %@", signature);
+            
+            if (GSTATE.cacheResults) {
+                newAI.memoizedResults = _memoizedResults;
+                newAI.actions = [_actions stringByAppendingFormat:@" (%d, %d)", candidatePosition.x, candidatePosition.y];
+                NSString *signature = [NSString stringWithFormat:@"%@ %d %d %g %g", newAI.actions, YES, depth, alpha, bestScore];
+                if (_memoizedResults[signature]) {
+                    result = _memoizedResults[signature];
+//                  NSLog(@"Read memoized: %@", signature);
+                } else {
+                    result = [newAI searchWithPlayerTurn:YES depth:depth alpha:alpha beta:bestScore positions:positions cutoffs:cutoffs];
+                    if (result) _memoizedResults[signature] = result;
+                }
             } else {
                 result = [newAI searchWithPlayerTurn:YES depth:depth alpha:alpha beta:bestScore positions:positions cutoffs:cutoffs];
-                if (result) _memoizedResults[signature] = result;
             }
+
             positions = result.positions;
             cutoffs = result.cutoffs;
             
@@ -158,8 +165,8 @@
     _startTime = [NSDate date];
     @autoreleasepool {
         _memoizedResults = [NSMutableDictionary dictionary];
-        for (NSInteger depth = 0; depth <= GSTATE.maximumSearchingDepth; depth++) {
-            if (ABS([_startTime timeIntervalSinceNow]) > GSTATE.searchingTimeOut) break;
+        for (NSInteger depth = 0; depth <= GSTATE.maxSearchDepth; depth++) {
+            if (ABS([_startTime timeIntervalSinceNow]) > GSTATE.searchTimeOut) break;
             NSLog(@"Searching at depth %ld...", (long)depth);
             M2AIResult *result = [self searchWithPlayerTurn:YES depth:depth alpha:-10000 beta:10000 positions:0 cutoffs:0];
             if (result && (!newBest || result.score >= newBest.score)) {

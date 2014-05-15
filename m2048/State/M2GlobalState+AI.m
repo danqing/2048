@@ -10,14 +10,6 @@
 
 @implementation M2GlobalState (AI)
 
-- (NSInteger)maximumSearchingDepth {
-    return 3;
-}
-
-- (NSTimeInterval)searchingTimeOut {
-    return 5;
-}
-
 - (NSString *)AIAutoRunningCompleteNotificationName {
     return @"M2AIAutoRunningCompleteNotification";
 }

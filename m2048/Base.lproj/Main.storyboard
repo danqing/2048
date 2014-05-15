@@ -266,6 +266,7 @@
                         <outlet property="_tableView" destination="del-Es-she" id="dKB-y4-W7Q"/>
                         <segue destination="evu-uo-nI6" kind="push" identifier="Settings Detail Segue" id="leh-9b-HbF"/>
                         <segue destination="qYG-f3-Y88" kind="push" identifier="About Segue" id="Fqr-Ig-E8u"/>
+                        <segue destination="MfL-y2-s4y" kind="push" identifier="AI Settings Segue" id="WUb-nT-gXj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uVF-z9-YmN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -348,6 +349,80 @@ Additional contributions by Scott Matthewman</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cst-JU-Iv1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="964" y="1040"/>
+        </scene>
+        <!--Settings Detail View Controller - AI Settings-->
+        <scene sceneID="aJl-ao-3mY">
+            <objects>
+                <tableViewController id="MfL-y2-s4y" customClass="M2AISettingsDetailViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="49O-mT-zh7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AI Stepper Cell" id="TfL-n1-INg" customClass="M2AISettingsStepperCell">
+                                <rect key="frame" x="0.0" y="99" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TfL-n1-INg" id="fDd-ec-yMz">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="9fD-Pt-ErK">
+                                            <rect key="frame" x="173" y="7" width="94" height="29"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <connections>
+                                                <action selector="stepperValueChanged:" destination="TfL-n1-INg" eventType="valueChanged" id="fpl-wi-uiK"/>
+                                            </connections>
+                                        </stepper>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BiT-Uf-4Q7">
+                                            <rect key="frame" x="257" y="11" width="44" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W5a-a0-M9B">
+                                            <rect key="frame" x="15" y="0.0" width="150" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="stepper" destination="9fD-Pt-ErK" id="1dQ-zd-iVG"/>
+                                    <outlet property="stepperValueLabel" destination="BiT-Uf-4Q7" id="uh6-u0-ejz"/>
+                                    <outlet property="titleLabel" destination="W5a-a0-M9B" id="rlV-hG-QtG"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AI Cell" textLabel="Ela-9U-0Id" style="IBUITableViewCellStyleDefault" id="Om0-EA-85D">
+                                <rect key="frame" x="0.0" y="143" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Om0-EA-85D" id="5PT-nm-b5C">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ela-9U-0Id">
+                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="MfL-y2-s4y" id="PKV-UI-fS6"/>
+                            <outlet property="delegate" destination="MfL-y2-s4y" id="FP2-yB-FMK"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="AI Settings" id="otH-7y-Ldd"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tcm-Lt-Ruz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1449" y="1239"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tpl-yL-NEq">

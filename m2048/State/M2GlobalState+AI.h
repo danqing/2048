@@ -10,10 +10,6 @@
 
 @interface M2GlobalState (AI)
 
-- (NSInteger)maximumSearchingDepth;
-
-- (NSTimeInterval)searchingTimeOut;
-
 - (NSString *)AIAutoRunningCompleteNotificationName;
 
 - (NSString *)AIHintNotificationName;

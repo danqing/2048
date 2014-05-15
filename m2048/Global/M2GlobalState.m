@@ -14,6 +14,10 @@
 #define kBoardSize @"Board Size"
 #define kBestScore @"Best Score"
 
+NSString *const AIMaxSearchingDepthKey = @"AI Max Searching Depth";
+NSString *const AIMaxSearchingTimeKey = @"AI Max Searching Time";
+NSString *const AICacheResultsKey = @"AI Cache Results";
+
 @interface M2GlobalState ()
 
 @property (nonatomic, readwrite) NSInteger dimension;
@@ -60,8 +64,11 @@
                                   kTheme: @0,
                                   kBoardSize: @1,
                                   kBestScore: @0,
+                                  AIMaxSearchingTimeKey: @5,
+                                  AIMaxSearchingDepthKey: @3,
+                                  AICacheResultsKey: @YES
                                   };
-  [Settings registerDefaults:defaultValues];
+ [Settings registerDefaults:defaultValues];
 }
 
 - (void)loadGlobalState
@@ -75,6 +82,11 @@
   self.verticalOffset = [self verticalOffset];
   self.theme = [Settings integerForKey:kTheme];
   self.needRefresh = NO;
+    
+    // AI
+    _searchTimeOut = [Settings doubleForKey:AIMaxSearchingTimeKey];
+    _maxSearchDepth = [Settings doubleForKey:AIMaxSearchingDepthKey];
+    _cacheResults = [Settings boolForKey:AICacheResultsKey];
 }
 
 

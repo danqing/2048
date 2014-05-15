@@ -13,6 +13,10 @@
 #define Settings [NSUserDefaults standardUserDefaults]
 #define NotifCtr [NSNotificationCenter defaultCenter]
 
+extern NSString *const AIMaxSearchingDepthKey;
+extern NSString *const AIMaxSearchingTimeKey;
+extern NSString *const AICacheResultsKey;
+
 typedef NS_ENUM(NSInteger, M2GameType) {
   M2GameTypeFibonacci = 2,
   M2GameTypePowerOf2 = 0,
@@ -30,6 +34,11 @@ typedef NS_ENUM(NSInteger, M2GameType) {
 @property (nonatomic, readonly) NSInteger verticalOffset;
 @property (nonatomic, readonly) NSTimeInterval animationDuration;
 @property (nonatomic, readonly) M2GameType gameType;
+
+// AI
+@property (nonatomic, readonly) NSTimeInterval searchTimeOut;
+@property (nonatomic, readonly) NSTimeInterval maxSearchDepth;
+@property (nonatomic, readonly) BOOL cacheResults;
 
 @property (nonatomic) BOOL needRefresh;
 
