@@ -33,7 +33,6 @@
 		EFD6ACD095BC4413906543A7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B246E262E47B40F28BF82FCB /* libPods.a */; };
 		F40F5E181924A3B500343253 /* M2AISettingsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F40F5E171924A3B500343253 /* M2AISettingsDetailViewController.m */; };
 		F40F5E1B1924A4CD00343253 /* M2AISettingsStepperCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F40F5E1A1924A4CD00343253 /* M2AISettingsStepperCell.m */; };
-		F4112AA819176C49005ABE4D /* M2GlobalState+AI.m in Sources */ = {isa = PBXBuildFile; fileRef = F4112AA719176C49005ABE4D /* M2GlobalState+AI.m */; };
 		F4232F00190760EB005DA131 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2443DC7B18D662CA00C920C1 /* XCTest.framework */; };
 		F4232F01190760EB005DA131 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2443DC5518D662CA00C920C1 /* Foundation.framework */; };
 		F4232F02190760EB005DA131 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2443DC5918D662CA00C920C1 /* UIKit.framework */; };
@@ -110,8 +109,6 @@
 		F40F5E171924A3B500343253 /* M2AISettingsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M2AISettingsDetailViewController.m; sourceTree = "<group>"; };
 		F40F5E191924A4CD00343253 /* M2AISettingsStepperCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M2AISettingsStepperCell.h; sourceTree = "<group>"; };
 		F40F5E1A1924A4CD00343253 /* M2AISettingsStepperCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M2AISettingsStepperCell.m; sourceTree = "<group>"; };
-		F4112AA619176C49005ABE4D /* M2GlobalState+AI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "M2GlobalState+AI.h"; path = "m2048/State/M2GlobalState+AI.h"; sourceTree = SOURCE_ROOT; };
-		F4112AA719176C49005ABE4D /* M2GlobalState+AI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "M2GlobalState+AI.m"; path = "m2048/State/M2GlobalState+AI.m"; sourceTree = SOURCE_ROOT; };
 		F4232EFF190760EB005DA131 /* m2048Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = m2048Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4232F05190760EB005DA131 /* m2048Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "m2048Tests-Info.plist"; sourceTree = "<group>"; };
 		F4232F07190760EB005DA131 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -324,8 +321,6 @@
 				F4A20F021903084D0044F9B7 /* M2AI.m */,
 				F4A20F0419030C690044F9B7 /* M2Grid+AI.h */,
 				F4A20F0519030C690044F9B7 /* M2Grid+AI.m */,
-				F4112AA619176C49005ABE4D /* M2GlobalState+AI.h */,
-				F4112AA719176C49005ABE4D /* M2GlobalState+AI.m */,
 			);
 			name = AI;
 			path = View;
@@ -514,7 +509,6 @@
 				F4A20F031903084D0044F9B7 /* M2AI.m in Sources */,
 				2443DCA318D6649500C920C1 /* M2Theme.m in Sources */,
 				F40F5E181924A3B500343253 /* M2AISettingsDetailViewController.m in Sources */,
-				F4112AA819176C49005ABE4D /* M2GlobalState+AI.m in Sources */,
 				24C4517318E140AE0001FCFD /* M2SettingsDetailViewController.m in Sources */,
 				24C4516418DABABE0001FCFD /* M2GlobalState.m in Sources */,
 				F466E2191910C95F0066BCA4 /* M2Vector.m in Sources */,

@@ -34,6 +34,7 @@
     IBOutlet UIImageView *_overlayBackground;
     
     IBOutlet M13ProgressViewBar *_AIProgressView;
+    IBOutlet UILabel *_AIProgressLabel;
     NSTimer *_progressTimer;
     NSDate *_startTime;
 }
@@ -72,9 +73,11 @@
     _scene.delegate = self;
     
     // Add observers for AI
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hintResultAvailable:) name:GSTATE.AIHintNotificationName object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(autoRunComplete:) name:GSTATE.AIAutoRunningCompleteNotificationName object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(autoRunStep:) name:GSTATE.AIAutoRunningStepNotificationName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hintResultAvailable:) name:M2AIHintCompleteNotificationName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(autoRunComplete:) name:M2AIAutoRunCompleteNotificationName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(autoRunStep:) name:M2AIAutoRunStepNotificationName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(autoRunThinking:) name:M2AISearchDepthCompleteNotificationName object:nil];
+
     // AI progress bar
     _AIProgressView.hidden = YES;
 }
@@ -264,6 +267,10 @@
         [_AIProgressView setProgress:0 animated:NO];
     }
     _AIProgressView.hidden = enableControls;
+    _AIProgressLabel.hidden = enableControls;
+    
+    // Set idle timer disabled if AI is running
+    [[UIApplication sharedApplication] setIdleTimerDisabled:!enableControls];
 }
 
 - (IBAction)autoRun:(id)sender {
@@ -294,8 +301,29 @@
         return;
     }
     M2Vector *move = [notification userInfo][@"bestMove"];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hint" message:[NSString stringWithFormat:@"You should move %@.", move.vectorString] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+    UIImageView *hintImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"ios7-arrow-thin-%@", move.vectorString.lowercaseString]]];
+    hintImageView.frame = CGRectMake(32, 196, 256, 256);
+    hintImageView.alpha = 0;
+    [self.view addSubview:hintImageView];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        hintImageView.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.2 delay:0.4 options:0 animations:^{
+            hintImageView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [hintImageView removeFromSuperview];
+        }];
+    }];
+    
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hint" message:[NSString stringWithFormat:@"You should move %@.", move.vectorString] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//    [alert show];
+}
+
+- (void)autoRunThinking:(NSNotification *)notification {
+    NSLog(@"Thinking updated");
+    NSInteger depth = [[notification userInfo][@"depth"] integerValue];
+    _AIProgressLabel.text = [NSString stringWithFormat:@"Thinking %ld steps forward...", (long)depth];
 }
 
 - (void)autoRunStep:(NSNotification *)notification {

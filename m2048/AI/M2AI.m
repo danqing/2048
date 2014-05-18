@@ -128,8 +128,8 @@
             
             if (GSTATE.cacheResults) {
                 newAI.memoizedResults = _memoizedResults;
-                newAI.actions = [_actions stringByAppendingFormat:@" (%d, %d)", candidatePosition.x, candidatePosition.y];
-                NSString *signature = [NSString stringWithFormat:@"%@ %d %d %g %g", newAI.actions, YES, depth, alpha, bestScore];
+                newAI.actions = [_actions stringByAppendingFormat:@" (%ld, %ld)", (long)candidatePosition.x, (long)candidatePosition.y];
+                NSString *signature = [NSString stringWithFormat:@"%@ %d %ld %g %g", newAI.actions, YES, (long)depth, alpha, bestScore];
                 if (_memoizedResults[signature]) {
                     result = _memoizedResults[signature];
 //                  NSLog(@"Read memoized: %@", signature);
@@ -165,15 +165,25 @@
     _startTime = [NSDate date];
     @autoreleasepool {
         _memoizedResults = [NSMutableDictionary dictionary];
+        M2AIResult *result;
+        
         for (NSInteger depth = 0; depth <= GSTATE.maxSearchDepth; depth++) {
             if (ABS([_startTime timeIntervalSinceNow]) > GSTATE.searchTimeOut) break;
             NSLog(@"Searching at depth %ld...", (long)depth);
-            M2AIResult *result = [self searchWithPlayerTurn:YES depth:depth alpha:-10000 beta:10000 positions:0 cutoffs:0];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Notification: searching complete at current depth
+                [[NSNotificationCenter defaultCenter] postNotificationName:M2AISearchDepthCompleteNotificationName object:nil userInfo:@{@"depth": @(depth), @"bestMove": result ? result.move : [NSNull null]}];
+            });
+            
+            result = [self searchWithPlayerTurn:YES depth:depth alpha:-10000 beta:10000 positions:0 cutoffs:0];
+
             if (result && (!newBest || result.score >= newBest.score)) {
                 newBest = result;
                 NSLog(@"** New score at depth %ld: %g **", (long)depth, newBest.score);
             }
             if (!result) NSLog(@"Searching timed out at depth %ld", (long)depth);
+            
             NSLog(@"Time taken: %g", ABS([_startTime timeIntervalSinceNow]));
         }
         [_memoizedResults removeAllObjects];

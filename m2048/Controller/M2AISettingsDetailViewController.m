@@ -39,16 +39,16 @@
 #pragma mark - Stepper Delegate
 - (void)stepperValueChanged:(double)newValue sender:(id)sender {
     if ([sender tag] == 0) {
-        [Settings setDouble:newValue forKey:AIMaxSearchingDepthKey];
+        [Settings setDouble:newValue forKey:M2AIMaxSearchDepthKey];
     } else {
-        [Settings setDouble:newValue forKey:AIMaxSearchingTimeKey];
+        [Settings setDouble:newValue forKey:M2AIMaxSearchTimeKey];
     }
     GSTATE.needRefresh = YES;
 }
 
 #pragma mark - Switch Event
 - (void)switchValueChanged:(UISwitch *)sender {
-    [Settings setBool:sender.isOn forKey:AICacheResultsKey];
+    [Settings setBool:sender.isOn forKey:M2AICacheResultsKey];
     GSTATE.needRefresh = YES;
 }
 
@@ -75,10 +75,10 @@
         cell.tag = indexPath.row;
         if (indexPath.row == 0) {
             cell.titleLabel.text = @"Max Search Depth";
-            [cell setStepperMin:0 max:10 current:[Settings doubleForKey:AIMaxSearchingDepthKey] step:1];
+            [cell setStepperMin:0 max:10 current:[Settings doubleForKey:M2AIMaxSearchDepthKey] step:1];
         } else {
             cell.titleLabel.text = @"Max Search Time";
-            [cell setStepperMin:1 max:60 current:[Settings doubleForKey:AIMaxSearchingTimeKey] step:1];
+            [cell setStepperMin:1 max:60 current:[Settings doubleForKey:M2AIMaxSearchTimeKey] step:1];
         }
         return cell;
     } else {
@@ -86,7 +86,7 @@
         cell.textLabel.text = @"Cache Results";
         UISwitch *switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
         cell.accessoryView = switchView;
-        [switchView setOn:[Settings boolForKey:AICacheResultsKey] animated:NO];
+        [switchView setOn:[Settings boolForKey:M2AICacheResultsKey] animated:NO];
         [switchView addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
         return cell;
     }

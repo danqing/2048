@@ -277,9 +277,9 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         M2Vector *bestMove = AI.bestMove;
         if (!bestMove) NSLog(@"No best move!");
-        NSLog(@"Best move: %d %d", bestMove.x, bestMove.y);
+        NSLog(@"Best move: %ld %ld", (long)bestMove.x, (long)bestMove.y);
         dispatch_sync(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:GSTATE.AIHintNotificationName object:self userInfo:@{@"bestMove": bestMove ? bestMove : [NSNull null]}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:M2AIHintCompleteNotificationName object:self userInfo:@{@"bestMove": bestMove ? bestMove : [NSNull null]}];
         });
     });
 }
@@ -294,12 +294,12 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
                     if (!bestMove) {
                         dispatch_sync(dispatch_get_main_queue(), ^{
                             NSDictionary *info = @{@"won": @([_grid isWinningBoard])};
-                            [[NSNotificationCenter defaultCenter] postNotificationName:GSTATE.AIAutoRunningCompleteNotificationName object:self userInfo:info];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:M2AIAutoRunCompleteNotificationName object:self userInfo:info];
                             NSLog(@"You %@", [_grid isWinningBoard] ? @"win": @"lose");
                         });
                         break;
                     }
-                    NSLog(@"Best move: %d %d", bestMove.x, bestMove.y);
+                    NSLog(@"Best move: %ld %ld", (long)bestMove.x, (long)bestMove.y);
                     dispatch_sync(dispatch_get_main_queue(), ^{
                         M2Direction direction = 0;
                         if (bestMove.x == -1 && bestMove.y == 0) direction = M2DirectionDown;
@@ -307,7 +307,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
                         if (bestMove.x == 0 && bestMove.y == -1) direction = M2DirectionLeft;
                         if (bestMove.x == 0 && bestMove.y == 1) direction = M2DirectionRight;
                         [self moveToDirection:direction];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:GSTATE.AIAutoRunningStepNotificationName object:self userInfo:@{@"bestMove": bestMove ? bestMove : [NSNull null]}];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:M2AIAutoRunStepNotificationName object:self userInfo:@{@"bestMove": bestMove ? bestMove : [NSNull null]}];
                     });
                 }
             } while (_autoRunning);

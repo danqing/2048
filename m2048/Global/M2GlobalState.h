@@ -13,9 +13,14 @@
 #define Settings [NSUserDefaults standardUserDefaults]
 #define NotifCtr [NSNotificationCenter defaultCenter]
 
-extern NSString *const AIMaxSearchingDepthKey;
-extern NSString *const AIMaxSearchingTimeKey;
-extern NSString *const AICacheResultsKey;
+extern NSString *const M2AIMaxSearchDepthKey;
+extern NSString *const M2AIMaxSearchTimeKey;
+extern NSString *const M2AICacheResultsKey;
+
+extern NSString *const M2AISearchDepthCompleteNotificationName;
+extern NSString *const M2AIAutoRunStepNotificationName;
+extern NSString *const M2AIAutoRunCompleteNotificationName;
+extern NSString *const M2AIHintCompleteNotificationName;
 
 typedef NS_ENUM(NSInteger, M2GameType) {
   M2GameTypeFibonacci = 2,
