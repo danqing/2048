@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "M2Cell.h"
+#import "M2Tile.h"
 
 @class M2Scene;
 
 typedef void (^IteratorBlock)(M2Position);
 
 
-@interface M2Grid : NSObject
+@interface M2Grid : NSObject <NSCopying>
 
 /** The dimension of the grid. */
 @property (nonatomic, readonly) NSInteger dimension;
@@ -29,7 +30,6 @@ typedef void (^IteratorBlock)(M2Position);
  * @param dimension The desired dimension, i.e. # cells in a row or column.
  */
 - (instancetype)initWithDimension:(NSInteger)dimension;
-
 
 /**
  * Iterates over the grid and calls the block, which takes in the M2Position
@@ -56,7 +56,7 @@ typedef void (^IteratorBlock)(M2Position);
  * @param position The position we are interested in.
  * @return The tile at the position. If position out of bound or cell empty, returns nil.
  */
-- (M2Tile *)tileAtPosition:(M2Position)position;
+- (id <M2Tile>)tileAtPosition:(M2Position)position;
 
 
 /**
@@ -66,6 +66,11 @@ typedef void (^IteratorBlock)(M2Position);
  */
 - (BOOL)hasAvailableCells;
 
+/**
+ * Returns all available cells in an array.
+ * @return The array of all available cells. If no cell is available, returns empty array.
+ */
+- (NSArray *)availableCells;
 
 /**
  * Inserts a new tile at a randomly chosen position that's available.
@@ -74,6 +79,20 @@ typedef void (^IteratorBlock)(M2Position);
  */
 - (void)insertTileAtRandomAvailablePositionWithDelay:(BOOL)delay;
 
+/**
+ *  Insert a tile at a given position.
+ *  @param position A given position.
+ *  @param level The level of this tile.
+ *  @note This method is for grid copying and debugging only. Do not use in the regular logic.
+ */
+- (void)insertDummyTileAtPosition:(M2Position)position withLevel:(NSUInteger)level;
+
+/**
+ *  Remove the tile at given position.
+ *  @param position A given position.
+ *  @note This method is for AI only. Do not use in the regular logic.
+ */
+- (void)removeTileAtPosition:(M2Position)position;
 
 /**
  * Removes all tiles in the grid from the scene.

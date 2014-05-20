@@ -8,7 +8,8 @@
 #include "stdlib.h"
 
 #import "M2Grid.h"
-#import "M2Tile.h"
+#import "M2DisplayTile.h"
+#import "M2DummyTile.h"
 #import "M2Scene.h"
 
 @interface M2Grid ()
@@ -40,12 +41,11 @@
     // Record the dimension of the grid.
     self.dimension = dimension;
     
-    // Draw the board.
+    // Draw the board.å
   }
   
   return self;
 }
-
 
 # pragma mark - Iterator
 
@@ -77,7 +77,7 @@
 }
 
 
-- (M2Tile *)tileAtPosition:(M2Position)position
+- (id <M2Tile>)tileAtPosition:(M2Position)position
 {
   M2Cell *cell = [self cellAtPosition:position];
   return cell ? cell.tile : nil;
@@ -107,11 +107,6 @@
 }
 
 
-/**
- * Returns all available cells in an array.
- *
- * @return The array of all available cells. If no cell is available, returns empty array.
- */
 - (NSArray *)availableCells
 {
   NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:self.dimension * self.dimension];
@@ -129,7 +124,7 @@
 {
   M2Cell *cell = [self randomAvailableCell];
   if (cell) {
-    M2Tile *tile = [M2Tile insertNewTileToCell:cell];
+    M2DisplayTile *tile = [M2DisplayTile insertNewTileToCell:cell];
     [self.scene addChild:tile];
     
     SKAction *delayAction = delay ? [SKAction waitForDuration:GSTATE.animationDuration * 3] :
@@ -141,13 +136,75 @@
   }
 }
 
+- (void)insertDummyTileAtPosition:(M2Position)position withLevel:(NSUInteger)level {
+    M2Cell *cell = [self cellAtPosition:position];
+    if (cell && cell.tile && [[self.scene children] indexOfObject:cell.tile] != NSNotFound) {
+        [NSException raise:@"Error replacing existing cell on board." format:@"Existing cell at position (%ld, %ld) cannot be replaced. Please do not use this method in regular logic.", (long)position.x, (long)position.y];
+    }
+    [M2DummyTile insertNewTileToCell:cell];
+    cell.tile.level = level;
+}
+
+- (void)removeTileAtPosition:(M2Position)position {
+    M2Cell *cell = [self cellAtPosition:position];
+    if (cell && cell.tile) {
+        cell.tile = nil;
+    } else {
+        [NSException raise:@"Cannot remove tile." format:@"Cannot remove tile at position (%ld, %ld). Position not valid or tile not exist.", (long)position.x, (long)position.y];
+    }
+}
 
 - (void)removeAllTilesAnimated:(BOOL)animated
 {
   [self forEach:^(M2Position position) {
-    M2Tile *tile = [self tileAtPosition:position];
-    if (tile) [tile removeAnimated:animated];
+    id <M2Tile> tile = [self tileAtPosition:position];
+    if (tile && [tile isKindOfClass:[M2DisplayTile class]]) [(M2DisplayTile *)tile removeAnimated:animated];
   } reverseOrder:NO];
+}
+
+#pragma mark - NSCopying
+
+// The -copy method will make dummy cells
+- (id)copyWithZone:(NSZone *)zone {
+    M2Grid *newGrid = [[M2Grid alloc] initWithDimension:self.dimension];
+    [self forEach:^(M2Position position) {
+        id <M2Tile> tile = [self tileAtPosition:position];
+        if (tile) {
+            [newGrid insertDummyTileAtPosition:position withLevel:tile.level];
+        }
+    } reverseOrder:NO];
+    return newGrid;
+}
+
+#pragma mark - Comparison
+- (BOOL)isEqual:(id)object {
+    if (object == self) return YES;
+    if (!object || ![object isKindOfClass:[self class]]) return NO;
+    return [self isEqualToGrid:object];
+}
+
+- (BOOL)isEqualToGrid:(M2Grid *)grid {
+    if (grid == self) return YES;
+    if (!grid) return NO;
+    __block BOOL allTilesEqual = YES;
+    [self forEach:^(M2Position position) {
+        id <M2Tile> tile = [self tileAtPosition:position];
+        id <M2Tile> otherTile = [grid tileAtPosition:position];
+        if (tile && (!otherTile || tile.level != otherTile.level)) {
+            allTilesEqual = NO;
+        }
+    } reverseOrder:NO];
+    return allTilesEqual;
+}
+
+- (NSUInteger)hash {
+    __block NSUInteger prime = 31, prime2 = 17, prime3 = 13, prime4 = 7;
+    __block NSUInteger result = 1;
+    [self forEach:^(M2Position position) {
+        id <M2Tile> tile = [self tileAtPosition:position];
+        result = prime * result + prime2 * position.x + prime3 * position.y + prime4 * tile.level;
+    } reverseOrder:NO];
+    return result;
 }
 
 @end

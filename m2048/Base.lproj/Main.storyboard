@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13D28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LVB-YS-i5n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LVB-YS-i5n">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -18,6 +18,10 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7bR-CK-ht0">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s2Z-J7-9a8">
+                                <rect key="frame" x="32" y="196" width="256" height="256"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OSi-g6-ogB" customClass="M2ScoreView">
@@ -104,6 +108,28 @@
                                     <segue destination="pW0-EP-ySa" kind="modal" identifier="Settings Segue" id="GHf-K9-Vj5"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3VC-y2-Zm1">
+                                <rect key="frame" x="149" y="145" width="74" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Hint">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showHint:" destination="LVB-YS-i5n" eventType="touchUpInside" id="A7G-o3-E5A"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2u-Sb-f3R">
+                                <rect key="frame" x="230" y="145" width="74" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Auto Run">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="autoRun:" destination="LVB-YS-i5n" eventType="touchUpInside" id="vUr-BL-5US"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4yN-A6-bWQ" customClass="M2Overlay">
                                 <rect key="frame" x="60" y="237" width="200" height="174"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -145,6 +171,24 @@
                                     <outlet property="restartGame" destination="qXD-8y-R8y" id="K7b-ex-bao"/>
                                 </connections>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j82-O8-20i" customClass="M13ProgressViewBar">
+                                <rect key="frame" x="85" y="522" width="150" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="progressBarThickness">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showPercentage" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Thinking ## steps forward..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjK-O3-HP3">
+                                <rect key="frame" x="73" y="536" width="175" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="13"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -155,12 +199,16 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="_AIProgressLabel" destination="zjK-O3-HP3" id="TEs-K8-kde"/>
+                        <outlet property="_AIProgressView" destination="j82-O8-20i" id="b4G-gE-UvR"/>
+                        <outlet property="_autoRunButton" destination="d2u-Sb-f3R" id="Juc-Iv-zIf"/>
                         <outlet property="_bestView" destination="OSi-g6-ogB" id="Y4U-P0-y17"/>
                         <outlet property="_overlay" destination="4yN-A6-bWQ" id="nWX-bx-L22"/>
                         <outlet property="_overlayBackground" destination="7bR-CK-ht0" id="b5h-IP-Aah"/>
                         <outlet property="_restartButton" destination="WSt-5b-bvD" id="N52-nz-hF7"/>
                         <outlet property="_scoreView" destination="MHo-Xg-Gu9" id="oPU-4e-SgG"/>
                         <outlet property="_settingsButton" destination="8r1-lH-tEE" id="UN6-bn-dHf"/>
+                        <outlet property="_showHintButton" destination="3VC-y2-Zm1" id="DVd-LA-z9o"/>
                         <outlet property="_subtitle" destination="r98-Zq-3Of" id="s6F-Zh-xnD"/>
                         <outlet property="_targetScore" destination="C71-5n-Bsx" id="aJX-Jq-2Dq"/>
                     </connections>
@@ -230,6 +278,7 @@
                         <outlet property="_tableView" destination="del-Es-she" id="dKB-y4-W7Q"/>
                         <segue destination="evu-uo-nI6" kind="push" identifier="Settings Detail Segue" id="leh-9b-HbF"/>
                         <segue destination="qYG-f3-Y88" kind="push" identifier="About Segue" id="Fqr-Ig-E8u"/>
+                        <segue destination="MfL-y2-s4y" kind="push" identifier="AI Settings Segue" id="WUb-nT-gXj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uVF-z9-YmN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -252,12 +301,12 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="2mP-lF-7EF">
                                 <rect key="frame" x="20" y="74" width="280" height="416"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <mutableString key="text">This game is largely based on the popular web-based game 2048, by Gabriele Cirulli. You can find the original game at http://git.io/2048. Please refer to its documentation to see its ancestors.
+                                <string key="text">This game is largely based on the popular web-based game 2048, by Gabriele Cirulli. You can find the original game at http://git.io/2048. Please refer to its documentation to see its ancestors.
 
 Are you a developer? This game is an open source project. If you are interested in SpriteKit, the cool new addition to iOS 7, or in iOS development in general, check out its source code at http://github.com/ik/2048. Any contributions or forks are highly welcome, and I hope you find the source code useful in your own development work!
 
 Made with love (and without ads) by Danqing Liu. &lt;3
-Additional contributions by Scott Matthewman</mutableString>
+Additional contributions by Scott Matthewman</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -312,6 +361,80 @@ Additional contributions by Scott Matthewman</mutableString>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cst-JU-Iv1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="964" y="1040"/>
+        </scene>
+        <!--Settings Detail View Controller - AI Settings-->
+        <scene sceneID="aJl-ao-3mY">
+            <objects>
+                <tableViewController id="MfL-y2-s4y" customClass="M2AISettingsDetailViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="49O-mT-zh7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AI Stepper Cell" id="TfL-n1-INg" customClass="M2AISettingsStepperCell">
+                                <rect key="frame" x="0.0" y="99" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TfL-n1-INg" id="fDd-ec-yMz">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="9fD-Pt-ErK">
+                                            <rect key="frame" x="173" y="7" width="94" height="29"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <connections>
+                                                <action selector="stepperValueChanged:" destination="TfL-n1-INg" eventType="valueChanged" id="fpl-wi-uiK"/>
+                                            </connections>
+                                        </stepper>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BiT-Uf-4Q7">
+                                            <rect key="frame" x="257" y="11" width="44" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W5a-a0-M9B">
+                                            <rect key="frame" x="15" y="0.0" width="150" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="stepper" destination="9fD-Pt-ErK" id="1dQ-zd-iVG"/>
+                                    <outlet property="stepperValueLabel" destination="BiT-Uf-4Q7" id="uh6-u0-ejz"/>
+                                    <outlet property="titleLabel" destination="W5a-a0-M9B" id="rlV-hG-QtG"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AI Cell" textLabel="Ela-9U-0Id" style="IBUITableViewCellStyleDefault" id="Om0-EA-85D">
+                                <rect key="frame" x="0.0" y="143" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Om0-EA-85D" id="5PT-nm-b5C">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ela-9U-0Id">
+                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="MfL-y2-s4y" id="PKV-UI-fS6"/>
+                            <outlet property="delegate" destination="MfL-y2-s4y" id="FP2-yB-FMK"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="AI Settings" id="otH-7y-Ldd"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tcm-Lt-Ruz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1449" y="1239"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tpl-yL-NEq">

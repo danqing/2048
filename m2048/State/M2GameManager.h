@@ -20,6 +20,8 @@ typedef NS_ENUM(NSInteger, M2Direction) {
 
 @interface M2GameManager : NSObject
 
+@property (getter = isAutoRunning) BOOL autoRunning;
+
 /**
  * Starts a new session with the provided scene.
  *
@@ -34,5 +36,9 @@ typedef NS_ENUM(NSInteger, M2Direction) {
  * @param direction The direction of the move (up, right, down, left).
  */
 - (void)moveToDirection:(M2Direction)direction;
+
+- (void)showHint;
+
+- (void)autoRun;
 
 @end

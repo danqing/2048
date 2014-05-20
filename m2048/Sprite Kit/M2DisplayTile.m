@@ -8,10 +8,10 @@
 
 #include <stdlib.h>
 
-#import "M2Tile.h"
+#import "M2DisplayTile.h"
 #import "M2Cell.h"
 
-@implementation M2Tile {
+@implementation M2DisplayTile {
   /** The value of the tile, as some text. */
   SKLabelNode *_value;
   
@@ -19,12 +19,14 @@
   NSMutableArray *_pendingActions;
 }
 
+@synthesize level = _level;
+@synthesize cell = _cell;
 
 # pragma mark - Tile creation
 
-+ (M2Tile *)insertNewTileToCell:(M2Cell *)cell
++ (instancetype)insertNewTileToCell:(M2Cell *)cell
 {
-  M2Tile *tile = [[M2Tile alloc] init];
+  M2DisplayTile *tile = [[M2DisplayTile alloc] init];
   
   // The initial position of the tile is at the center of its cell. This is so because when
   // scaling the tile, SpriteKit does so from the origin, not the center. So we have to scale
@@ -47,7 +49,7 @@
     self.path = rectPath;
     CFRelease(rectPath);
     self.lineWidth = 0;
-    
+
     // Initiate pending actions queue.
     _pendingActions = [[NSMutableArray alloc] init];
     
@@ -96,19 +98,22 @@
 }
 
 
-- (BOOL)canMergeWithTile:(M2Tile *)tile
+- (BOOL)canMergeWithTile:(id <M2Tile>)tile
 {
-  if (!tile) return NO;
+  if (!tile || ![tile isKindOfClass:[M2DisplayTile class]]) return NO;
   return [GSTATE isLevel:self.level mergeableWithLevel:tile.level];
 }
 
 
-- (NSInteger)mergeToTile:(M2Tile *)tile
+- (NSInteger)mergeToTile:(id <M2Tile>)tile
 {
+    if (![tile isKindOfClass:[M2DisplayTile class]]) return 0;
+    M2DisplayTile *displayTile = (M2DisplayTile *)tile;
+
   // Cannot merge with thin air. Also cannot merge with tile that has a pending merge.
   // For the latter, imagine we have 4, 2, 2. If we move to the right, it will first
   // become 4, 4. Now we cannot merge the two 4's.
-  if (!tile || [tile hasPendingMerge]) return 0;
+  if (!displayTile || [displayTile hasPendingMerge]) return 0;
   
   NSInteger newLevel = [GSTATE mergeLevel:self.level withLevel:tile.level];
   if (newLevel > 0) {
@@ -116,7 +121,7 @@
     [self moveToCell:tile.cell];
     
     // 2. Remove the tile in the destination cell.
-    [tile removeWithDelay];
+    [displayTile removeWithDelay];
     
     // 3. Update value and pop.
     [self updateLevelTo:newLevel];
@@ -126,20 +131,23 @@
 }
 
 
-- (NSInteger)merge3ToTile:(M2Tile *)tile andTile:(M2Tile *)furtherTile
+- (NSInteger)merge3ToTile:(id <M2Tile>)tile andTile:(id <M2Tile>)furtherTile
 {
-  if (!tile || [tile hasPendingMerge] || [furtherTile hasPendingMerge]) return 0;
+    if (![tile isKindOfClass:[M2DisplayTile class]] || ![furtherTile isKindOfClass:[M2DisplayTile class]]) return 0;
+    M2DisplayTile *displayTile = (M2DisplayTile *)tile;
+    M2DisplayTile *furtherDisplayTile = (M2DisplayTile *)furtherTile;
+  if (!displayTile || [displayTile hasPendingMerge] || [furtherDisplayTile hasPendingMerge]) return 0;
   
-  NSUInteger newLevel = MIN([GSTATE mergeLevel:self.level withLevel:tile.level],
-                            [GSTATE mergeLevel:tile.level withLevel:furtherTile.level]);
+  NSUInteger newLevel = MIN([GSTATE mergeLevel:self.level withLevel:displayTile.level],
+                            [GSTATE mergeLevel:displayTile.level withLevel:furtherTile.level]);
   if (newLevel > 0) {
     // 1. Move self to the destination cell AND move the intermediate tile to there too.
     [tile moveToCell:furtherTile.cell];
     [self moveToCell:furtherTile.cell];
     
     // 2. Remove the tile in the destination cell.
-    [tile removeWithDelay];
-    [furtherTile removeWithDelay];
+    [displayTile removeWithDelay];
+    [furtherDisplayTile removeWithDelay];
     
     // 3. Update value and pop.
     [self updateLevelTo:newLevel];

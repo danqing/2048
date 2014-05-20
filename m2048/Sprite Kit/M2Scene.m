@@ -28,6 +28,8 @@
    * moves by the same swipe.
    */
   BOOL _hasPendingSwipe;
+    
+    BOOL _autoRunning;
 }
 
 - (id)initWithSize:(CGSize)size
@@ -52,6 +54,25 @@
 - (void)startNewGame
 {
   [_manager startNewSessionWithScene:self];
+}
+
+- (void)showHint {
+    [_manager showHint];
+}
+
+- (void)toggleAutoRun {
+    if (_autoRunning) {
+        [_manager setAutoRunning:NO];
+        _autoRunning = NO;
+    } else {
+        [_manager setAutoRunning:YES];
+        [_manager autoRun];
+        _autoRunning = YES;
+    }
+}
+
+- (BOOL)isAutoRunning {
+    return _autoRunning;
 }
 
 
@@ -94,7 +115,7 @@
   
   // Swipe too short. Don't do anything.
   if (MAX(absX, absY) < EFFECTIVE_SWIPE_DISTANCE_THRESHOLD) return;
-  
+    
   // We only accept horizontal or vertical swipes, but not diagonal ones.
   if (absX > absY * VALID_SWIPE_DIRECTION_THRESHOLD) {
     translation.x < 0 ? [_manager moveToDirection:M2DirectionLeft] :
@@ -107,6 +128,12 @@
   _hasPendingSwipe = NO;
 }
 
+- (void)setUserInteractionEnabled:(BOOL)userInteractionEnabled {
+    [super setUserInteractionEnabled:userInteractionEnabled];
+    for (UIGestureRecognizer *recognizer in self.view.gestureRecognizers) {
+        [recognizer setEnabled:userInteractionEnabled];
+    }
+}
 
 # pragma mark - Scene update
 
