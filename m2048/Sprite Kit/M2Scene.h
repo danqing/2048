@@ -19,4 +19,10 @@
 
 - (void)loadBoardWithGrid:(M2Grid *)grid;
 
+- (void)showHint;
+
+- (void)toggleAutoRun;
+
+- (BOOL)isAutoRunning;
+
 @end

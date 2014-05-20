@@ -14,6 +14,15 @@
 #define kBoardSize @"Board Size"
 #define kBestScore @"Best Score"
 
+NSString *const M2AIMaxSearchDepthKey = @"AI Max Searching Depth";
+NSString *const M2AIMaxSearchTimeKey = @"AI Max Searching Time";
+NSString *const M2AICacheResultsKey = @"AI Cache Results";
+
+NSString *const M2AISearchDepthCompleteNotificationName = @"M2AISearchDepthCompleteNotification";
+NSString *const M2AIAutoRunStepNotificationName = @"M2AIAutoRunningStepNotification";
+NSString *const M2AIAutoRunCompleteNotificationName = @"M2AIAutoRunningCompleteNotification";
+NSString *const M2AIHintCompleteNotificationName = @"M2AIHintCompleteNotification";
+
 @interface M2GlobalState ()
 
 @property (nonatomic, readwrite) NSInteger dimension;
@@ -60,8 +69,11 @@
                                   kTheme: @0,
                                   kBoardSize: @1,
                                   kBestScore: @0,
+                                  M2AIMaxSearchTimeKey: @5,
+                                  M2AIMaxSearchDepthKey: @3,
+                                  M2AICacheResultsKey: @YES
                                   };
-  [Settings registerDefaults:defaultValues];
+ [Settings registerDefaults:defaultValues];
 }
 
 - (void)loadGlobalState
@@ -75,6 +87,11 @@
   self.verticalOffset = [self verticalOffset];
   self.theme = [Settings integerForKey:kTheme];
   self.needRefresh = NO;
+    
+    // AI
+    _searchTimeOut = [Settings doubleForKey:M2AIMaxSearchTimeKey];
+    _maxSearchDepth = [Settings doubleForKey:M2AIMaxSearchDepthKey];
+    _cacheResults = [Settings boolForKey:M2AICacheResultsKey];
 }
 
 

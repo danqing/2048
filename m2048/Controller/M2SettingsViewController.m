@@ -8,6 +8,7 @@
 
 #import "M2SettingsViewController.h"
 #import "M2SettingsDetailViewController.h"
+#import "M2AISettingsDetailViewController.h"
 
 @interface M2SettingsViewController ()
 
@@ -44,7 +45,7 @@
 
 - (void)commonInit
 {
-  _options = @[@"Game Type", @"Board Size", @"Theme"];
+  _options = @[@"Game Type", @"Board Size", @"Theme", @"AI"];
   
   _optionSelections = @[@[@"Powers of 2", @"Powers of 3", @"Fibonacci"],
                         @[@"3 x 3", @"4 x 4", @"5 x 5"],
@@ -85,6 +86,8 @@
     sdvc.title = [_options objectAtIndex:index];
     sdvc.options = [_optionSelections objectAtIndex:index];
     sdvc.footer = [_optionsNotes objectAtIndex:index];
+  } else if ([segue.identifier isEqualToString:@"AI Settings Segue"]) {
+      
   }
 }
 
@@ -116,6 +119,10 @@
   if (indexPath.section) {
     cell.textLabel.text = @"About 2048";
     cell.detailTextLabel.text = @"";
+  } else if (indexPath.row == _options.count - 1) {
+      cell.textLabel.text = [_options objectAtIndex:indexPath.row];
+      cell.detailTextLabel.textColor = [GSTATE scoreBoardColor];
+      cell.detailTextLabel.text = @"";
   } else {
     cell.textLabel.text = [_options objectAtIndex:indexPath.row];
     
@@ -133,7 +140,11 @@
   if (indexPath.section) {
     [self performSegueWithIdentifier:@"About Segue" sender:nil];
   } else {
-    [self performSegueWithIdentifier:@"Settings Detail Segue" sender:nil];
+      if (indexPath.row == _options.count - 1) {
+          [self performSegueWithIdentifier:@"AI Settings Segue" sender:nil];
+      } else {
+          [self performSegueWithIdentifier:@"Settings Detail Segue" sender:nil];
+      }
   }
 }
 
