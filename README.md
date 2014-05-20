@@ -20,11 +20,6 @@ Currently the searching depth is 2 and it fails sometimes. You can increase the 
 
 Ideally, the AI should search from 0 depth to infinity and have a time out, it records the current best move when finish searching the current depth and stops immediately when timed out and return the best move so far. However, I have a little bit of trouble when dealing with `NSOperationQueue` so I didn't do it this way. Now the AI only searches at the specified `-maximumSearchingDepth`.
 
-<p align="center">
-  <img src="http://a4.mzstatic.com/us/r30/Purple4/v4/a4/f8/af/a4f8af1d-3878-0817-859d-de76bae169c7/screen568x568.jpeg" alt="Screenshot"/>
-</p>
-
-
 ## The Game
 
 Since it is a *derivative* of the original 2048, it is not the *same*. More explicitly, it has the following additions:
