@@ -59,7 +59,8 @@ If you'd like to fork and make your own version, that's also great! Feel free to
 
 #### Contributors
 
-* Danqing Liu (me)
+* younthu(me)
+* [Danqing Liu](https://github.com/ik)
 * [Scott Matthewman](https://github.com/scottmatthewman)
 * [Sihao Lu](https://github.com/DJBen)
 
