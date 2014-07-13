@@ -27,22 +27,22 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
 
 
 @implementation M2GameManager {
-  /* True if game over. */
+  /// True if game over. 
   BOOL _over;
   
-  /* True if won game. */
+  /// True if won game. 
   BOOL _won;
   
-  /* True if user chooses to keep playing after winning. */
+  /// True if user chooses to keep playing after winning. 
   BOOL _keepPlaying;
   
-  /* The current score. */
+  /// The current score.
   NSInteger _score;
   
-  /* The points earned by the user in the current round. */
+  /// The points earned by the user in the current round.
   NSInteger _pendingScore;
   
-  /* The grid on which everything happens. */
+  /// The grid on which everything happens.
   M2Grid *_grid;
 }
 
