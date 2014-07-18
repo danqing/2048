@@ -1,0 +1,54 @@
+
+/* Class = "IBUILabel"; text = "This game is largely based on the popular web-based game 2048, by Gabriele Cirulli. You can find the original game at http://git.io/2048. Please refer to its documentation to see its ancestors.\n\nAre you a developer? This game is an open source project. If you are interested in SpriteKit, the cool new addition to iOS 7, or in iOS development in general, check out its source code at http://github.com/ik/2048. Any contributions or forks are highly welcome, and I hope you find the source code useful in your own development work!\n\nMade with love (and without ads) by Danqing Liu. <3\nAdditional contributions by Scott Matthewman"; ObjectID = "2mP-lF-7EF"; */
+"2mP-lF-7EF.text" = "This game is largely based on the popular web-based game 2048, by Gabriele Cirulli. You can find the original game at http://git.io/2048. Please refer to its documentation to see its ancestors.\n\nAre you a developer? This game is an open source project. If you are interested in SpriteKit, the cool new addition to iOS 7, or in iOS development in general, check out its source code at http://github.com/ik/2048. Any contributions or forks are highly welcome, and I hope you find the source code useful in your own development work!\n\nMade with love (and without ads) by Danqing Liu. <3\nAdditional contributions by Scott Matthewman";
+
+/* Class = "IBUINavigationItem"; title = "Settings"; ObjectID = "4Ef-xt-w6t"; */
+"4Ef-xt-w6t.title" = "设置";
+
+/* Class = "IBUILabel"; text = "BEST"; ObjectID = "4Xw-5I-xFm"; */
+"4Xw-5I-xFm.text" = "最高分";
+
+/* Class = "IBUIButton"; normalTitle = "Settings"; ObjectID = "8r1-lH-tEE"; */
+"8r1-lH-tEE.normalTitle" = "设置";
+
+/* Class = "IBUILabel"; text = "2048"; ObjectID = "C71-5n-Bsx"; */
+"C71-5n-Bsx.text" = "2048";
+
+/* Class = "IBUILabel"; text = "You Won!"; ObjectID = "Pqq-SU-fYe"; */
+"Pqq-SU-fYe.text" = "你赢了!";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "S6W-Te-Tgg"; */
+"S6W-Te-Tgg.text" = "Label";
+
+/* Class = "IBUIButton"; normalTitle = "Restart"; ObjectID = "WSt-5b-bvD"; */
+"WSt-5b-bvD.normalTitle" = "再来一盘";
+
+/* Class = "IBUILabel"; text = "200000"; ObjectID = "dqu-Jy-DNX"; */
+"dqu-Jy-DNX.text" = "200000";
+
+/* Class = "IBUIButton"; normalTitle = "Keep Playing"; ObjectID = "gYR-fV-lVv"; */
+"gYR-fV-lVv.normalTitle" = "继续";
+
+/* Class = "IBUIBarButtonItem"; title = "Done"; ObjectID = "iZP-nW-4x6"; */
+"iZP-nW-4x6.title" = "确定";
+
+/* Class = "IBUILabel"; text = "Detail"; ObjectID = "jRb-aB-hlC"; */
+"jRb-aB-hlC.text" = "详细";
+
+/* Class = "IBUILabel"; text = "SCORE"; ObjectID = "qRp-Wy-Hem"; */
+"qRp-Wy-Hem.text" = "得分";
+
+/* Class = "IBUIButton"; normalTitle = "New Game"; ObjectID = "qXD-8y-R8y"; */
+"qXD-8y-R8y.normalTitle" = "新游戏";
+
+/* Class = "IBUILabel"; text = "Join the numbers to get 2048!"; ObjectID = "r98-Zq-3Of"; */
+"r98-Zq-3Of.text" = "合并相同数字，向2048进军!";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "uGG-dZ-dj5"; */
+"uGG-dZ-dj5.text" = "标题";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "v3Q-SA-Gjr"; */
+"v3Q-SA-Gjr.text" = "标题";
+
+/* Class = "IBUINavigationItem"; title = "About 2048"; ObjectID = "zF5-Z2-jjH"; */
+"zF5-Z2-jjH.title" = "关于2048";
