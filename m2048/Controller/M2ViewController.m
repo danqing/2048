@@ -59,7 +59,8 @@
   [scene startNewGame];
   
   _scene = scene;
-  _scene.delegate = self;
+    _scene.delegate = self;
+
 }
 
 
@@ -99,6 +100,7 @@
   _overlay.message.textColor = [GSTATE buttonColor];
   [_overlay.keepPlaying setTitleColor:[GSTATE buttonColor] forState:UIControlStateNormal];
   [_overlay.restartGame setTitleColor:[GSTATE buttonColor] forState:UIControlStateNormal];
+    
 }
 
 

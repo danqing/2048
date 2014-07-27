@@ -34,6 +34,8 @@
 		24C4517018DFF10B0001FCFD /* M2ScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4516F18DFF10B0001FCFD /* M2ScoreView.m */; };
 		24C4517318E140AE0001FCFD /* M2SettingsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4517218E140AE0001FCFD /* M2SettingsDetailViewController.m */; };
 		24C4518118E265390001FCFD /* M2Overlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4518018E265390001FCFD /* M2Overlay.m */; };
+		5D70126A19850C7A00D7DA15 /* merge.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5D70126819850C7A00D7DA15 /* merge.sks */; };
+		5D70126B19850C7A00D7DA15 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D70126919850C7A00D7DA15 /* spark.png */; };
 		5DADA71F1978EB6A00DAC071 /* Strings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5DADA7211978EB6A00DAC071 /* Strings.strings */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +98,8 @@
 		5D566CEA1978F5AD002D0891 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5D566CF51978F691002D0891 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		5D566CF71978F69B002D0891 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		5D70126819850C7A00D7DA15 /* merge.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = merge.sks; path = "Sprite Kit/merge.sks"; sourceTree = "<group>"; };
+		5D70126919850C7A00D7DA15 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = "Sprite Kit/spark.png"; sourceTree = "<group>"; };
 		5DADA7201978EB6A00DAC071 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Strings.strings; sourceTree = "<group>"; };
 		5DADA7221978EB7A00DAC071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Strings.strings; sourceTree = "<group>"; };
 		5DADA72B1978EC2B00DAC071 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -172,6 +176,8 @@
 				24C4516518DD64630001FCFD /* View */,
 				2443DC5E18D662CA00C920C1 /* Supporting Files */,
 				2443DC7418D662CA00C920C1 /* Images.xcassets */,
+				5D70126819850C7A00D7DA15 /* merge.sks */,
+				5D70126919850C7A00D7DA15 /* spark.png */,
 			);
 			path = m2048;
 			sourceTree = "<group>";
@@ -356,6 +362,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2443DC6218D662CA00C920C1 /* InfoPlist.strings in Resources */,
+				5D70126B19850C7A00D7DA15 /* spark.png in Resources */,
+				5D70126A19850C7A00D7DA15 /* merge.sks in Resources */,
 				5DADA71F1978EB6A00DAC071 /* Strings.strings in Resources */,
 				2443DC7518D662CA00C920C1 /* Images.xcassets in Resources */,
 				2443DC6B18D662CA00C920C1 /* Main.storyboard in Resources */,
