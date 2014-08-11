@@ -51,6 +51,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
 
 - (void)startNewSessionWithScene:(M2Scene *)scene
 {
+    [Flurry logEvent:@"Started new session."];
   if (_grid && _grid.dimension == GSTATE.dimension) {
     // If there is an existing grid and its dimension is still valid,
     // we keep it, only removing all existing tiles with animation.

@@ -34,6 +34,8 @@
 		24C4517018DFF10B0001FCFD /* M2ScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4516F18DFF10B0001FCFD /* M2ScoreView.m */; };
 		24C4517318E140AE0001FCFD /* M2SettingsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4517218E140AE0001FCFD /* M2SettingsDetailViewController.m */; };
 		24C4518118E265390001FCFD /* M2Overlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4518018E265390001FCFD /* M2Overlay.m */; };
+		5D58268F19988A3900F5C14C /* libFlurry_5.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D58268E19988A3900F5C14C /* libFlurry_5.2.0.a */; };
+		5D58269219988C3C00F5C14C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D58269119988C3C00F5C14C /* SystemConfiguration.framework */; };
 		5D70126A19850C7A00D7DA15 /* merge.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5D70126819850C7A00D7DA15 /* merge.sks */; };
 		5D70126B19850C7A00D7DA15 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D70126919850C7A00D7DA15 /* spark.png */; };
 		5D7012751985563600D7DA15 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5D7012771985563600D7DA15 /* Localizable.strings */; };
@@ -99,6 +101,9 @@
 		5D566CEA1978F5AD002D0891 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5D566CF51978F691002D0891 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		5D566CF71978F69B002D0891 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		5D58268E19988A3900F5C14C /* libFlurry_5.2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_5.2.0.a; path = m2048/libFlurry_5.2.0.a; sourceTree = "<group>"; };
+		5D58269019988B8D00F5C14C /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Flurry.h; path = m2048/Flurry.h; sourceTree = "<group>"; };
+		5D58269119988C3C00F5C14C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5D70126819850C7A00D7DA15 /* merge.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = merge.sks; path = "Sprite Kit/merge.sks"; sourceTree = "<group>"; };
 		5D70126919850C7A00D7DA15 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = "Sprite Kit/spark.png"; sourceTree = "<group>"; };
 		5D7012761985563600D7DA15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -114,10 +119,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D58269219988C3C00F5C14C /* SystemConfiguration.framework in Frameworks */,
 				2443DC5818D662CA00C920C1 /* CoreGraphics.framework in Frameworks */,
 				2443DC5A18D662CA00C920C1 /* UIKit.framework in Frameworks */,
 				2443DC5C18D662CA00C920C1 /* SpriteKit.framework in Frameworks */,
 				2443DC5618D662CA00C920C1 /* Foundation.framework in Frameworks */,
+				5D58268F19988A3900F5C14C /* libFlurry_5.2.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +144,7 @@
 		2443DC4918D662CA00C920C1 = {
 			isa = PBXGroup;
 			children = (
+				5D58269019988B8D00F5C14C /* Flurry.h */,
 				2443DC5D18D662CA00C920C1 /* m2048 */,
 				2443DC8118D662CA00C920C1 /* m2048Tests */,
 				2443DC5418D662CA00C920C1 /* Frameworks */,
@@ -156,6 +164,8 @@
 		2443DC5418D662CA00C920C1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5D58269119988C3C00F5C14C /* SystemConfiguration.framework */,
+				5D58268E19988A3900F5C14C /* libFlurry_5.2.0.a */,
 				2443DC5518D662CA00C920C1 /* Foundation.framework */,
 				2443DC5718D662CA00C920C1 /* CoreGraphics.framework */,
 				2443DC5918D662CA00C920C1 /* UIKit.framework */,
@@ -558,6 +568,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "m2048/m2048-Prefix.pch";
 				INFOPLIST_FILE = "m2048/m2048-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/m2048",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
@@ -575,6 +589,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "m2048/m2048-Prefix.pch";
 				INFOPLIST_FILE = "m2048/m2048-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/m2048",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
