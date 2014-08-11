@@ -10,7 +10,6 @@
 #import "M2Tile.h"
 
 @implementation M2Cell
-
 - (instancetype)initWithPosition:(M2Position)position
 {
   if (self = [super init]) {
@@ -25,6 +24,7 @@
     if (self = [super init]) {
         self.position = cell.position;
         _tile = cell.tile;
+        self.level = _tile.level;
     }
     return self;
 }

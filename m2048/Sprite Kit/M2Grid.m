@@ -176,11 +176,15 @@
         [self forEach:^(M2Position position) {
             M2Tile *tile = [self tileAtPosition:position];
             if (tile) {
+                tile.level = [self cellAtPosition:position].level;
                 CGPoint origin = [GSTATE locationOfPosition: position];
+                SKAction *refresh = [SKAction runBlock:^{
+                    [tile refreshValue];
+                }];
                 SKAction *move = [SKAction moveTo:CGPointMake(origin.x , origin.y)
                                          duration:GSTATE.animationDuration];
                 SKAction *scale = [SKAction scaleTo:1 duration:GSTATE.animationDuration];
-                [tile runAction:[SKAction sequence:@[[SKAction group:@[move, scale]]]]];
+                [tile runAction:[SKAction sequence:@[[SKAction group:@[refresh, move, scale]]]]];
             }
         } reverseOrder:NO];
     }
