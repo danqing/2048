@@ -14,7 +14,7 @@
 @interface M2Grid ()
 
 @property (nonatomic, readwrite) NSInteger dimension;
-
+@property (nonatomic, strong)  NSMutableArray *snapShots;
 @end
 
 
@@ -37,6 +37,7 @@
       [_grid addObject:array];
     }
     
+      self.snapShots = [@[] mutableCopy];
     // Record the dimension of the grid.
     self.dimension = dimension;
     
@@ -150,4 +151,38 @@
   } reverseOrder:NO];
 }
 
+#pragma - mark udo
+-(void)takeSnapshot{
+    NSMutableArray *gridSnapshot = [[NSMutableArray alloc] initWithCapacity:self.dimension];
+    
+    for (NSInteger i = 0; i < self.dimension; i++) {
+        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:self.dimension];
+        for (NSInteger j = 0; j < self.dimension; j++) {
+            
+            [array addObject:[[M2Cell alloc] initWithM2Cell:[self cellAtPosition:M2PositionMake(i, j)]]];
+        }
+        [gridSnapshot addObject:array];
+    }
+    
+    [self.snapShots addObject:gridSnapshot];
+}
+
+- (void)undo{
+    if (self.snapShots.count > 0) {
+        _grid = [self.snapShots lastObject];
+        [self.snapShots removeLastObject];
+        
+        // Animations
+        [self forEach:^(M2Position position) {
+            M2Tile *tile = [self tileAtPosition:position];
+            if (tile) {
+                CGPoint origin = [GSTATE locationOfPosition: position];
+                SKAction *move = [SKAction moveTo:CGPointMake(origin.x , origin.y)
+                                         duration:GSTATE.animationDuration];
+                SKAction *scale = [SKAction scaleTo:1 duration:GSTATE.animationDuration];
+                [tile runAction:[SKAction sequence:@[[SKAction group:@[move, scale]]]]];
+            }
+        } reverseOrder:NO];
+    }
+}
 @end

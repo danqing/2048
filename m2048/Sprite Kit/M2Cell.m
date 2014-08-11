@@ -21,6 +21,14 @@
 }
 
 
+- (instancetype)initWithM2Cell:(M2Cell*)cell{
+    if (self = [super init]) {
+        self.position = cell.position;
+        _tile = cell.tile;
+    }
+    return self;
+}
+
 - (void)setTile:(M2Tile *)tile
 {
   _tile = tile;

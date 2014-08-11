@@ -18,5 +18,5 @@
 - (void)startNewGame;
 
 - (void)loadBoardWithGrid:(M2Grid *)grid;
-
+- (void)undo;
 @end

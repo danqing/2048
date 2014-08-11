@@ -22,6 +22,7 @@
   IBOutlet UILabel *_subtitle;
   IBOutlet M2ScoreView *_scoreView;
   IBOutlet M2ScoreView *_bestView;
+    __weak IBOutlet UIButton *undoBtn;
   
   M2Scene *_scene;
   
@@ -57,12 +58,15 @@
   [skView presentScene:scene];
   [self updateScore:0];
   [scene startNewGame];
-  
+    self->undoBtn.enabled = YES;
   _scene = scene;
     _scene.delegate = self;
 
 }
 
+- (IBAction)undoIt:(id)sender {
+    [_scene undo];
+}
 
 - (void)updateState
 {

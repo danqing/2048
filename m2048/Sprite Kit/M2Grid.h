@@ -81,5 +81,6 @@ typedef void (^IteratorBlock)(M2Position);
  * @param animated If YES, animate the removal.
  */
 - (void)removeAllTilesAnimated:(BOOL)animated;
-
+- (void)undo;
+-(void)takeSnapshot;
 @end

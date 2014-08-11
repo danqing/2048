@@ -25,4 +25,6 @@
  */
 - (instancetype)initWithPosition:(M2Position)position;
 
+- (instancetype)initWithM2Cell:(M2Cell*)cell;
+
 @end
