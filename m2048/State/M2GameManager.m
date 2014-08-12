@@ -77,7 +77,9 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
 
 - (void)moveToDirection:(M2Direction)direction
 {
-    [_grid takeSnapshot];
+    if ([self movesAvailable]) {
+        [_grid takeSnapshot];
+    }
   __block M2Tile *tile = nil;
   
   // Remember that the coordinate system of SpriteKit is the reverse of that of UIKit.

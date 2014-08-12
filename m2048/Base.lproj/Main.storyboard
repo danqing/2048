@@ -145,7 +145,7 @@
                                     <outlet property="restartGame" destination="qXD-8y-R8y" id="K7b-ex-bao"/>
                                 </connections>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbg-xz-Yuw">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbg-xz-Yuw">
                                 <rect key="frame" x="20" y="538" width="38" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Undo">
@@ -158,6 +158,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Kbg-xz-Yuw" firstAttribute="leading" secondItem="bdc-N1-crn" secondAttribute="leading" constant="20" symbolic="YES" id="0Il-aW-qXc"/>
                             <constraint firstAttribute="bottom" secondItem="Kbg-xz-Yuw" secondAttribute="bottom" id="9o3-rX-8G4"/>
                             <constraint firstAttribute="trailing" secondItem="7bR-CK-ht0" secondAttribute="trailing" id="XQK-Ao-Gw7"/>
                             <constraint firstItem="7bR-CK-ht0" firstAttribute="top" secondItem="bdc-N1-crn" secondAttribute="top" id="Yjw-hH-Qj2"/>

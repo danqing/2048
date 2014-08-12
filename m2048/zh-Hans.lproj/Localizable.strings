@@ -9,3 +9,5 @@
 "Game Over" = "游戏结束";
 "You Win!" = "你赢了!";
 "Join the numbers to get to %ld!" = "把数字拼起来，目标 %ld!";
+"Keep Playing" = "继续玩";
+"Undo" = "回撤";

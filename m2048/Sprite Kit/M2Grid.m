@@ -47,6 +47,21 @@
   return self;
 }
 
+-  (NSString*)description{
+    return [self debugDescription];
+}
+-(NSString*)debugDescription{
+    NSString *des = @"";
+    
+    for (NSInteger i = self.dimension - 1; i >= 0; i--) {
+        for (NSInteger j = 0; j <  self.dimension; j++) {
+            int level = [self tileAtPosition:M2PositionMake(i, j)].level;
+            des = [des stringByAppendingFormat:@"%d,", level];
+        }
+        des = [des stringByAppendingString:@"\n"];
+    }
+    return des;
+}
 
 # pragma mark - Iterator
 
@@ -163,14 +178,41 @@
         }
         [gridSnapshot addObject:array];
     }
-    
-    [self.snapShots addObject:gridSnapshot];
+    // Check if it is the same as before one.
+    if (self.snapShots.count > 0) {
+        NSArray *array = self.snapShots.lastObject;
+        BOOL identical = YES;
+        for (int i = 0; i < self.dimension; i++) {
+            for (int j = 0; j < self.dimension; j++) {
+                M2Cell *prev = array[i][j];
+                M2Cell *cur  = gridSnapshot[i][j];
+                if (prev.level != cur.level) {
+                    identical = NO;
+                    [self.snapShots addObject:gridSnapshot];
+                    NSLog(@"Taking snapshot\n%@",self);
+                    break;
+                }
+            }
+            if (!identical) {
+                break;
+            }
+        }
+        if (identical) {
+            NSLog(@"Found duplicated snapshot\n%@", self);
+        }
+    }else{
+        [self.snapShots addObject:gridSnapshot];
+        NSLog(@"Taking snapshot\n%@",self);
+    }
 }
-
+- (void)popSnapshot{
+    if (self.snapShots.count > 0) {
+        [self.snapShots removeLastObject];
+    }
+}
 - (void)undo{
 //    [self removeAllTilesAnimated:NO]
     if (self.snapShots.count > 0) {
-        NSMutableArray *last=_grid;
         
         NSMutableArray *tiles = [@[] mutableCopy];
         [self forEach:^(M2Position position) {

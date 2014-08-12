@@ -138,6 +138,9 @@
 - (IBAction)keepPlaying:(id)sender
 {
   [self hideOverlay];
+    if ([_overlay.keepPlaying.titleLabel.text isEqualToString:NSLocalizedString(@"Undo", nil)]) {
+        [self undoIt:nil];
+    }
 }
 
 
@@ -161,10 +164,11 @@
   _overlayBackground.alpha = 0;
   
   if (!won) {
-    _overlay.keepPlaying.hidden = YES;
+//    _overlay.keepPlaying.hidden = YES;
+      [_overlay.keepPlaying setTitle:NSLocalizedString(@"Undo", nil) forState:UIControlStateNormal];
       _overlay.message.text = NSLocalizedString(@"Game Over", nil);//@"Game Over";
   } else {
-    _overlay.keepPlaying.hidden = NO;
+      [_overlay.keepPlaying setTitle:NSLocalizedString(@"Keep Playing", nil) forState:UIControlStateNormal];
       _overlay.message.text = NSLocalizedString(@"You Win!", nil);//@"You Win!";
   }
   

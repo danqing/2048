@@ -165,6 +165,7 @@
 - (void)updateLevelTo:(NSInteger)level
 {
   self.level = level;
+  self.cell.level = level;
   [_pendingActions addObject:[SKAction runBlock:^{
     [self refreshValue];
   }]];

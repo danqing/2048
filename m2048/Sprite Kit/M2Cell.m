@@ -20,7 +20,12 @@ static int blockCount = 0;
   return self;
 }
 
-
+- (NSString*)description{
+    return [self debugDescription];
+}
+- (NSString*)debugDescription{
+    return [NSString stringWithFormat:@"%d(%d,%d)", self.level, self.position.x, self.position.y];
+}
 - (instancetype)initWithM2Cell:(M2Cell*)cell{
     if (self = [super init]) {
         self.position = cell.position;
