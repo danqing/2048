@@ -22,6 +22,7 @@
   IBOutlet UILabel *_subtitle;
   IBOutlet M2ScoreView *_scoreView;
   IBOutlet M2ScoreView *_bestView;
+    __weak IBOutlet UIButton *undoBtn;
   
   M2Scene *_scene;
   
@@ -57,11 +58,15 @@
   [skView presentScene:scene];
   [self updateScore:0];
   [scene startNewGame];
-  
+    self->undoBtn.enabled = YES;
   _scene = scene;
-  _scene.delegate = self;
+    _scene.delegate = self;
+
 }
 
+- (IBAction)undoIt:(id)sender {
+    [_scene undo];
+}
 
 - (void)updateState
 {
@@ -90,7 +95,9 @@
   
   _subtitle.textColor = [GSTATE buttonColor];
   _subtitle.font = [UIFont fontWithName:[GSTATE regularFontName] size:14];
-  _subtitle.text = [NSString stringWithFormat:@"Join the numbers to get to %ld!", target];
+//    _subtitle.text = [NSString stringWithFormat:@"Join the numbers to get to %ld!", target];
+    NSString *targetStr = NSLocalizedString(@"Join the numbers to get to %ld!", nil);
+    _subtitle.text = [NSString stringWithFormat:targetStr, target];
   
   _overlay.message.font = [UIFont fontWithName:[GSTATE boldFontName] size:36];
   _overlay.keepPlaying.titleLabel.font = [UIFont fontWithName:[GSTATE boldFontName] size:17];
@@ -99,6 +106,7 @@
   _overlay.message.textColor = [GSTATE buttonColor];
   [_overlay.keepPlaying setTitleColor:[GSTATE buttonColor] forState:UIControlStateNormal];
   [_overlay.restartGame setTitleColor:[GSTATE buttonColor] forState:UIControlStateNormal];
+    
 }
 
 
@@ -130,6 +138,9 @@
 - (IBAction)keepPlaying:(id)sender
 {
   [self hideOverlay];
+    if ([_overlay.keepPlaying.titleLabel.text isEqualToString:NSLocalizedString(@"Undo", nil)]) {
+        [self undoIt:nil];
+    }
 }
 
 
@@ -153,11 +164,12 @@
   _overlayBackground.alpha = 0;
   
   if (!won) {
-    _overlay.keepPlaying.hidden = YES;
-    _overlay.message.text = @"Game Over";
+//    _overlay.keepPlaying.hidden = YES;
+      [_overlay.keepPlaying setTitle:NSLocalizedString(@"Undo", nil) forState:UIControlStateNormal];
+      _overlay.message.text = NSLocalizedString(@"Game Over", nil);//@"Game Over";
   } else {
-    _overlay.keepPlaying.hidden = NO;
-    _overlay.message.text = @"You Win!";
+      [_overlay.keepPlaying setTitle:NSLocalizedString(@"Keep Playing", nil) forState:UIControlStateNormal];
+      _overlay.message.text = NSLocalizedString(@"You Win!", nil);//@"You Win!";
   }
   
   // Fake the overlay background as a mask on the board.

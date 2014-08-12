@@ -14,7 +14,7 @@
 @interface M2Grid ()
 
 @property (nonatomic, readwrite) NSInteger dimension;
-
+@property (nonatomic, strong)  NSMutableArray *snapShots;
 @end
 
 
@@ -37,6 +37,7 @@
       [_grid addObject:array];
     }
     
+      self.snapShots = [@[] mutableCopy];
     // Record the dimension of the grid.
     self.dimension = dimension;
     
@@ -46,6 +47,21 @@
   return self;
 }
 
+-  (NSString*)description{
+    return [self debugDescription];
+}
+-(NSString*)debugDescription{
+    NSString *des = @"";
+    
+    for (NSInteger i = self.dimension - 1; i >= 0; i--) {
+        for (NSInteger j = 0; j <  self.dimension; j++) {
+            int level = [self tileAtPosition:M2PositionMake(i, j)].level;
+            des = [des stringByAppendingFormat:@"%d,", level];
+        }
+        des = [des stringByAppendingString:@"\n"];
+    }
+    return des;
+}
 
 # pragma mark - Iterator
 
@@ -150,4 +166,95 @@
   } reverseOrder:NO];
 }
 
+#pragma - mark udo
+-(void)takeSnapshot{
+    NSMutableArray *gridSnapshot = [[NSMutableArray alloc] initWithCapacity:self.dimension];
+    
+    for (NSInteger i = 0; i < self.dimension; i++) {
+        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:self.dimension];
+        for (NSInteger j = 0; j < self.dimension; j++) {
+            
+            [array addObject:[[M2Cell alloc] initWithM2Cell:[self cellAtPosition:M2PositionMake(i, j)]]];
+        }
+        [gridSnapshot addObject:array];
+    }
+    // Check if it is the same as before one.
+    if (self.snapShots.count > 0) {
+        NSArray *array = self.snapShots.lastObject;
+        BOOL identical = YES;
+        for (int i = 0; i < self.dimension; i++) {
+            for (int j = 0; j < self.dimension; j++) {
+                M2Cell *prev = array[i][j];
+                M2Cell *cur  = gridSnapshot[i][j];
+                if (prev.level != cur.level) {
+                    identical = NO;
+                    [self.snapShots addObject:gridSnapshot];
+                    NSLog(@"Taking snapshot\n%@",self);
+                    break;
+                }
+            }
+            if (!identical) {
+                break;
+            }
+        }
+        if (identical) {
+            NSLog(@"Found duplicated snapshot\n%@", self);
+        }
+    }else{
+        [self.snapShots addObject:gridSnapshot];
+        NSLog(@"Taking snapshot\n%@",self);
+    }
+}
+- (void)popSnapshot{
+    if (self.snapShots.count > 0) {
+        [self.snapShots removeLastObject];
+    }
+}
+- (void)undo{
+//    [self removeAllTilesAnimated:NO]
+    if (self.snapShots.count > 0) {
+        
+        NSMutableArray *tiles = [@[] mutableCopy];
+        [self forEach:^(M2Position position) {
+            M2Tile *tile = [self tileAtPosition:position];
+            if (tile) {
+                tile.markedForRemove = YES;
+                [tiles addObject:tile];
+            }
+        } reverseOrder:NO];
+        
+        _grid = [self.snapShots lastObject];
+        [self.snapShots removeLastObject];
+        
+        // Animations
+        [self forEach:^(M2Position position) {
+            M2Tile *tile = [self tileAtPosition:position];
+            M2Cell *cell = [self cellAtPosition:position];
+            cell.tile = tile;
+            if (tile) {
+                // Check if the tile been removed in last operation.
+                if (tile.parent == nil) {
+                    [self.scene addChild:tile];
+                }
+                
+                tile.level = [self cellAtPosition:position].level;
+                CGPoint origin = [GSTATE locationOfPosition: position];
+                SKAction *refresh = [SKAction runBlock:^{
+                    [tile refreshValue];
+                }];
+                SKAction *move = [SKAction moveTo:CGPointMake(origin.x , origin.y)
+                                         duration:GSTATE.animationDuration];
+                SKAction *scale = [SKAction scaleTo:1 duration:GSTATE.animationDuration];
+                [tile runAction:[SKAction sequence:@[[SKAction group:@[refresh, move, scale]]]]];
+                tile.markedForRemove = NO;
+            }
+        } reverseOrder:NO];
+        
+        for (M2Tile *tile in tiles) {
+            if (tile.markedForRemove) {
+                [tile removeAnimated:YES];
+            }
+        }
+    }
+}
 @end

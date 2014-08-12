@@ -14,4 +14,5 @@
   #import <UIKit/UIKit.h>
   #import <Foundation/Foundation.h>
   #import "M2GlobalState.h"
+#import "Flurry.h"
 #endif

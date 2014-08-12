@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13D28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LVB-YS-i5n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LVB-YS-i5n">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -145,9 +145,21 @@
                                     <outlet property="restartGame" destination="qXD-8y-R8y" id="K7b-ex-bao"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbg-xz-Yuw">
+                                <rect key="frame" x="20" y="538" width="38" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Undo">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="undoIt:" destination="LVB-YS-i5n" eventType="touchUpInside" id="VIN-HZ-Xdz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Kbg-xz-Yuw" firstAttribute="leading" secondItem="bdc-N1-crn" secondAttribute="leading" constant="20" symbolic="YES" id="0Il-aW-qXc"/>
+                            <constraint firstAttribute="bottom" secondItem="Kbg-xz-Yuw" secondAttribute="bottom" id="9o3-rX-8G4"/>
                             <constraint firstAttribute="trailing" secondItem="7bR-CK-ht0" secondAttribute="trailing" id="XQK-Ao-Gw7"/>
                             <constraint firstItem="7bR-CK-ht0" firstAttribute="top" secondItem="bdc-N1-crn" secondAttribute="top" id="Yjw-hH-Qj2"/>
                             <constraint firstAttribute="bottom" secondItem="7bR-CK-ht0" secondAttribute="bottom" id="Ysg-Ye-xrC"/>
@@ -163,6 +175,7 @@
                         <outlet property="_settingsButton" destination="8r1-lH-tEE" id="UN6-bn-dHf"/>
                         <outlet property="_subtitle" destination="r98-Zq-3Of" id="s6F-Zh-xnD"/>
                         <outlet property="_targetScore" destination="C71-5n-Bsx" id="aJX-Jq-2Dq"/>
+                        <outlet property="undoBtn" destination="Kbg-xz-Yuw" id="Z0b-NO-Ieh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btX-cZ-eVz" sceneMemberID="firstResponder"/>
@@ -252,12 +265,12 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="2mP-lF-7EF">
                                 <rect key="frame" x="20" y="74" width="280" height="416"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <mutableString key="text">This game is largely based on the popular web-based game 2048, by Gabriele Cirulli. You can find the original game at http://git.io/2048. Please refer to its documentation to see its ancestors.
+                                <string key="text">This game is largely based on the popular web-based game 2048, by Gabriele Cirulli. You can find the original game at http://git.io/2048. Please refer to its documentation to see its ancestors.
 
 Are you a developer? This game is an open source project. If you are interested in SpriteKit, the cool new addition to iOS 7, or in iOS development in general, check out its source code at http://github.com/ik/2048. Any contributions or forks are highly welcome, and I hope you find the source code useful in your own development work!
 
 Made with love (and without ads) by Danqing Liu. &lt;3
-Additional contributions by Scott Matthewman</mutableString>
+Additional contributions by Scott Matthewman</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>

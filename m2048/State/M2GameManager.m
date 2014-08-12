@@ -51,6 +51,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
 
 - (void)startNewSessionWithScene:(M2Scene *)scene
 {
+    [Flurry logEvent:@"Started new session."];
   if (_grid && _grid.dimension == GSTATE.dimension) {
     // If there is an existing grid and its dimension is still valid,
     // we keep it, only removing all existing tiles with animation.
@@ -76,6 +77,9 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
 
 - (void)moveToDirection:(M2Direction)direction
 {
+    if ([self movesAvailable]) {
+        [_grid takeSnapshot];
+    }
   __block M2Tile *tile = nil;
   
   // Remember that the coordinate system of SpriteKit is the reverse of that of UIKit.
@@ -267,4 +271,12 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
   return NO;
 }
 
+#pragma -mark undo
+- (void)takeSnapShot{
+    
+}
+
+- (void)undo{
+    [_grid undo];
+}
 @end

@@ -18,6 +18,8 @@
 /** The cell this tile belongs to. */
 @property (nonatomic, weak) M2Cell *cell;
 
+@property (nonatomic, assign) BOOL markedForRemove;
+
 /**
  * Creates and inserts a new tile at the specified cell.
  *
@@ -63,5 +65,7 @@
  * @param animated If YES, the removal will be animated.
  */
 - (void)removeAnimated:(BOOL)animated;
+- (void)updateLevelTo:(NSInteger)level;
+- (void)refreshValue;
 
 @end

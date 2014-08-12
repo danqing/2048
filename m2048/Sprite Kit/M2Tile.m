@@ -121,6 +121,18 @@
     // 3. Update value and pop.
     [self updateLevelTo:newLevel];
     [_pendingActions addObject:[self pop]];
+      
+      SKAction *wait = [SKAction waitForDuration:GSTATE.animationDuration];
+      SKAction *remove = [SKAction removeFromParent];
+      
+         SKEmitterNode *snow = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"merge" ofType:@"sks"]];
+          CGPoint position= tile.position;
+      position.x +=GSTATE.tileSize/2;
+      position.y += GSTATE.tileSize / 2;
+      snow.position = position;
+          [self.parent addChild:snow];
+          [snow runAction:[SKAction sequence:@[wait, remove]]];
+
   }
   return newLevel;
 }
@@ -140,6 +152,7 @@
     // 2. Remove the tile in the destination cell.
     [tile removeWithDelay];
     [furtherTile removeWithDelay];
+      
     
     // 3. Update value and pop.
     [self updateLevelTo:newLevel];
@@ -152,6 +165,7 @@
 - (void)updateLevelTo:(NSInteger)level
 {
   self.level = level;
+  self.cell.level = level;
   [_pendingActions addObject:[SKAction runBlock:^{
     [self refreshValue];
   }]];
@@ -195,6 +209,11 @@
   SKAction *wait = [SKAction waitForDuration:GSTATE.animationDuration];
   SKAction *remove = [SKAction removeFromParent];
   [self runAction:[SKAction sequence:@[wait, remove]]];
+    
+//    SKEmitterNode *snow = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"merge" ofType:@"sks"]];
+//    snow.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetHeight(self.frame));
+//    [self addChild:snow];
+//    [snow runAction:[SKAction sequence:@[wait, remove]]];
 }
 
 
@@ -208,6 +227,7 @@
   SKAction *move = [SKAction moveBy:CGVectorMake(-d, -d) duration:GSTATE.animationDuration / 1.5];
   SKAction *restore = [SKAction scaleTo:1 duration:GSTATE.animationDuration / 1.5];
   SKAction *moveBack = [SKAction moveBy:CGVectorMake(d, d) duration:GSTATE.animationDuration / 1.5];
+    
   
   return [SKAction sequence:@[wait, [SKAction group:@[enlarge, move]],
                                     [SKAction group:@[restore, moveBack]]]];

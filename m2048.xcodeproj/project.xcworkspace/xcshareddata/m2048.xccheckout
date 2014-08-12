@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>EF7C38C9-E63E-4324-AF53-A1051FCF2FAC</string>
+	<key>IDESourceControlProjectName</key>
+	<string>m2048</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F350F71A-27C3-4340-9FCC-ABD76EA511C1</key>
+		<string>https://github.com/younthu/2048.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>m2048.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F350F71A-27C3-4340-9FCC-ABD76EA511C1</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/younthu/2048.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F350F71A-27C3-4340-9FCC-ABD76EA511C1</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F350F71A-27C3-4340-9FCC-ABD76EA511C1</string>
+			<key>IDESourceControlWCCName</key>
+			<string>2048</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,4 +1,4 @@
-# 2048
+# 2048, forked from https://github.com/ik/2048
 
 This is a derivative and the iOS version of the game 2048. In the very unlikely case that you don't know what it is, you can check it out [here](https://github.com/gabrielecirulli/2048).
 
@@ -59,7 +59,8 @@ If you'd like to fork and make your own version, that's also great! Feel free to
 
 #### Contributors
 
-* Danqing Liu (me)
+* younthu(me)
+* [Danqing Liu](https://github.com/ik)
 * [Scott Matthewman](https://github.com/scottmatthewman)
 * [Sihao Lu](https://github.com/DJBen)
 

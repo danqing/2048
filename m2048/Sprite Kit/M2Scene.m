@@ -115,4 +115,9 @@
   /* Called before each frame is rendered */
 }
 
+#pragma  mark - Undo
+- (void)undo{
+    [_manager undo];
+}
+
 @end

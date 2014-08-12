@@ -7,11 +7,15 @@
 //
 
 #import "M2AppDelegate.h"
+#import "Flurry.h"
+
 
 @implementation M2AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Flurry startSession:@"QDFCBY2QQGXTYTWG7WD6"];
+    [Flurry setCrashReportingEnabled:YES];
   return YES;
 }
 
