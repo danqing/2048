@@ -18,6 +18,8 @@
 /** The cell this tile belongs to. */
 @property (nonatomic, weak) M2Cell *cell;
 
+@property (nonatomic, assign) BOOL markedForRemove;
+
 /**
  * Creates and inserts a new tile at the specified cell.
  *

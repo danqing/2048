@@ -18,6 +18,7 @@
 /** The tile in the cell, if any. */
 @property (nonatomic, strong) M2Tile *tile;
 @property (nonatomic, assign) NSInteger level;
+@property (nonatomic, assign) NSInteger blockId;
 
 /**
  * Initialize a M2Cell at the specified position with no tile in it.

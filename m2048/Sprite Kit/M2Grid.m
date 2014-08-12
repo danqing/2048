@@ -168,14 +168,33 @@
 }
 
 - (void)undo{
+//    [self removeAllTilesAnimated:NO]
     if (self.snapShots.count > 0) {
+        NSMutableArray *last=_grid;
+        
+        NSMutableArray *tiles = [@[] mutableCopy];
+        [self forEach:^(M2Position position) {
+            M2Tile *tile = [self tileAtPosition:position];
+            if (tile) {
+                tile.markedForRemove = YES;
+                [tiles addObject:tile];
+            }
+        } reverseOrder:NO];
+        
         _grid = [self.snapShots lastObject];
         [self.snapShots removeLastObject];
         
         // Animations
         [self forEach:^(M2Position position) {
             M2Tile *tile = [self tileAtPosition:position];
+            M2Cell *cell = [self cellAtPosition:position];
+            cell.tile = tile;
             if (tile) {
+                // Check if the tile been removed in last operation.
+                if (tile.parent == nil) {
+                    [self.scene addChild:tile];
+                }
+                
                 tile.level = [self cellAtPosition:position].level;
                 CGPoint origin = [GSTATE locationOfPosition: position];
                 SKAction *refresh = [SKAction runBlock:^{
@@ -185,8 +204,15 @@
                                          duration:GSTATE.animationDuration];
                 SKAction *scale = [SKAction scaleTo:1 duration:GSTATE.animationDuration];
                 [tile runAction:[SKAction sequence:@[[SKAction group:@[refresh, move, scale]]]]];
+                tile.markedForRemove = NO;
             }
         } reverseOrder:NO];
+        
+        for (M2Tile *tile in tiles) {
+            if (tile.markedForRemove) {
+                [tile removeAnimated:YES];
+            }
+        }
     }
 }
 @end
