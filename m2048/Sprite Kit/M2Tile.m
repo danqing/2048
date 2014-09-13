@@ -11,12 +11,17 @@
 #import "M2Tile.h"
 #import "M2Cell.h"
 
+typedef void (^M2Block)();
+
 @implementation M2Tile {
   /** The value of the tile, as some text. */
   SKLabelNode *_value;
   
   /** Pending actions for the tile to execute. */
   NSMutableArray *_pendingActions;
+
+  /** Pending function to call after @p _pendingActions are executed. */
+  M2Block _pendingBlock;
 }
 
 
@@ -91,8 +96,13 @@
 
 - (void)commitPendingActions
 {
-  [self runAction:[SKAction sequence:_pendingActions]];
-  [_pendingActions removeAllObjects];
+  [self runAction:[SKAction sequence:_pendingActions] completion:^{
+    [_pendingActions removeAllObjects];
+    if (_pendingBlock) {
+      _pendingBlock();
+      _pendingBlock = nil;
+    }
+  }];
 }
 
 
@@ -181,20 +191,24 @@
 
 - (void)removeAnimated:(BOOL)animated
 {
-  [self removeFromParentCell];
-  // @TODO: fade from center.
   if (animated) [_pendingActions addObject:[SKAction scaleTo:0 duration:GSTATE.animationDuration]];
   [_pendingActions addObject:[SKAction removeFromParent]];
+
+  __weak typeof(self) weakSelf = self;
+  _pendingBlock = ^{
+    [weakSelf removeFromParentCell];
+  };
   [self commitPendingActions];
 }
 
 
 - (void)removeWithDelay
 {
-  [self removeFromParentCell];
   SKAction *wait = [SKAction waitForDuration:GSTATE.animationDuration];
   SKAction *remove = [SKAction removeFromParent];
-  [self runAction:[SKAction sequence:@[wait, remove]]];
+  [self runAction:[SKAction sequence:@[wait, remove]] completion:^{
+    [self removeFromParentCell];
+  }];
 }
 
 
