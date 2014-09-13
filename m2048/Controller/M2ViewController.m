@@ -59,7 +59,7 @@
   [scene startNewGame];
   
   _scene = scene;
-  _scene.delegate = self;
+  _scene.controller = self;
 }
 
 

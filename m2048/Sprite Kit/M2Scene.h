@@ -13,7 +13,7 @@
 
 @interface M2Scene : SKScene
 
-@property (nonatomic, weak) M2ViewController *delegate;
+@property (nonatomic, weak) M2ViewController *controller;
 
 - (void)startNewGame;
 
