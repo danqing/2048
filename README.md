@@ -8,6 +8,18 @@ Made just for fun! You can find it on the [App Store](https://itunes.apple.com/u
   <img src="http://a4.mzstatic.com/us/r30/Purple4/v4/a4/f8/af/a4f8af1d-3878-0817-859d-de76bae169c7/screen568x568.jpeg" alt="Screenshot"/>
 </p>
 
+## AI
+
+An AI is added, thanks to [DJBen](https://github.com/DJBen)! Tap "Hint" to show hint (e.g. Move left/right/up/down); tap "Auto Run" to run AI automatically. Check it out in the `AI` branch. You can also check out [this demo video on YouTube](https://www.youtube.com/watch?v=GF0ANNPpF8E).
+
+Thanks to [ov3y](https://github.com/ov3y/2048-AI)'s Javascript version that gave me (DJBen, that is) inspiration.
+
+### Issues and pending improvements
+
+Currently the searching depth is 2 and it fails sometimes. You can increase the number to 3 or more by changing the return value of `- (NSInteger)maximumSearchingDepth` in `M2GlobalState+AI.h`.
+
+Ideally, the AI should search from 0 depth to infinity and have a time out, it records the current best move when finish searching the current depth and stops immediately when timed out and return the best move so far. However, I have a little bit of trouble when dealing with `NSOperationQueue` so I didn't do it this way. Now the AI only searches at the specified `-maximumSearchingDepth`.
+
 ## The Game
 
 Since it is a *derivative* of the original 2048, it is not the *same*. More explicitly, it has the following additions:
@@ -49,6 +61,7 @@ If you'd like to fork and make your own version, that's also great! Feel free to
 
 * Danqing Liu (me)
 * [Scott Matthewman](https://github.com/scottmatthewman)
+* [Sihao Lu](https://github.com/DJBen)
 
 
 ## Licence and Other
