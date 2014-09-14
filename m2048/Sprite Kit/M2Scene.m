@@ -28,6 +28,9 @@
    * moves by the same swipe.
    */
   BOOL _hasPendingSwipe;
+
+  /** The current board node. */
+  SKSpriteNode *_board;
 }
 
 - (id)initWithSize:(CGSize)size
@@ -40,12 +43,17 @@
 
 - (void)loadBoardWithGrid:(M2Grid *)grid
 {
+  if (_board) {
+    // Remove the current board if there is one.
+    [_board removeFromParent];
+  }
+
   UIImage *image = [M2GridView gridImageWithGrid:grid];
   SKTexture *backgroundTexture = [SKTexture textureWithCGImage:image.CGImage];
-  SKSpriteNode *board = [SKSpriteNode spriteNodeWithTexture:backgroundTexture];
-  [board setScale:0.5];
-  board.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-  [self addChild:board];
+  _board = [SKSpriteNode spriteNodeWithTexture:backgroundTexture];
+  [_board setScale:0.5];
+  _board.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+  [self addChild:_board];
 }
 
 
