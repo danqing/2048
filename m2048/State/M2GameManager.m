@@ -27,23 +27,26 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
 
 
 @implementation M2GameManager {
-  /* True if game over. */
+  /** True if game over. */
   BOOL _over;
   
-  /* True if won game. */
+  /** True if won game. */
   BOOL _won;
   
-  /* True if user chooses to keep playing after winning. */
+  /** True if user chooses to keep playing after winning. */
   BOOL _keepPlaying;
   
-  /* The current score. */
+  /** The current score. */
   NSInteger _score;
   
-  /* The points earned by the user in the current round. */
+  /** The points earned by the user in the current round. */
   NSInteger _pendingScore;
   
-  /* The grid on which everything happens. */
+  /** The grid on which everything happens. */
   M2Grid *_grid;
+
+  /** The display link to add tiles after removing all existing tiles. */
+  CADisplayLink *_addTileDisplayLink;
 }
 
 
@@ -66,9 +69,22 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
   // Set the initial state for the game.
   _score = 0; _over = NO; _won = NO; _keepPlaying = NO;
 
-  // Add two tiles to the grid to start with.
-  [_grid insertTileAtRandomAvailablePositionWithDelay:NO];
-  [_grid insertTileAtRandomAvailablePositionWithDelay:NO];
+  // Existing tile removal is async and happens in the next screen refresh, so we'd wait a bit.
+  _addTileDisplayLink = [CADisplayLink displayLinkWithTarget:self
+                                                    selector:@selector(addTwoRandomTiles)];
+  [_addTileDisplayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+}
+
+
+- (void)addTwoRandomTiles
+{
+  // If the scene only has one child (the board), we can proceed with adding new tiles
+  // since all old ones are removed. After adding new tiles, remove the displaylink.
+  if (_grid.scene.children.count <= 1) {
+    [_grid insertTileAtRandomAvailablePositionWithDelay:NO];
+    [_grid insertTileAtRandomAvailablePositionWithDelay:NO];
+    [_addTileDisplayLink invalidate];
+  }
 }
 
 
