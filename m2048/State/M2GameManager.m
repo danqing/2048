@@ -25,7 +25,6 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
   return countUp ? value < upper : value > lower;
 }
 
-
 @implementation M2GameManager {
   /** True if game over. */
   BOOL _over;
@@ -46,7 +45,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
   M2Grid *_grid;
 
   /** The display link to add tiles after removing all existing tiles. */
-  CADisplayLink *_addTileDisplayLink;
+//  CADisplayLink *_addTileDisplayLink;
 }
 
 
@@ -54,39 +53,49 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
 
 - (void)startNewSessionWithScene:(M2Scene *)scene
 {
-  if (_grid && _grid.dimension == GSTATE.dimension) {
-    // If there is an existing grid and its dimension is still valid,
-    // we keep it, only removing all existing tiles with animation.
-    [_grid removeAllTilesAnimated:YES];
-  } else {
-    if (_grid) [_grid removeAllTilesAnimated:NO];
-    _grid = [[M2Grid alloc] initWithDimension:GSTATE.dimension];
-    _grid.scene = scene;
-  }
+//  if (_grid && _grid.dimension == GSTATE.dimension) {
+//    // If there is an existing grid and its dimension is still valid,
+//    // we keep it, only removing all existing tiles with animation.
+//    [_grid removeAllTilesAnimated:YES];
+//  } else {
+//    if (_grid) [_grid removeAllTilesAnimated:NO];
+//    _grid = [[M2Grid alloc] initWithDimension:GSTATE.dimension];
+//    _grid.scene = scene;
+//  }
+
+  // Restart bug still occure, this seems to fix the PB
+  if (_grid)
+    [_grid removeAllTilesAnimated:NO];
+  _grid = [[M2Grid alloc] initWithDimension:GSTATE.dimension];
+  _grid.scene = scene;
+
   
   [scene loadBoardWithGrid:_grid];
   
   // Set the initial state for the game.
   _score = 0; _over = NO; _won = NO; _keepPlaying = NO;
 
+  // Bug on restart if the scene is full, this seens to fix it
+  [_grid insertTileAtRandomAvailablePositionWithDelay:NO];
+  [_grid insertTileAtRandomAvailablePositionWithDelay:NO];
+  
   // Existing tile removal is async and happens in the next screen refresh, so we'd wait a bit.
-  _addTileDisplayLink = [CADisplayLink displayLinkWithTarget:self
-                                                    selector:@selector(addTwoRandomTiles)];
-  [_addTileDisplayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+//  _addTileDisplayLink = [CADisplayLink displayLinkWithTarget:self
+//                                                    selector:@selector(addTwoRandomTiles)];
+//  [_addTileDisplayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
 
-- (void)addTwoRandomTiles
-{
-  // If the scene only has one child (the board), we can proceed with adding new tiles
-  // since all old ones are removed. After adding new tiles, remove the displaylink.
-  if (_grid.scene.children.count <= 1) {
-    [_grid insertTileAtRandomAvailablePositionWithDelay:NO];
-    [_grid insertTileAtRandomAvailablePositionWithDelay:NO];
-    [_addTileDisplayLink invalidate];
-  }
-}
-
+//- (void)addTwoRandomTiles
+//{
+//  // If the scene only has one child (the board), we can proceed with adding new tiles
+//  // since all old ones are removed. After adding new tiles, remove the displaylink.
+//  if (_grid.scene.children.count <= 1) {
+//    [_grid insertTileAtRandomAvailablePositionWithDelay:NO];
+//    [_grid insertTileAtRandomAvailablePositionWithDelay:NO];
+//    [_addTileDisplayLink invalidate];
+//  }
+//}
 
 # pragma mark - Actions
 
