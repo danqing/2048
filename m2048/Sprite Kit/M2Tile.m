@@ -130,7 +130,8 @@ typedef void (^M2Block)();
     
     // 3. Update value and pop.
     [self updateLevelTo:newLevel];
-    [_pendingActions addObject:[self pop]];
+
+    [self runAction:[self pop]];
   }
   return newLevel;
 }
@@ -153,7 +154,8 @@ typedef void (^M2Block)();
     
     // 3. Update value and pop.
     [self updateLevelTo:newLevel];
-    [_pendingActions addObject:[self pop]];
+
+    [self runAction:[self pop]];
   }
   return newLevel;
 }
@@ -181,11 +183,13 @@ typedef void (^M2Block)();
 
 - (void)moveToCell:(M2Cell *)cell
 {
-  [_pendingActions addObject:[SKAction moveBy:[GSTATE distanceFromPosition:self.cell.position
-                                                                toPosition:cell.position]
-                                     duration:GSTATE.animationDuration]];
+  SKAction * move = [SKAction moveBy:[GSTATE distanceFromPosition:self.cell.position
+                                                       toPosition:cell.position]
+                            duration:GSTATE.animationDuration];
   self.cell.tile = nil;
   cell.tile = self;
+  
+  [self runAction:move];
 }
 
 
