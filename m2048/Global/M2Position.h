@@ -14,8 +14,7 @@ typedef struct Position {
   NSInteger y;
 } M2Position;
 
-CG_INLINE M2Position M2PositionMake(NSInteger x, NSInteger y)
-{
+CG_INLINE M2Position M2PositionMake(NSInteger x, NSInteger y) {
   M2Position position;
   position.x = x; position.y = y;
   return position;
