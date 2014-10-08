@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Danqing. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
+@import Foundation;
 @class M2Tile;
 
 @interface M2Cell : NSObject

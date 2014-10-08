@@ -6,9 +6,8 @@
 //  Copyright (c) 2014 Danqing. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 #import "M2Cell.h"
-
 @class M2Scene;
 
 typedef void (^IteratorBlock)(M2Position);

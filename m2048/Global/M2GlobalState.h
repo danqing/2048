@@ -126,7 +126,4 @@ typedef NS_ENUM(NSInteger, M2GameType) {
  */
 - (CGFloat)yLocationOfPosition:(M2Position)position;
 
-
-- (CGVector)distanceFromPosition:(M2Position)oldPosition toPosition:(M2Position)newPosition;
-
 @end

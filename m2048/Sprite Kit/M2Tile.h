@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Danqing. All rights reserved.
 //
 
-#import <SpriteKit/SpriteKit.h>
-
+@import SpriteKit;
 @class M2Cell;
 
 @interface M2Tile : SKShapeNode

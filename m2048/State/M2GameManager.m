@@ -70,8 +70,7 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
   _score = 0; _over = NO; _won = NO; _keepPlaying = NO;
 
   // Existing tile removal is async and happens in the next screen refresh, so we'd wait a bit.
-  _addTileDisplayLink = [CADisplayLink displayLinkWithTarget:self
-                                                    selector:@selector(addTwoRandomTiles)];
+  _addTileDisplayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(addTwoRandomTiles)];
   [_addTileDisplayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 }
 

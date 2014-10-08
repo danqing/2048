@@ -11,8 +11,7 @@
 
 @implementation M2Cell
 
-- (instancetype)initWithPosition:(M2Position)position
-{
+- (instancetype)initWithPosition:(M2Position)position {
   if (self = [super init]) {
     self.position = position;
     self.tile = nil;
@@ -21,8 +20,7 @@
 }
 
 
-- (void)setTile:(M2Tile *)tile
-{
+- (void)setTile:(M2Tile *)tile {
   _tile = tile;
   if (tile) tile.cell = self;
 }
