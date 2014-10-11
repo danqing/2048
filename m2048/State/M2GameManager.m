@@ -54,12 +54,8 @@ BOOL iterate(NSInteger value, BOOL countUp, NSInteger upper, NSInteger lower) {
 
 - (void)startNewSessionWithScene:(M2Scene *)scene
 {
-  if (_grid && _grid.dimension == GSTATE.dimension) {
-    // If there is an existing grid and its dimension is still valid,
-    // we keep it, only removing all existing tiles with animation.
-    [_grid removeAllTilesAnimated:YES];
-  } else {
-    if (_grid) [_grid removeAllTilesAnimated:NO];
+  if (_grid) [_grid removeAllTilesAnimated:NO];
+  if (!_grid || _grid.dimension != GSTATE.dimension) {
     _grid = [[M2Grid alloc] initWithDimension:GSTATE.dimension];
     _grid.scene = scene;
   }
