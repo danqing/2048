@@ -48,7 +48,7 @@
   UIImage *image = [M2GridView gridImageWithGrid:grid];
   SKTexture *backgroundTexture = [SKTexture textureWithCGImage:image.CGImage];
   _board = [SKSpriteNode spriteNodeWithTexture:backgroundTexture];
-  [_board setScale:0.5];
+  [_board setScale:1/[UIScreen mainScreen].scale]; //This solves the Scaling problem in 6Plus and 6S Plus
   _board.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
   [self addChild:_board];
 }
