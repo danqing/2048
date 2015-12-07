@@ -32,7 +32,7 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
+  NSLog(@"M2ViewController - viewDidLoad");
   [self updateState];
   
   _bestView.score.text = [NSString stringWithFormat:@"%ld", (long)[Settings integerForKey:@"Best Score"]];
@@ -65,6 +65,7 @@
 
 - (void)updateState
 {
+  NSLog(@"M2ViewController - updateState");
   [_scoreView updateAppearance];
   [_bestView updateAppearance];
   
@@ -104,6 +105,7 @@
 
 - (void)updateScore:(NSInteger)score
 {
+  NSLog(@"M2ViewController - updateScore");
   _scoreView.score.text = [NSString stringWithFormat:@"%ld", (long)score];
   if ([Settings integerForKey:@"Best Score"] < score) {
     [Settings setInteger:score forKey:@"Best Score"];
@@ -114,6 +116,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+  NSLog(@"M2ViewController - prepareForSegue");
   // Pause Sprite Kit. Otherwise the dismissal of the modal view would lag.
   ((SKView *)self.view).paused = YES;
 }
@@ -121,6 +124,7 @@
 
 - (IBAction)restart:(id)sender
 {
+  NSLog(@"M2ViewController - restart");
   [self hideOverlay];
   [self updateScore:0];
   [_scene startNewGame];
