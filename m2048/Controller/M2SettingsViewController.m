@@ -58,6 +58,9 @@
 
 - (void)viewDidLoad
 {
+  NSLog(@"M2SettingsViewController - viewDidLoad");
+  NSLog(@"trying something risky!");
+  strcpy(0, "this is a bad bug");
   [super viewDidLoad];
   self.navigationController.navigationBar.tintColor = [GSTATE scoreBoardColor];
   // Do any additional setup after loading the view.

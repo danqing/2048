@@ -16,11 +16,6 @@
 		2443DC6818D662CA00C920C1 /* M2AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443DC6718D662CA00C920C1 /* M2AppDelegate.m */; };
 		2443DC6B18D662CA00C920C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2443DC6918D662CA00C920C1 /* Main.storyboard */; };
 		2443DC7518D662CA00C920C1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2443DC7418D662CA00C920C1 /* Images.xcassets */; };
-		2443DC7C18D662CA00C920C1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2443DC7B18D662CA00C920C1 /* XCTest.framework */; };
-		2443DC7D18D662CA00C920C1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2443DC5518D662CA00C920C1 /* Foundation.framework */; };
-		2443DC7E18D662CA00C920C1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2443DC5918D662CA00C920C1 /* UIKit.framework */; };
-		2443DC8618D662CA00C920C1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2443DC8418D662CA00C920C1 /* InfoPlist.strings */; };
-		2443DC8818D662CA00C920C1 /* m2048Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443DC8718D662CA00C920C1 /* m2048Tests.m */; };
 		2443DC9A18D663FC00C920C1 /* M2Scene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443DC9618D663FC00C920C1 /* M2Scene.m */; };
 		2443DC9B18D663FC00C920C1 /* M2GameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443DC9918D663FC00C920C1 /* M2GameManager.m */; };
 		2443DCA018D6647000C920C1 /* M2SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2443DC9F18D6647000C920C1 /* M2SettingsViewController.m */; };
@@ -34,17 +29,12 @@
 		24C4517018DFF10B0001FCFD /* M2ScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4516F18DFF10B0001FCFD /* M2ScoreView.m */; };
 		24C4517318E140AE0001FCFD /* M2SettingsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4517218E140AE0001FCFD /* M2SettingsDetailViewController.m */; };
 		24C4518118E265390001FCFD /* M2Overlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4518018E265390001FCFD /* M2Overlay.m */; };
+		5D9771F87747C9AC6284A625 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42363629EBA69A02B0D181B2 /* CoreText.framework */; };
+		5DB26347A47D6A73708EE172 /* BuddyBuildSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374F52F33EE427E6164DFABE /* BuddyBuildSDK.framework */; };
+		9AC180509E130F4823298D47 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0B0C474C980C18CEBE18D25 /* AssetsLibrary.framework */; };
+		9C856370E6E666261EF867F9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F521F93C4142EEE7BDDFD745 /* SystemConfiguration.framework */; };
+		ADD797ED54B626E50A00684E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68F4646D532224A273B48C9D /* CoreTelephony.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		2443DC7F18D662CA00C920C1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2443DC4A18D662CA00C920C1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2443DC5118D662CA00C920C1;
-			remoteInfo = m2048;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2443DC5218D662CA00C920C1 /* m2048.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = m2048.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,7 +50,6 @@
 		2443DC6718D662CA00C920C1 /* M2AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = M2AppDelegate.m; sourceTree = "<group>"; };
 		2443DC6A18D662CA00C920C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2443DC7418D662CA00C920C1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		2443DC7A18D662CA00C920C1 /* m2048Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = m2048Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2443DC7B18D662CA00C920C1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		2443DC8318D662CA00C920C1 /* m2048Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "m2048Tests-Info.plist"; sourceTree = "<group>"; };
 		2443DC8518D662CA00C920C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -92,6 +81,11 @@
 		24C4517218E140AE0001FCFD /* M2SettingsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M2SettingsDetailViewController.m; sourceTree = "<group>"; };
 		24C4517F18E265390001FCFD /* M2Overlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M2Overlay.h; sourceTree = "<group>"; };
 		24C4518018E265390001FCFD /* M2Overlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M2Overlay.m; sourceTree = "<group>"; };
+		374F52F33EE427E6164DFABE /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
+		42363629EBA69A02B0D181B2 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		68F4646D532224A273B48C9D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		A0B0C474C980C18CEBE18D25 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		F521F93C4142EEE7BDDFD745 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,16 +97,11 @@
 				2443DC5A18D662CA00C920C1 /* UIKit.framework in Frameworks */,
 				2443DC5C18D662CA00C920C1 /* SpriteKit.framework in Frameworks */,
 				2443DC5618D662CA00C920C1 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2443DC7718D662CA00C920C1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2443DC7C18D662CA00C920C1 /* XCTest.framework in Frameworks */,
-				2443DC7E18D662CA00C920C1 /* UIKit.framework in Frameworks */,
-				2443DC7D18D662CA00C920C1 /* Foundation.framework in Frameworks */,
+				5DB26347A47D6A73708EE172 /* BuddyBuildSDK.framework in Frameworks */,
+				9AC180509E130F4823298D47 /* AssetsLibrary.framework in Frameworks */,
+				5D9771F87747C9AC6284A625 /* CoreText.framework in Frameworks */,
+				ADD797ED54B626E50A00684E /* CoreTelephony.framework in Frameworks */,
+				9C856370E6E666261EF867F9 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,7 +122,6 @@
 			isa = PBXGroup;
 			children = (
 				2443DC5218D662CA00C920C1 /* m2048.app */,
-				2443DC7A18D662CA00C920C1 /* m2048Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,6 +134,11 @@
 				2443DC5918D662CA00C920C1 /* UIKit.framework */,
 				2443DC5B18D662CA00C920C1 /* SpriteKit.framework */,
 				2443DC7B18D662CA00C920C1 /* XCTest.framework */,
+				374F52F33EE427E6164DFABE /* BuddyBuildSDK.framework */,
+				A0B0C474C980C18CEBE18D25 /* AssetsLibrary.framework */,
+				42363629EBA69A02B0D181B2 /* CoreText.framework */,
+				68F4646D532224A273B48C9D /* CoreTelephony.framework */,
+				F521F93C4142EEE7BDDFD745 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -286,24 +279,6 @@
 			productReference = 2443DC5218D662CA00C920C1 /* m2048.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2443DC7918D662CA00C920C1 /* m2048Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2443DC8E18D662CA00C920C1 /* Build configuration list for PBXNativeTarget "m2048Tests" */;
-			buildPhases = (
-				2443DC7618D662CA00C920C1 /* Sources */,
-				2443DC7718D662CA00C920C1 /* Frameworks */,
-				2443DC7818D662CA00C920C1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2443DC8018D662CA00C920C1 /* PBXTargetDependency */,
-			);
-			name = m2048Tests;
-			productName = m2048Tests;
-			productReference = 2443DC7A18D662CA00C920C1 /* m2048Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -315,10 +290,7 @@
 				ORGANIZATIONNAME = Danqing;
 				TargetAttributes = {
 					2443DC5118D662CA00C920C1 = {
-						DevelopmentTeam = EWJAR4GTP4;
-					};
-					2443DC7918D662CA00C920C1 = {
-						TestTargetID = 2443DC5118D662CA00C920C1;
+						DevelopmentTeam = L4FET847JL;
 					};
 				};
 			};
@@ -336,7 +308,6 @@
 			projectRoot = "";
 			targets = (
 				2443DC5118D662CA00C920C1 /* m2048 */,
-				2443DC7918D662CA00C920C1 /* m2048Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -349,14 +320,6 @@
 				2443DC6218D662CA00C920C1 /* InfoPlist.strings in Resources */,
 				2443DC7518D662CA00C920C1 /* Images.xcassets in Resources */,
 				2443DC6B18D662CA00C920C1 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2443DC7818D662CA00C920C1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2443DC8618D662CA00C920C1 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,23 +348,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2443DC7618D662CA00C920C1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2443DC8818D662CA00C920C1 /* m2048Tests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		2443DC8018D662CA00C920C1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2443DC5118D662CA00C920C1 /* m2048 */;
-			targetProxy = 2443DC7F18D662CA00C920C1 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2443DC6018D662CA00C920C1 /* InfoPlist.strings */ = {
@@ -507,10 +454,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "m2048/m2048-Prefix.pch";
 				INFOPLIST_FILE = "m2048/m2048-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = bb.com.2048;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "92c7a3c8-c334-4c12-9989-0e8d2957802b";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -521,53 +475,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "m2048/m2048-Prefix.pch";
 				INFOPLIST_FILE = "m2048/m2048-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = bb.com.2048;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "92c7a3c8-c334-4c12-9989-0e8d2957802b";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		2443DC8F18D662CA00C920C1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/m2048.app/m2048";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "m2048/m2048-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "m2048Tests/m2048Tests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		2443DC9018D662CA00C920C1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/m2048.app/m2048";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "m2048/m2048-Prefix.pch";
-				INFOPLIST_FILE = "m2048Tests/m2048Tests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -588,15 +509,6 @@
 			buildConfigurations = (
 				2443DC8C18D662CA00C920C1 /* Debug */,
 				2443DC8D18D662CA00C920C1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2443DC8E18D662CA00C920C1 /* Build configuration list for PBXNativeTarget "m2048Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2443DC8F18D662CA00C920C1 /* Debug */,
-				2443DC9018D662CA00C920C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
