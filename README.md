@@ -1,6 +1,6 @@
 # 2048
 
-This is a derivative and the iOS version of the game 2048. In the very unlikely case that you don't know what it is, you can check it out [here](https://github.com/gabrielecirulli/2048).
+This is a derivative of the iOS version of the game 2048. In the very unlikely case that you don't know what it is, you can check it out [here](https://github.com/gabrielecirulli/2048).
 
 Made just for fun! You can find it on the [App Store](https://itunes.apple.com/us/app/2048-and-more!/id848859070?ls=1&mt=8).
 
