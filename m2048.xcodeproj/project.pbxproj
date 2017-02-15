@@ -352,6 +352,7 @@
 				TargetAttributes = {
 					2443DC5118D662CA00C920C1 = {
 						DevelopmentTeam = L4FET847JL;
+						ProvisioningStyle = Automatic;
 					};
 					2443DC7918D662CA00C920C1 = {
 						TestTargetID = 2443DC5118D662CA00C920C1;
@@ -545,6 +546,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = L4FET847JL;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -554,7 +557,8 @@
 				INFOPLIST_FILE = "m2048/m2048-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = richie.bresnan.m2048;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1a6893d6-96a0-49c5-bb84-c18fddc19a83";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -566,6 +570,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = L4FET847JL;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -575,7 +581,8 @@
 				INFOPLIST_FILE = "m2048/m2048-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = richie.bresnan.m2048;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1a6893d6-96a0-49c5-bb84-c18fddc19a83";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};

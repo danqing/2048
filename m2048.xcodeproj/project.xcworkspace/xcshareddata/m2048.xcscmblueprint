@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "6C29944B3854DE4B2B51F0E5621256D4BB50671E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "6C29944B3854DE4B2B51F0E5621256D4BB50671E" : 9223372036854775807,
+    "568EBA6D3AEC27C0FC946FB81EBC5C9439BFF68F" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "AAC3ED0F-6F14-4973-B611-A46E010FFA9D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "6C29944B3854DE4B2B51F0E5621256D4BB50671E" : "Richie-2048\/",
+    "568EBA6D3AEC27C0FC946FB81EBC5C9439BFF68F" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "m2048",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "m2048.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/raml-apis\/GitHub.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "568EBA6D3AEC27C0FC946FB81EBC5C9439BFF68F"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:richiebres\/Richie-2048.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6C29944B3854DE4B2B51F0E5621256D4BB50671E"
+    }
+  ]
+}
