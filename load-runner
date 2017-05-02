@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+#
+# Run N concurrent jobs, until the set of jobs is done.
+# This script is a wrapper around parallel but performs some cleanup, etc.
+#
+# You should ensure that your script runs before using this!
+#
+# Show help:
+#   ./load-runner -h
+#
+# Dependencies:
+#   - parallel
+#
+
+# Defaults
+OPTIND=1
+CLEANUP_ONLY=0
+PRESERVE_JOB_DIRS=0
+WORKDIR=/tmp/$(basename $0)
+QTY=0
+ATONCE=0
+
+show_help() {
+    echo "
+Usage: $0 [OPTIONS] myscript.sh
+
+Options:
+  -a <N>    Run N jobs concurrently. Default: $ATONCE
+  -n <N>    Run N total jobs. Default: $QTY
+
+  -c        Cleanup previous runs only; do not run jobs.
+  -d <DIR>  Use this working directory. Default: $WORKDIR
+  -p        Preserve (do not delete) the job dirs when finished.
+
+  -h        Show help (this message).
+"
+}
+
+cleanup() {
+    rm -Rf $WORKDIR
+}
+
+
+# Parse args
+while getopts "a:cd:hpn:" opt; do
+    case "$opt" in
+    a)  ATONCE=$OPTARG
+        ;;
+    c)  CLEANUP_ONLY=1
+        ;;
+    d)  WORKDIR=$OPTARG
+        ;;
+    h)  show_help
+        exit 0
+        ;;
+    p)  PRESERVE_JOB_DIRS=1
+        ;;
+    n)  QTY=$OPTARG
+        ;;
+    esac
+done
+shift $((OPTIND-1))
+[ "$1" = "--" ] && shift
+SCRIPT_FILE=$(pwd)/"$@"
+
+if [[ $QTY -eq 0 ]] && [[ $CLEANUP_ONLY -eq 0 ]]; then
+    show_help
+    exit 1
+fi
+
+# Cleanup
+echo "Cleaning up previous runs..."
+cleanup
+if [[ $CLEANUP_ONLY -eq 1 ]]; then
+    exit 0
+fi
+
+if [ ! -f $SCRIPT_FILE ]; then
+    echo "ABORT: Specified file does not exist: $SCRIPT_FILE"
+    exit 1
+fi
+
+
+# Prepare to run
+mkdir -p $WORKDIR
+if [[ $PRESERVE_JOB_DIRS -eq 1 ]]; then
+    BLOCK_RM="#"
+fi
+JOB_SCRIPT=$WORKDIR/job_script
+cat <<EOF >$JOB_SCRIPT
+    seconds2time () {
+        T=\$1
+        H=\$(( T / 60 / 60 % 24 ))
+        M=\$(( T / 60 % 60 ))
+        S=\$(( T % 60 ))
+        printf '%02d:%02d:%02d' \$H \$M \$S
+    }
+    MYID=\$RANDOM\$(date +%s)
+    JOBDIR=$WORKDIR/job_\$MYID
+    LOGFILE=$WORKDIR/job_\$MYID.out
+    mkdir \$JOBDIR
+    cd \$JOBDIR
+    START=\$(date +%s)
+    bash $SCRIPT_FILE > \$LOGFILE 2>&1
+    END=\$(date +%s)
+    echo "\$(date +%H:%M:%S) \$MYID Job duration \$(seconds2time \$(( \$END - \$START ))) - \${LOGFILE}"
+    cd ..
+    $BLOCK_RM rm -Rf \$JOBDIR
+EOF
+
+echo "$(date +%H:%M:%S) Starting run of $QTY jobs with $ATONCE concurrency..."
+seq $QTY | parallel --no-notice -n0 --jobs $ATONCE $SHELL $JOB_SCRIPT
+echo "$(date +%H:%M:%S) Finished."

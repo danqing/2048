@@ -1,0 +1,2 @@
+#!/bin/bash
+git clone "https://${LOAD_TEST_USERNAME}:${LOAD_TEST_PASSWORD}@${LOAD_TEST_URL}" --progress -b develop
