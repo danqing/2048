@@ -1,6 +1,6 @@
-iOS [![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=58a4d0313af4a201008bdcc4&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/58a4d0313af4a201008bdcc4/build/latest?branch=master)
+[![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=58a4d0313af4a201008bdcc4&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/58a4d0313af4a201008bdcc4/build/latest?branch=master) (iOS)
 
-Android [![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=58a4d0313af4a201008bdcc4&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/58a4d0313af4a201008bdcc4/build/latest?branch=master)
+[![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=58a4d0313af4a201008bdcc4&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/58a4d0313af4a201008bdcc4/build/latest?branch=master) (Android)
 
 # Richie-2048
 
