@@ -1,3 +1,5 @@
+iOS [![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=58a4d0313af4a201008bdcc4&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/58a4d0313af4a201008bdcc4/build/latest?branch=master) Android [![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=58a4d0313af4a201008bdcc4&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/58a4d0313af4a201008bdcc4/build/latest?branch=master)
+
 # Richie-2048
 
 This is a derivative of the iOS version of the game 2048. In the very unlikely case that you don't know what it is, you can check it out [here](https://github.com/gabrielecirulli/2048).
