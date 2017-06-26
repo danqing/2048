@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14FD68878B94CCD2A3577E34 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E948CF98DD1200949953DA65 /* SystemConfiguration.framework */; };
 		2443DC5618D662CA00C920C1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2443DC5518D662CA00C920C1 /* Foundation.framework */; };
 		2443DC5818D662CA00C920C1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2443DC5718D662CA00C920C1 /* CoreGraphics.framework */; };
 		2443DC5A18D662CA00C920C1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2443DC5918D662CA00C920C1 /* UIKit.framework */; };
@@ -34,6 +35,14 @@
 		24C4517018DFF10B0001FCFD /* M2ScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4516F18DFF10B0001FCFD /* M2ScoreView.m */; };
 		24C4517318E140AE0001FCFD /* M2SettingsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4517218E140AE0001FCFD /* M2SettingsDetailViewController.m */; };
 		24C4518118E265390001FCFD /* M2Overlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 24C4518018E265390001FCFD /* M2Overlay.m */; };
+		2AE64BE4FAAA7F0A60392310 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBF6C32B90D9766623846235 /* CoreTelephony.framework */; };
+		40D0703AE0A931478076114E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB397CFD557AD01587AA9CA /* AssetsLibrary.framework */; };
+		75BCE556F6A2E6CF4E397C60 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D9AFAA9868C5E6D13840EF4 /* CoreText.framework */; };
+		8E44379E0A9DEF6739C51D3A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0F8C9C94ED8A2445D76384 /* QuartzCore.framework */; };
+		BA3ACB108A16A3C5DC4A643B /* BuddyBuildSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D61260C70CDDFC7ACB8E3E41 /* BuddyBuildSDK.framework */; };
+		D83330BBF9A3875F3C08931B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C5C80ADE5C2839901F368B /* CoreVideo.framework */; };
+		E0E64F43B1AF2E36AEF6B428 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 302DCFD9A3091E5672A26444 /* AVFoundation.framework */; };
+		E2EEB9DBD7AA64530ADD86F5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2DD11EB7450164D6145E62 /* CoreMedia.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +101,15 @@
 		24C4517218E140AE0001FCFD /* M2SettingsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M2SettingsDetailViewController.m; sourceTree = "<group>"; };
 		24C4517F18E265390001FCFD /* M2Overlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M2Overlay.h; sourceTree = "<group>"; };
 		24C4518018E265390001FCFD /* M2Overlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M2Overlay.m; sourceTree = "<group>"; };
+		302DCFD9A3091E5672A26444 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		3D0F8C9C94ED8A2445D76384 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4AB397CFD557AD01587AA9CA /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		5D9AFAA9868C5E6D13840EF4 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		6F2DD11EB7450164D6145E62 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		97C5C80ADE5C2839901F368B /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		D61260C70CDDFC7ACB8E3E41 /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BuddyBuildSDK.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
+		DBF6C32B90D9766623846235 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		E948CF98DD1200949953DA65 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +121,15 @@
 				2443DC5A18D662CA00C920C1 /* UIKit.framework in Frameworks */,
 				2443DC5C18D662CA00C920C1 /* SpriteKit.framework in Frameworks */,
 				2443DC5618D662CA00C920C1 /* Foundation.framework in Frameworks */,
+				BA3ACB108A16A3C5DC4A643B /* BuddyBuildSDK.framework in Frameworks */,
+				40D0703AE0A931478076114E /* AssetsLibrary.framework in Frameworks */,
+				75BCE556F6A2E6CF4E397C60 /* CoreText.framework in Frameworks */,
+				2AE64BE4FAAA7F0A60392310 /* CoreTelephony.framework in Frameworks */,
+				14FD68878B94CCD2A3577E34 /* SystemConfiguration.framework in Frameworks */,
+				8E44379E0A9DEF6739C51D3A /* QuartzCore.framework in Frameworks */,
+				E0E64F43B1AF2E36AEF6B428 /* AVFoundation.framework in Frameworks */,
+				E2EEB9DBD7AA64530ADD86F5 /* CoreMedia.framework in Frameworks */,
+				D83330BBF9A3875F3C08931B /* CoreVideo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +173,15 @@
 				2443DC5918D662CA00C920C1 /* UIKit.framework */,
 				2443DC5B18D662CA00C920C1 /* SpriteKit.framework */,
 				2443DC7B18D662CA00C920C1 /* XCTest.framework */,
+				D61260C70CDDFC7ACB8E3E41 /* BuddyBuildSDK.framework */,
+				4AB397CFD557AD01587AA9CA /* AssetsLibrary.framework */,
+				5D9AFAA9868C5E6D13840EF4 /* CoreText.framework */,
+				DBF6C32B90D9766623846235 /* CoreTelephony.framework */,
+				E948CF98DD1200949953DA65 /* SystemConfiguration.framework */,
+				3D0F8C9C94ED8A2445D76384 /* QuartzCore.framework */,
+				302DCFD9A3091E5672A26444 /* AVFoundation.framework */,
+				6F2DD11EB7450164D6145E62 /* CoreMedia.framework */,
+				97C5C80ADE5C2839901F368B /* CoreVideo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -512,6 +548,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = L4FET847JL;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "m2048/m2048-Prefix.pch";
 				INFOPLIST_FILE = "m2048/m2048-Info.plist";
@@ -532,6 +572,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = L4FET847JL;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "m2048/m2048-Prefix.pch";
 				INFOPLIST_FILE = "m2048/m2048-Info.plist";
